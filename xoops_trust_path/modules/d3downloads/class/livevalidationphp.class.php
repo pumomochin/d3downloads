@@ -21,11 +21,11 @@
 
 	Copyright (c) 2007 Fransjo Leihitu
 
-	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ï¿½Softwareï¿½), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-	THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	THE SOFTWARE IS PROVIDED ï¿½AS ISï¿½, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 	*/
 
@@ -37,17 +37,17 @@ if( ! class_exists( 'LiveValidationPHP' ) )
 {
 	class LiveValidationPHP
 	{
-		var $elementID;
-		var $args;
+		public $elementID;
+		public $args;
 
-		var $rules;
-		var $data;
-		var $errors;
-		var $varname;
-		var $parentData;
-		var $display;
+		public $rules;
+		public $data;
+		public $errors;
+		public $varname;
+		public $parentData;
+		public $display;
 
-		function LiveValidationPHP($data=array(),$elementID="",$args=array(),$display="")
+		public function LiveValidationPHP($data=array(),$elementID="",$args=array(),$display="")
 		{
 			$this->parentData=$data;
 			$this->elementID="";
@@ -75,12 +75,12 @@ if( ! class_exists( 'LiveValidationPHP' ) )
 			$this->varname="lvphp_" . md5(uniqid(rand(), true));
 		}
 
-		function add($type="Validate.Presence",$args=array())
+		public function add($type="Validate.Presence",$args=array())
 		{
 			$this->rules[]=new Validation($this->data,$type,$args,$this->parentData,$this->elementID,$this->display);
 		}
 
-		function validate()
+		public function validate()
 		{
 			$payload=array();
 			$hasErrors=false;
@@ -102,10 +102,10 @@ if( ! class_exists( 'LiveValidationPHP' ) )
 
 		}
 
-		function generate()
+		public function generate()
 		{
 			$html="";
-			$html.="var " . $this->varname . " = new LiveValidation( \"" . $this->elementID ."\"";
+			$html.="public " . $this->varname . " = new LiveValidation( \"" . $this->elementID ."\"";
 
 			$argsKeys=count(array_keys($this->args));
 			$counter=0;
@@ -175,15 +175,15 @@ if( ! class_exists('Validation') )
 {
 	class Validation
 	{
-		var $args;
-		var $type;
-		var $method;
-		var $data;
-		var $parentData;
-		var $elementID;
-		var $display;
+		public $args;
+		public $type;
+		public $method;
+		public $data;
+		public $parentData;
+		public $elementID;
+		public $display;
 
-		function Validation($data,$type="Validate.Presence",$args=array(),$parentData=array(),$elementID="",$display="")
+		public function Validation($data,$type="Validate.Presence",$args=array(),$parentData=array(),$elementID="",$display="")
 		{
 			$this->elementID=$elementID;
 			$this->display=$this->elementID;
@@ -206,12 +206,12 @@ if( ! class_exists('Validation') )
 			if($display!="") $this->display=$display;
 		}
 
-		function debugArgs()
+		public function debugArgs()
 		{
 			$this->debug($this->args);
 		}
 
-		function validate()
+		public function validate()
 		{
 			$payload=array();
 			$payload["success"]=false;
@@ -235,7 +235,7 @@ if( ! class_exists('Validation') )
 			return $payload;
 		}
 
-		function isValidEmail($emailToCheck="")
+		public function isValidEmail($emailToCheck="")
 		{
 			if(trim($emailToCheck)!="")
 			{
@@ -248,7 +248,7 @@ if( ! class_exists('Validation') )
 			return false;
 		}
 
-		function array_in_array($needle, $haystack) {
+		public function array_in_array($needle, $haystack) {
 		    //Make sure $needle is an array for foreach
 		    if(!is_array($needle)) $needle = array($needle);
 		    //For each value in $needle, return TRUE if in $haystack
@@ -258,7 +258,7 @@ if( ! class_exists('Validation') )
 		    return FALSE;
 		}
 
-		function Inclusion()
+		public function Inclusion()
 		{
 			if(!isSet($this->args["failureMessage"])) $this->args["failureMessage"]="Must be included in the list!";
 
@@ -296,7 +296,7 @@ if( ! class_exists('Validation') )
 			return false;
 		}
 
-		function Exclusion()
+		public function Exclusion()
 		{
 			if(!isSet($this->args["failureMessage"])) $this->args["failureMessage"]="Must not be included in the list!";
 
@@ -335,7 +335,7 @@ if( ! class_exists('Validation') )
 			return false;
 		}
 
-		function Confirmation()
+		public function Confirmation()
 		{
 			if(!isSet($this->args["failureMessage"])) $this->args["failureMessage"]="Does not match!";
 			if($this->data!=null || $this->data!="")
@@ -359,7 +359,7 @@ if( ! class_exists('Validation') )
 			return false;
 		}
 
-		function Acceptance()
+		public function Acceptance()
 		{
 			if(!isSet($this->args["failureMessage"])) $this->args["failureMessage"]="Must be accepted!";
 
@@ -371,7 +371,7 @@ if( ! class_exists('Validation') )
 			return false;
 		}
 
-		function Presence()
+		public function Presence()
 		{
 			if(!isSet($this->args["failureMessage"])) $this->args["failureMessage"]="Can't be empty!";
 
@@ -383,7 +383,7 @@ if( ! class_exists('Validation') )
 			return false;
 		}
 
-		function Format()
+		public function Format()
 		{
 			if(!isSet($this->args["failureMessage"])) $this->args["failureMessage"]="Not valid!";
 
@@ -401,7 +401,7 @@ if( ! class_exists('Validation') )
 			return false;	
 		}
 
-		function Email()
+		public function Email()
 		{
 			if(!isSet($this->args["failureMessage"])) $this->args["failureMessage"]="Must be a valid email address!";
 			if($this->data!=null || $this->data!="")
@@ -416,7 +416,7 @@ if( ! class_exists('Validation') )
 			return false;
 		}
 
-		function resolveNumber($data)
+		public function resolveNumber($data)
 		{
 			// now cast the data to float or int
 			$pos1 = strpos($data, ".");
@@ -432,7 +432,7 @@ if( ! class_exists('Validation') )
 			return $data;
 		}
 
-		function Numericality()
+		public function Numericality()
 		{
 			if(!isSet($this->args["failureMessage"])) $this->args["failureMessage"]="Not a number";
 
@@ -550,7 +550,7 @@ if( ! class_exists('Validation') )
 			return false;
 		}
 
-		function Length()
+		public function Length()
 		{
 			if($this->data!=null || $this->data=="")
 			{
@@ -617,14 +617,14 @@ if( ! class_exists('Validation') )
 			return false;
 		}
 
-		function debug($data=null)
+		public function debug($data=null)
 		{
 			print "<pre>";
 			print_r($data);
 			print "</pre>";
 		}
 
-		function generate($varName="")
+		public function generate($varName="")
 		{
 			$html="";
 			if(trim($varName)!="")
@@ -713,12 +713,12 @@ if( ! class_exists('LiveValidationMassValidatePHP') )
 {
 	class LiveValidationMassValidatePHP
 	{
-		var $fields;
-		var $formID;
-		var $varname;
-		var $rules;
+		public $fields;
+		public $formID;
+		public $varname;
+		public $rules;
 
-		function LiveValidationMassValidatePHP($formID="",$data=array())
+		public function LiveValidationMassValidatePHP($formID="",$data=array())
 		{
 			$this->data=$data;
 			$this->formID=trim(stripslashes(strip_tags($formID)));
@@ -728,7 +728,7 @@ if( ! class_exists('LiveValidationMassValidatePHP') )
 			$this->rules=array();
 		}
 
-		function addRules($rules=array())
+		public function addRules($rules=array())
 		{
 			$this->rules=$rules;
 
@@ -768,7 +768,7 @@ if( ! class_exists('LiveValidationMassValidatePHP') )
 			}
 		}
 
-		function add($element=null)
+		public function add($element=null)
 		{
 			if($element!=null)
 			{
@@ -776,7 +776,7 @@ if( ! class_exists('LiveValidationMassValidatePHP') )
 			}
 		}
 
-		function validate()
+		public function validate()
 		{
 			$errors=array();
 
@@ -792,7 +792,7 @@ if( ! class_exists('LiveValidationMassValidatePHP') )
 
 		}
 
-		function generateElements()
+		public function generateElements()
 		{
 			$html="";
 			$countElements=count($this->fields);
@@ -804,7 +804,7 @@ if( ! class_exists('LiveValidationMassValidatePHP') )
 			return $html;
 		}
 
-		function generateAll()
+		public function generateAll()
 		{
 			$html="";
 			$html.=$this->generateElements();
@@ -813,15 +813,15 @@ if( ! class_exists('LiveValidationMassValidatePHP') )
 			return $html;
 		}
 
-		function generate()
+		public function generate()
 		{
 			$html="";
 
 			if($this->formID!="")
 			{
-				$html.="var " . $this->varname . " = document.getElementById( \"" . $this->formID ."\" );\n";
+				$html.="public " . $this->varname . " = document.getElementById( \"" . $this->formID ."\" );\n";
 				$html.=$this->varname . ".onsubmit = function(e){\n";
-				$html.="var result_" . $this->formID . "=LiveValidation.massValidate([";
+				$html.="public result_" . $this->formID . "=LiveValidation.massValidate([";
 
 				$count=count($this->fields);
 				for($i=0;$i<$count;$i++)

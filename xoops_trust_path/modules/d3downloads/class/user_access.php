@@ -7,13 +7,13 @@ if( ! class_exists( 'user_access' ) )
 
 	class user_access extends MyCategory
 	{
-		var $db;
-		var $table;
-		var $cat_table;
-		var $cat_ids;
-		var $whr4cat;
+		public $db;
+		public $table;
+		public $cat_table;
+		public $cat_ids;
+		public $whr4cat;
 
-		function user_access( $mydirname )
+		public function user_access( $mydirname )
 		{
 			global $xoopsUser ;
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
@@ -48,7 +48,7 @@ if( ! class_exists( 'user_access' ) )
 		}
 
 // permission check part
-		function permissions_of_current_user( $cid=0 )
+		public function permissions_of_current_user( $cid=0 )
 		{
 			if( empty( $cid ) ){
 				$whr = $this->get_whr4cat() ;
@@ -73,19 +73,19 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function can_read4cid( $cid )
+		public function can_read4cid( $cid )
 		{
 			$whr_cat4read = "cid IN (".implode(",", $this->can_read() ).")" ;
 			return $this->user_access_for_cat( $cid, $whr_cat4read ) ;
 		}
 
-		function can_post4cid( $cid )
+		public function can_post4cid( $cid )
 		{
 			$whr_cat4post = "cid IN (".implode(",", $this->can_post() ).")" ;
 			return $this->user_access_for_cat( $cid, $whr_cat4post ) ;
 		}
 
-		function can_edit4cid( $cid, $whr='' )
+		public function can_edit4cid( $cid, $whr='' )
 		{
 			if( $this->xoops_isadmin ) {
 				return true ;
@@ -97,7 +97,7 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function auto_approved4cid( $cid )
+		public function auto_approved4cid( $cid )
 		{
 			if( $this->xoops_isadmin ) {
 				return true ;
@@ -107,7 +107,7 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function edit_approved4cid( $cid )
+		public function edit_approved4cid( $cid )
 		{
 			if( $this->xoops_isadmin ) {
 				return true ;
@@ -119,7 +119,7 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function can_delete4cid( $cid )
+		public function can_delete4cid( $cid )
 		{
 			if( $this->xoops_isadmin ) {
 				return true ;
@@ -131,7 +131,7 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function can_html4cid( $cid )
+		public function can_html4cid( $cid )
 		{
 			if( $this->xoops_isuser ){
 				$whr_cat4html = "cid IN (".implode(",", $this->can_html() ).")" ;
@@ -141,7 +141,7 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function can_upload4cid( $cid )
+		public function can_upload4cid( $cid )
 		{
 			if( $this->xoops_isadmin ) {
 				return true ;
@@ -151,7 +151,7 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function can_read( $permit=0 )
+		public function can_read( $permit=0 )
 		{
 			$whr4cat = $this->get_whr4cat( $permit ) ;
 			// get categories
@@ -161,7 +161,7 @@ if( ! class_exists( 'user_access' ) )
 			else return $cat_ids ;
 		}
 
-		function can_post()
+		public function can_post()
 		{
 			$whr4cat = $this->get_whr4cat() ;
 			// get categories
@@ -172,7 +172,7 @@ if( ! class_exists( 'user_access' ) )
 			else return $cat_ids ;
 		}
 
-		function can_edit()
+		public function can_edit()
 		{
 			$whr4cat = $this->get_whr4cat() ;
 			// get categories
@@ -183,7 +183,7 @@ if( ! class_exists( 'user_access' ) )
 			else return $cat_ids ;
 		}
 
-		function can_delete()
+		public function can_delete()
 		{
 			$whr4cat = $this->get_whr4cat() ;
 			// get categories
@@ -194,7 +194,7 @@ if( ! class_exists( 'user_access' ) )
 			else return array_intersect( $cat_ids, $this->can_read() ) ;
 		}
 
-		function auto_approved()
+		public function auto_approved()
 		{
 			$whr4cat = $this->get_whr4cat() ;
 			// get categories
@@ -205,7 +205,7 @@ if( ! class_exists( 'user_access' ) )
 			else return $cat_ids ;
 		}
 
-		function edit_approved()
+		public function edit_approved()
 		{
 			$whr4cat = $this->get_whr4cat() ;
 			// get categories
@@ -216,7 +216,7 @@ if( ! class_exists( 'user_access' ) )
 			else return $cat_ids ;
 		}
 
-		function can_html()
+		public function can_html()
 		{
 			$whr4cat = $this->get_whr4cat() ;
 			// get categories
@@ -227,7 +227,7 @@ if( ! class_exists( 'user_access' ) )
 			else return $cat_ids ;
 		}
 
-		function can_upload()
+		public function can_upload()
 		{
 			$whr4cat = $this->get_whr4cat() ;
 			// get categories
@@ -238,7 +238,7 @@ if( ! class_exists( 'user_access' ) )
 			else return $cat_ids ;
 		}
 
-		function get_whr4cat( $permit=0 )
+		public function get_whr4cat( $permit=0 )
 		{
 			global $xoopsUser ;
 
@@ -253,7 +253,7 @@ if( ! class_exists( 'user_access' ) )
 			return $whr4cat ;
 		}
 
-		function get_cat_ids( $sql )
+		public function get_cat_ids( $sql )
 		{
 			$cat_ids = array() ;
 			$result = $this->db->query( $sql ) ;
@@ -264,14 +264,14 @@ if( ! class_exists( 'user_access' ) )
 			else return $cat_ids ;
 		}
 
-		function user_access_for_cat( $cid, $whr )
+		public function user_access_for_cat( $cid, $whr )
 		{
 			$res = $this->db->query( "SELECT * FROM ".$this->cat_table." WHERE cid='".$cid."' AND ( $whr )" ) ;
 			return $this->db->getRowsNum( $res ) ;
 		}
 
 // permissions show part
-		function show_group_user_access( $cid, $pid )
+		public function show_group_user_access( $cid, $pid )
 		{
 			if( ! empty( $cid ) ) $selectid = ( $pid > 0 ) ? $this->get_my_maincid( $cid ) : $cid ;
 			elseif( $pid > 0 ) $selectid = $pid ;
@@ -304,7 +304,7 @@ if( ! class_exists( 'user_access' ) )
 			return $group_trs ;
 		}
 
-		function show_myuser_user_access( $cid, $pid )
+		public function show_myuser_user_access( $cid, $pid )
 		{
 			if( ! empty( $cid ) ) $selectid = ( $pid > 0 ) ? $this->get_my_maincid( $cid ) : $cid ;
 			elseif( $pid > 0 ) $selectid = $pid ;
@@ -341,7 +341,7 @@ if( ! class_exists( 'user_access' ) )
 			return $user_trs ;
 		}
 
-		function return_checked_show_mode( $cid, $groupid=0, $uid=0 )
+		public function return_checked_show_mode( $cid, $groupid=0, $uid=0 )
 		{
 			if( empty( $groupid ) ) $whr4cat = "`uid`=$uid" ;
 			else $whr4cat = "`groupid`=$groupid" ;
@@ -359,7 +359,7 @@ if( ! class_exists( 'user_access' ) )
 			return $this->checked_revision( $groupid, $checked ) ;
 		}
 
-		function checked_revision( $groupid, $checked )
+		public function checked_revision( $groupid, $checked )
 		{
 			if( empty( $checked['can_read'] ) ) foreach( $this->array4empty_can_read() as $key ) {
 				$checked[$key] = '' ;
@@ -376,7 +376,7 @@ if( ! class_exists( 'user_access' ) )
 			return $checked ;
 		}
 
-		function is_module_admin( $groupid )
+		public function is_module_admin( $groupid )
 		{
 			$module_handler =& xoops_gethandler('module') ;
 			$module =& $module_handler->getByDirname( $this->mydirname ) ;
@@ -387,27 +387,27 @@ if( ! class_exists( 'user_access' ) )
 			else return false ;
 		}
 
-		function array4empty_can_read()
+		public function array4empty_can_read()
 		{
 			return array_diff( $this->array4user_access, array( 'can_read' ) ) ;
 		}
 
-		function array4empty_can_post()
+		public function array4empty_can_post()
 		{
 			return array_diff( $this->array4user_access, array( 'can_read', 'can_post' ) ) ;
 		}
 
-		function array4checked_admin()
+		public function array4checked_admin()
 		{
 			return array_diff( $this->array4user_access, array( 'can_read', 'can_post', 'html' ) ) ;
 		}
 
-		function array4empty_anonymous()
+		public function array4empty_anonymous()
 		{
 			return array_diff( $this->array4user_access, array( 'can_read', 'can_post', 'post_auto_approved', 'upload' ) ) ;
 		}
 
-		function canread_info( $cid )
+		public function canread_info( $cid )
 		{
 			$maincid = $this->get_my_maincid( $cid ) ;
 			$group_handler = & xoops_gethandler( 'group' ) ;
@@ -425,14 +425,14 @@ if( ! class_exists( 'user_access' ) )
 		}
 
 // make form part
-		function get_group_form( $cid, $pid, $show=0, $group_sel=0 )
+		public function get_group_form( $cid, $pid, $show=0, $group_sel=0 )
 		{
 			if( $cid == 0 ) return $this->make_group_form( $cid, $group_sel ) ;
 			elseif( $pid == 0 && empty( $show ) ) return $this->make_group_form( $cid, $group_sel ) ;
 			else  return $this->show_group_user_access( $cid, $pid ) ;
 		}
 
-		function make_group_form( $cid, $group_sel=0 )
+		public function make_group_form( $cid, $group_sel=0 )
 		{
 			$group_handler =& xoops_gethandler( 'group' ) ;
 			$groups =& $group_handler->getObjects() ;
@@ -475,14 +475,14 @@ if( ! class_exists( 'user_access' ) )
 			return $group_trs ;
 		}
 
-		function get_user_form( $cid, $pid, $show=0, $user_sel=0 )
+		public function get_user_form( $cid, $pid, $show=0, $user_sel=0 )
 		{
 			if( $cid == 0 ) return $this->make_user_form( $cid, $user_sel ) ;
 			elseif( $pid == 0 && empty( $show ) ) return $this->make_user_form( $cid, $user_sel ) ;
 			else  return $this->show_myuser_user_access( $cid, $pid ) ;
 		}
 
-		function make_user_form( $cid, $user_sel=0 )
+		public function make_user_form( $cid, $user_sel=0 )
 		{
 			if( $cid > 0 && $this->is_myuser_user_access( $cid ) ) $selectid = $cid ;
 			elseif( $cid == 0 && $this->is_recentid_myuser_user_access() )  $selectid = $this->is_recentid_myuser_user_access() ; 
@@ -529,7 +529,7 @@ if( ! class_exists( 'user_access' ) )
 			return $user_trs ;
 		}
 
-		function get_newuser_form( $cid, $user_sel=0 )
+		public function get_newuser_form( $cid, $user_sel=0 )
 		{
 			$newuser_trs = '' ;
 			for( $i = 0 ; $i < 5 ; $i ++ ) {
@@ -554,7 +554,7 @@ if( ! class_exists( 'user_access' ) )
 			return $newuser_trs ;
 		}
 
-		function is_current_group_user_access( $cid, $groupid )
+		public function is_current_group_user_access( $cid, $groupid )
 		{
 			$fars = $this->db->query( "SELECT $this->columns4group FROM ".$this->table." WHERE groupid=".$groupid." AND cid='".$cid."'" ) ;
 			if ( $this->db->getRowsNum( $fars ) == 0 ) {
@@ -564,7 +564,7 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function current_group_user_access( $cid, $groupid )
+		public function current_group_user_access( $cid, $groupid )
 		{
 			$fars = $this->db->query( "SELECT $this->columns4group FROM ".$this->table." WHERE groupid=".$groupid." AND cid='".$cid."'" ) ;
 			$array = $this->db->fetchArray( $fars ) ;
@@ -575,7 +575,7 @@ if( ! class_exists( 'user_access' ) )
 			return $mygroup ;
 		}
 
-		function is_recentid_group_user_access( $groupid )
+		public function is_recentid_group_user_access( $groupid )
 		{
 			$id = $this->get_recent_updatecid( 1 ) ;
 			$mars = $this->db->query( "SELECT $this->columns4group FROM ".$this->table." WHERE groupid=".$groupid." AND cid='".$id."'" ) ;
@@ -587,7 +587,7 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function recentid_group_user_access( $groupid )
+		public function recentid_group_user_access( $groupid )
 		{
 			$id = $this->get_recent_updatecid( 1 ) ;
 			$mars = $this->db->query( "SELECT $this->columns4group FROM ".$this->table." WHERE groupid=".$groupid." AND cid='".$id."'" ) ;
@@ -599,7 +599,7 @@ if( ! class_exists( 'user_access' ) )
 			return $mygroup ;
 		}
 
-		function default_group_user_access( $groupid )
+		public function default_group_user_access( $groupid )
 		{
 			if( $this->is_module_admin( $groupid ) ){
 				$mygroup['can_read'] = $mygroup['can_post'] = $mygroup['can_edit'] = $mygroup['can_delete'] = $mygroup['post_auto_approved'] = $mygroup['edit_auto_approved'] = $mygroup['upload'] = true ;
@@ -614,7 +614,7 @@ if( ! class_exists( 'user_access' ) )
 			return $mygroup ;
 		}
 
-		function is_myuser_user_access( $cid )
+		public function is_myuser_user_access( $cid )
 		{
 			$fars = $this->db->query( "SELECT $this->columns4group FROM ".$this->table." WHERE cid='".$cid."' AND uid > 0" ) ;
 
@@ -625,7 +625,7 @@ if( ! class_exists( 'user_access' ) )
 			}
 		}
 
-		function is_recentid_myuser_user_access()
+		public function is_recentid_myuser_user_access()
 		{
 			$id = $this->get_recent_updatecid( 1 ) ;
 			$mars = $this->db->query( "SELECT $this->columns4group FROM ".$this->table." WHERE cid='".$id."' AND uid > 0" ) ;
@@ -638,7 +638,7 @@ if( ! class_exists( 'user_access' ) )
 		}
 
 // make permissions part
-		function group_update( $cid, $pid=0, $nodatesave=0 )
+		public function group_update( $cid, $pid=0, $nodatesave=0 )
 		{
 			$error = 0 ;
 			$count = $this->db->getRowsNum( $this->db->query( "SELECT * FROM ".$this->table." WHERE cid='".$cid."' AND groupid > 0" ) ) ;
@@ -669,7 +669,7 @@ if( ! class_exists( 'user_access' ) )
 			return $error ;
 		}
 
-		function user_update( $cid, $pid=0, $nodatesave=0 )
+		public function user_update( $cid, $pid=0, $nodatesave=0 )
 		{
 			$error = 0 ;
 			$array4user = array( 'can_post_user', 'can_edit_user', 'can_delete_user', 'post_auto_approved_user', 'edit_auto_approved_user', 'html_user', 'upload_user' ) ;
@@ -736,14 +736,14 @@ if( ! class_exists( 'user_access' ) )
 			return $error ;
 		}
 
-		function already_save_uid_check( $cid, $uid )
+		public function already_save_uid_check( $cid, $uid )
 		{
 			$urs = $this->db->query( "SELECT uid FROM ".$this->table." WHERE uid=".$uid." AND cid='".$cid."'" ) ;
 			if ( $this->db->getRowsNum( $urs ) == 0 ) return false ;
 			else return true ;
 		}
 
-		function default_user_access( $cid, $nonerecent=0, $datesave=0 )
+		public function default_user_access( $cid, $nonerecent=0, $datesave=0 )
 		{
 			$error = 0 ;
 			$this->db->query( "DELETE FROM ".$this->table." WHERE cid='".$cid."' AND groupid > 0" ) ;
@@ -765,7 +765,7 @@ if( ! class_exists( 'user_access' ) )
 			return $error ;
 		}
 
-		function recentid_group_user_access_copy( $cid, $groupid )
+		public function recentid_group_user_access_copy( $cid, $groupid )
 		{
 			$error = 0 ;
 			$id = $this->get_recent_updatecid( 1 ) ;
@@ -793,7 +793,7 @@ if( ! class_exists( 'user_access' ) )
 			return $error ;
 		}
 
-		function default_user_access_admin( $cid, $groupid )
+		public function default_user_access_admin( $cid, $groupid )
 		{
 			$error = 0 ;
 			$irs = $this->db->query( "INSERT INTO ".$this->table." SET cid='".$cid."', groupid='".$groupid."', can_read='1', can_post='1', can_edit='1', can_delete='1', post_auto_approved='1', edit_auto_approved='1',html='0',upload='1'" ) ;
@@ -801,7 +801,7 @@ if( ! class_exists( 'user_access' ) )
 			return $error ;
 		}
 
-		function default_user_access_users( $cid, $groupid )
+		public function default_user_access_users( $cid, $groupid )
 		{
 			$error = 0 ;
 			$irs = $this->db->query( "INSERT INTO ".$this->table." SET cid='".$cid."', groupid='".$groupid."', can_read='1', can_post='0', can_edit='0', can_delete='0', post_auto_approved='0', edit_auto_approved='0',html='0',upload='0'" ) ;
@@ -809,7 +809,7 @@ if( ! class_exists( 'user_access' ) )
 			return $error ;
 		}
 		
-		function default_user_access_anonymous( $cid, $groupid )
+		public function default_user_access_anonymous( $cid, $groupid )
 		{
 			$error = 0 ;
 			$irs = $this->db->query( "INSERT INTO ".$this->table." SET cid='".$cid."', groupid='".$groupid."', can_read='1', can_post='0', can_edit='0', can_delete='0', post_auto_approved='0', edit_auto_approved='0',html='0',upload='0'" ) ;
@@ -818,7 +818,7 @@ if( ! class_exists( 'user_access' ) )
 		}
 
 // permissions copy part
-		function all_user_access_copy( $cid, $mode, $myid=0 )
+		public function all_user_access_copy( $cid, $mode, $myid=0 )
 		{
 			if( $mode =='group' ) $idname = "groupid" ;
 			elseif( $mode =='user' ) $idname = "uid" ;
@@ -853,7 +853,7 @@ if( ! class_exists( 'user_access' ) )
 			return $error ;
 		}
 
-		function current_select_user_access_copy( $cid, $selectid, $mode, $myid=0 )
+		public function current_select_user_access_copy( $cid, $selectid, $mode, $myid=0 )
 		{
 			if( $mode =='group' ) $idname = "groupid" ;
 			elseif( $mode =='user' ) $idname = "uid" ;
@@ -886,7 +886,7 @@ if( ! class_exists( 'user_access' ) )
 			return $error ;
 		}
 
-		function select_myuser_access_copy_execution( $cid, $selectid=0, $mode )
+		public function select_myuser_access_copy_execution( $cid, $selectid=0, $mode )
 		{
 			$error = 0 ;
 			if( ! empty( $_POST['action_selects_u'] ) ) foreach( $_POST['action_selects_u'] as $id => $value ) {
@@ -916,7 +916,7 @@ if( ! class_exists( 'user_access' ) )
 		}
 
 		// category move mode use only
-		function current_user_access_copy( $cid, $selectid, $mode, $noupdate=0 )
+		public function current_user_access_copy( $cid, $selectid, $mode, $noupdate=0 )
 		{
 			if( $mode =='group' ) $idname = "groupid" ;
 			elseif( $mode =='user' ) $idname = "uid" ;
@@ -956,7 +956,7 @@ if( ! class_exists( 'user_access' ) )
 		}
 
 // table check part
-		function my_user_access_check()
+		public function my_user_access_check()
 		{
 			$child = $this->get_my_cids_array( 0 , '', 0, 1 ) ;
 			if( is_array ( $child ) ) foreach( $child as $childid ) {

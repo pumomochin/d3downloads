@@ -9,18 +9,18 @@ if( ! class_exists( 'rate_download' ) )
 
 	class rate_download extends MyDownload
 	{
-		var $db;
-		var $table;
-		var $ratingid;
-		var $lid;
-		var $ratinguser;
-		var $rating;
-		var $ratinghostname;
-		var $ratingtimestamp;
-		var $anonwaitdays = 1 ;//Make sure only 1 anonymous from an IP in a single day.
-		var $Insertdata = array( 'lid' ,'ratinguser' , 'rating', 'ratinghostname', 'ratingtimestamp' ) ;
+		public $db;
+		public $table;
+		public $ratingid;
+		public $lid;
+		public $ratinguser;
+		public $rating;
+		public $ratinghostname;
+		public $ratingtimestamp;
+		public $anonwaitdays = 1 ;//Make sure only 1 anonymous from an IP in a single day.
+		public $Insertdata = array( 'lid' ,'ratinguser' , 'rating', 'ratinghostname', 'ratingtimestamp' ) ;
 
-		function rate_download( $mydirname, $mode='' )
+		public function rate_download( $mydirname, $mode='' )
 		{
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
 
@@ -48,7 +48,7 @@ if( ! class_exists( 'rate_download' ) )
 			}
 		}
 
-		function Get_User_vote( $lid )
+		public function Get_User_vote( $lid )
 		{
 			global $xoopsConfig ;
 
@@ -90,7 +90,7 @@ if( ! class_exists( 'rate_download' ) )
 			) ;
 		}
 
-		function Get_Guest_vote( $lid )
+		public function Get_Guest_vote( $lid )
 		{
 			global $xoopsConfig ;
 
@@ -121,7 +121,7 @@ if( ! class_exists( 'rate_download' ) )
 			) ;
 		}
 
-		function Ratefile_Execution( $cid, $lid )
+		public function Ratefile_Execution( $cid, $lid )
 		{
 			global $xoopsConfig ;
 
@@ -150,7 +150,7 @@ if( ! class_exists( 'rate_download' ) )
 			exit ;
 		}
 
-		function Ratefile_check( $lid )
+		public function Ratefile_check( $lid )
 		{
 			$message = '' ;
 			if( $this->ratinguser != 0 ) {
@@ -173,7 +173,7 @@ if( ! class_exists( 'rate_download' ) )
 			return $message ;
 		}
 
-		function Insert_DB( $lid )
+		public function Insert_DB( $lid )
 		{
 			$this->lid = $lid;
 			$set4sql = "ratingid='".$this->newid."'" ;
@@ -185,7 +185,7 @@ if( ! class_exists( 'rate_download' ) )
 			return $new_id;
 		}
 
-		function UpdateRating( $lid )
+		public function UpdateRating( $lid )
 		{
 			$sql = "SELECT rating FROM ".$this->table." WHERE lid = '".$lid."'";
 			$result = $this->db->query( $sql );

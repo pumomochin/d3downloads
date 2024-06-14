@@ -9,42 +9,42 @@ if( ! class_exists( 'unapproval_download' ) )
 
 	class unapproval_download extends MyDownload
 	{
-		var $db;
-		var $table;
-		var $requestid;
-		var $lid ;
-		var $cid ;
-		var $title ;
-		var $url ;
-		var $filename ;
-		var $ext ;
-		var $file2 ;
-		var $filename2 ;
-		var $ext2 ;
-		var $homepage ;
-		var $homepagetitle ;
-		var $version ;
-		var $size ;
-		var $platform ;
-		var $license ;
-		var $logourl ;
-		var $description ;
-		var $html ;
-		var $smiley ;
-		var $br ;
-		var $xcode ;
-		var $filters ;
-		var $extra ;
-		var $submitter ;
-		var $date ;
-		var $expired ;
-		var $visible ;
-		var $cancomment ;
-		var $notify ;
-		var $category;
-		var $downdata=array();
+		public $db;
+		public $table;
+		public $requestid;
+		public $lid ;
+		public $cid ;
+		public $title ;
+		public $url ;
+		public $filename ;
+		public $ext ;
+		public $file2 ;
+		public $filename2 ;
+		public $ext2 ;
+		public $homepage ;
+		public $homepagetitle ;
+		public $version ;
+		public $size ;
+		public $platform ;
+		public $license ;
+		public $logourl ;
+		public $description ;
+		public $html ;
+		public $smiley ;
+		public $br ;
+		public $xcode ;
+		public $filters ;
+		public $extra ;
+		public $submitter ;
+		public $date ;
+		public $expired ;
+		public $visible ;
+		public $cancomment ;
+		public $notify ;
+		public $category;
+		public $downdata=array();
 
-		function unapproval_download( $mydirname, $id= 0 )
+		public function unapproval_download( $mydirname, $id= 0 )
 		{
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
 
@@ -69,7 +69,7 @@ if( ! class_exists( 'unapproval_download' ) )
 			}
 		}
 
-		function GetMyDownload( $whr='', $lid )
+		public function GetMyDownload( $whr='', $lid )
 		{
 			$sql = "SELECT $this->columns  FROM ".$this->table."  WHERE requestid='".$id."'";
 			$result = $this->db->query( $sql );
@@ -79,7 +79,7 @@ if( ! class_exists( 'unapproval_download' ) )
 			$this->getData( $result );
 		}
 
-		function get_unapprovaldata( $requestid, $category )
+		public function get_unapprovaldata( $requestid, $category )
 		{
 			$result = $this->db->query("SELECT $this->columns  FROM ".$this->table." WHERE requestid='".$requestid."'");
 			if ( $this->db->getRowsNum( $result ) == 0 ) {
@@ -152,7 +152,7 @@ if( ! class_exists( 'unapproval_download' ) )
 			) ;
 		}
 
-		function get_unapproval_list( $mode )
+		public function get_unapproval_list( $mode )
 		{
 			global $xoopsConfig ;
 
@@ -187,7 +187,7 @@ if( ! class_exists( 'unapproval_download' ) )
 			return $downdata ;
 		}
 
-		function Total_Num( $mode='', $cid=0, $all=0, $invisible=0, $intree=0 )
+		public function Total_Num( $mode='', $cid=0, $all=0, $invisible=0, $intree=0 )
 		{
 			$sql = "SELECT COUNT( requestid ) FROM ".$this->table."";
 			switch( $mode ) {
@@ -203,7 +203,7 @@ if( ! class_exists( 'unapproval_download' ) )
 			return intval( $num );
 		}
 
-		function Unapproval_Num()
+		public function Unapproval_Num()
 		{
 			$unapproval_num = $this->Total_Num() ;
 			return array(
@@ -212,17 +212,17 @@ if( ! class_exists( 'unapproval_download' ) )
 			) ;
 		}
 
-		function return_requestid()
+		public function return_requestid()
 		{
 			return intval( $this->requestid ) ;
 		}
 
-		function return_notify()
+		public function return_notify()
 		{
 			return $this->notify ? 1 : 0 ;
 		}
 
-		function file_link_for_post( $id, $cid, $url, $filename, $second = 0 )
+		public function file_link_for_post( $id, $cid, $url, $filename, $second = 0 )
 		{
 			$filelink = $filenamelink = '';
 			$exception = '\.'.implode( '|\.',$this->Exception_extension() );
@@ -251,7 +251,7 @@ if( ! class_exists( 'unapproval_download' ) )
 			) ;
 		}
 
-		function Delete_Unapproval( $id )
+		public function Delete_Unapproval( $id )
 		{
 			$error = 0 ;
 			$sql = "SELECT COUNT(*) FROM ".$this->table." WHERE requestid ='".$id."'";
@@ -265,7 +265,7 @@ if( ! class_exists( 'unapproval_download' ) )
 			return $error ;
 		}
 
-		function Delete_Unapproval_Files( $id )
+		public function Delete_Unapproval_Files( $id )
 		{
 			$frs = $this->db->query("SELECT url, filename, file2 FROM ".$this->table."  WHERE requestid='".$id."'");
 			while( list( $ur, $fename, $fil2 ) = $this->db->fetchRow( $frs ) ) {
@@ -284,7 +284,7 @@ if( ! class_exists( 'unapproval_download' ) )
 			}
 		}
 
-		function Link_Check( $url, $file2 )
+		public function Link_Check( $url, $file2 )
 		{
 			$fcount = $fcount2 = 0 ;
 			$fcount  += $this->db->getRowsNum( $this->db->query( "SELECT * FROM ".$this->db->prefix( $this->mydirname."_downloads" )." WHERE url='".$url."'" ) );

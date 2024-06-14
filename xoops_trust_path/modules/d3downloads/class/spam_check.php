@@ -8,16 +8,16 @@ if( ! class_exists( 'spam_check' ) )
 
 	class spam_check
 	{
-		var $str_length    =  10 ;
-		var $add_method    =  array( 'count_url' , 'rbl' ) ;
-		var $hidden_name   = 'auth' ;
-		var $post_name     =  array() ;
-		var $max_url       =   0 ;
-		var $rbls          =  array( 'dnsbl.spam-champuru.livedoor.com' , 'zen.spamhaus.org' ) ;
-		var $result        =  false ;
-		var $error_message =  _MD_D3DOWNLOADS_CHECK_SPAM ;
+		public $str_length    =  10 ;
+		public $add_method    =  array( 'count_url' , 'rbl' ) ;
+		public $hidden_name   = 'auth' ;
+		public $post_name     =  array() ;
+		public $max_url       =   0 ;
+		public $rbls          =  array( 'dnsbl.spam-champuru.livedoor.com' , 'zen.spamhaus.org' ) ;
+		public $result        =  false ;
+		public $error_message =  _MD_D3DOWNLOADS_CHECK_SPAM ;
 
-		function spam_check( $mydirname )
+		public function spam_check( $mydirname )
 		{
 			global $xoopsUser ;
 
@@ -29,7 +29,7 @@ if( ! class_exists( 'spam_check' ) )
 			$this->my_host      = ( ! empty( $url_info['host'] ) ) ? $url_info['host'] : '' ;
 		}
 
-		function check()
+		public function check()
 		{
 			$this->result = ( ! $this->xoops_isuser ) ? $this->check_execute() : true ;
 
@@ -38,23 +38,23 @@ if( ! class_exists( 'spam_check' ) )
 			return $this->result ;
 		}
 
-		function check_execute()
+		public function check_execute()
 		{
 			return ( $this->check_by_javascript() ) ? true : $this->check_by_add_method() ;
 		}
 
-		function check_by_javascript()
+		public function check_by_javascript()
 		{
 			$request = $this->myts->MystripSlashesGPC( @$_POST[ $this->hidden_name ] ) ;
 			return ( strcmp( $request, $this->select_value() ) == 0 ) ? true : false ;
 		}
 
-		function select_value()
+		public function select_value()
 		{
 			return ( ! empty( $_SESSION[ $this->my_session ] ) ) ? md5( $_SESSION[ $this->my_session ] ) : '' ;
 		}
 
-		function check_by_add_method()
+		public function check_by_add_method()
 		{
 			$count = 0 ;
 
@@ -70,7 +70,7 @@ if( ! class_exists( 'spam_check' ) )
 			return ( $count == 0 ) ? true : false ;
 		}
 
-		function check_by_count_url()
+		public function check_by_count_url()
 		{
 			$count = 0 ;
 
@@ -85,7 +85,7 @@ if( ! class_exists( 'spam_check' ) )
 			return ( $count > intval( $this->max_url ) ) ? 1 : 0 ;
 		}
 
-		function count_url( $text )
+		public function count_url( $text )
 		{
 			if ( empty( $text ) ) return 0 ;
 
@@ -99,7 +99,7 @@ if( ! class_exists( 'spam_check' ) )
 			return $count ;
 		}
 
-		function check_by_rbl( $ip='' )
+		public function check_by_rbl( $ip='' )
 		{
 			$count = 0 ;
 
@@ -116,7 +116,7 @@ if( ! class_exists( 'spam_check' ) )
 			return $count ;
 		}
 
-		function random_str()
+		public function random_str()
 		{
 			$str = '' ;
 

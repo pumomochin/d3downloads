@@ -9,21 +9,21 @@ if( ! class_exists( 'file_manager' ) )
 
 	class file_manager extends MyDownload
 	{
-		var $db ;
-		var $table ;
-		var $lid ;
-		var $cid ;
-		var $title ;
-		var $submitter ;
-		var $date ;
-		var $comments ;
-		var $visible ;
-		var $cancomment ;
-		var $hits ;
-		var $rating ;
-		var $votes ;
+		public $db ;
+		public $table ;
+		public $lid ;
+		public $cid ;
+		public $title ;
+		public $submitter ;
+		public $date ;
+		public $comments ;
+		public $visible ;
+		public $cancomment ;
+		public $hits ;
+		public $rating ;
+		public $votes ;
 
-		function file_manager( $mydirname )
+		public function file_manager( $mydirname )
 		{
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
 			$this->db =& Database::getInstance();
@@ -42,7 +42,7 @@ if( ! class_exists( 'file_manager' ) )
 			$broken = 0 ;
 		}
 
-		function get_files( $cid, $limit, $offset, $order, $invisible=0, $submitter=0, $mypost=0, $intree=0 )
+		public function get_files( $cid, $limit, $offset, $order, $invisible=0, $submitter=0, $mypost=0, $intree=0 )
 		{
 			global $xoopsConfig ;
 
@@ -93,7 +93,7 @@ if( ! class_exists( 'file_manager' ) )
 			return $files ;
 		}
 
-		function get_copy_target_modules()
+		public function get_copy_target_modules()
 		{
 			$module_handler =& xoops_gethandler( 'module' ) ;
 			$modules =& $module_handler->getObjects() ;
@@ -126,7 +126,7 @@ if( ! class_exists( 'file_manager' ) )
 			) ;
 		}
 
-		function get_copy_target_category( $target_dirname )
+		public function get_copy_target_category( $target_dirname )
 		{
 			require_once dirname( dirname(__FILE__) ).'/class/mycategory.php' ;
 			$mycategory = new MyCategory( $target_dirname, 'Show' ) ;
@@ -150,7 +150,7 @@ if( ! class_exists( 'file_manager' ) )
 			return $category ;
 		}
 
-		function make_category_select_showhide()
+		public function make_category_select_showhide()
 		{
 			$html  = '
 			<script type="text/javascript">
@@ -161,7 +161,7 @@ if( ! class_exists( 'file_manager' ) )
 			return $html ;
 		}
 
-		function copy_execution( $taget_mid, $taget_category , $id )
+		public function copy_execution( $taget_mid, $taget_category , $id )
 		{
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
 
@@ -197,7 +197,7 @@ if( ! class_exists( 'file_manager' ) )
 			return $to_dirname ;
 		}
 
-		function copy_converturl( $to_dirname, $id, $new_id )
+		public function copy_converturl( $to_dirname, $id, $new_id )
 		{
 			// downloads 
 			$result = $this->db->query( "SELECT url, file2 FROM ".$this->table." WHERE lid='".$id."'" ) ;
@@ -226,7 +226,7 @@ if( ! class_exists( 'file_manager' ) )
 			}
 		}
 
-		function convert_uploaddir( $to_dirname, $id, $new_id, $text )
+		public function convert_uploaddir( $to_dirname, $id, $new_id, $text )
 		{
 			$site_salt = substr( md5( XOOPS_URL ) , -4 ) ;
 
@@ -240,7 +240,7 @@ if( ! class_exists( 'file_manager' ) )
 			return $text ;
 		}
 
-		function files_import( $to_dirname, $url, $to_url )
+		public function files_import( $to_dirname, $url, $to_url )
 		{
 			$from_dir = XOOPS_TRUST_PATH.'/uploads/'.$this->mydirname ;
 			$to_uploads_dir = XOOPS_TRUST_PATH.'/uploads/'.$to_dirname ;
@@ -253,7 +253,7 @@ if( ! class_exists( 'file_manager' ) )
 			}
 		}
 
-		function uploads_dir_check( $uploads_dir )
+		public function uploads_dir_check( $uploads_dir )
 		{
 			$safe_mode = ini_get( "safe_mode" ) ;
 
@@ -270,14 +270,14 @@ if( ! class_exists( 'file_manager' ) )
 			}
 		}
 
-		function errordie()
+		public function errordie()
 		{
 			echo _MD_D3DOWNLOADS_SQLONIMPORT ;
 			echo $this->db->logger->dumpQueries() ;
 			exit ;
 		}
 
-		function uploads_dir_errordie( $error )
+		public function uploads_dir_errordie( $error )
 		{
 			echo _MD_D3DOWNLOADS_FILE_NO_IMPORT ;
 			exit ;

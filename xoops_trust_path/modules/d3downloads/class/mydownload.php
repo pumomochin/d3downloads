@@ -8,47 +8,47 @@ if( ! class_exists( 'MyDownload' ) )
 
 	class MyDownload
 	{
-		var $db ;
-		var $table ;
-		var $whr ;
-		var $order = "" ;
-		var $lid ;
-		var $cid ;
-		var $title ;
-		var $url ;
-		var $filename ;
-		var $ext ;
-		var $file2 ;
-		var $filename2 ;
-		var $ext2 ;
-		var $homepage ;
-		var $homepagetitle ;
-		var $version ;
-		var $size ;
-		var $platform ;
-		var $license ;
-		var $logourl ;
-		var $description ;
-		var $html ;
-		var $smiley ;
-		var $br ;
-		var $xcode ;
-		var $filters ;
-		var $extra ;
-		var $submitter ;
-		var $date ;
-		var $expired ;
-		var $hits ;
-		var $rating ;
-		var $votes ;
-		var $mylink ;
-		var $visible ;
-		var $cancomment ;
-		var $comments ;
-		var $category ;
-		var $downdata=array() ;
+		public $db ;
+		public $table ;
+		public $whr ;
+		public $order = "" ;
+		public $lid ;
+		public $cid ;
+		public $title ;
+		public $url ;
+		public $filename ;
+		public $ext ;
+		public $file2 ;
+		public $filename2 ;
+		public $ext2 ;
+		public $homepage ;
+		public $homepagetitle ;
+		public $version ;
+		public $size ;
+		public $platform ;
+		public $license ;
+		public $logourl ;
+		public $description ;
+		public $html ;
+		public $smiley ;
+		public $br ;
+		public $xcode ;
+		public $filters ;
+		public $extra ;
+		public $submitter ;
+		public $date ;
+		public $expired ;
+		public $hits ;
+		public $rating ;
+		public $votes ;
+		public $mylink ;
+		public $visible ;
+		public $cancomment ;
+		public $comments ;
+		public $category ;
+		public $downdata=array() ;
 
-		function MyDownload( $mydirname, $whr='', $lid= 0 )
+		public function MyDownload( $mydirname, $whr='', $lid= 0 )
 		{
 			global $xoopsUser ;
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
@@ -83,7 +83,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function GetMyDownload( $whr='', $lid )
+		public function GetMyDownload( $whr='', $lid )
 		{
 			$where = "d.lid='".$lid."'" ;
 			if( ! $this->xoops_isadmin ) $where .= " AND ".$this->whr_append()."" ;
@@ -97,7 +97,7 @@ if( ! class_exists( 'MyDownload' ) )
 			$this->getData( $result ) ;
 		}
 
-		function getData( $result )
+		public function getData( $result )
 		{
 			$array = $this->db->fetchArray( $result ) ;
 			foreach ( $array as $key=>$value ){
@@ -105,17 +105,17 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_lid()
+		public function return_lid()
 		{
 			return intval( $this->lid ) ;
 		}
 
-		function return_cid()
+		public function return_cid()
 		{
 			return intval( $this->cid ) ;
 		}
 
-		function return_title( $mode )
+		public function return_title( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -125,7 +125,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_url( $mode, $noreal=0 )
+		public function return_url( $mode, $noreal=0 )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -135,7 +135,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_url_show( $noreal=0 )
+		public function return_url_show( $noreal=0 )
 		{
 			switch( $noreal ) {
 				case false :
@@ -145,7 +145,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_url_edit()
+		public function return_url_edit()
 		{
 			if ( preg_match('/^'.preg_quote( XOOPS_ROOT_PATH, '/' ).'/i', $this->url ) ) {
 				$str = preg_replace( '/^'.preg_quote( XOOPS_ROOT_PATH, '/' ).'/i', 'XOOPS_ROOT_PATH', $this->url ) ;
@@ -155,7 +155,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_filename( $mode )
+		public function return_filename( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -165,7 +165,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_ext( $mode )
+		public function return_ext( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -175,7 +175,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_file2( $mode, $noreal=0 )
+		public function return_file2( $mode, $noreal=0 )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -185,7 +185,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_file2_show( $noreal=0 )
+		public function return_file2_show( $noreal=0 )
 		{
 			switch( $noreal ) {
 				case false :
@@ -195,7 +195,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_filename2( $mode )
+		public function return_filename2( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -205,7 +205,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_ext2( $mode )
+		public function return_ext2( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -215,7 +215,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_homepage( $mode )
+		public function return_homepage( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -225,7 +225,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_homepagetitle( $mode )
+		public function return_homepagetitle( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -235,7 +235,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_version( $mode )
+		public function return_version( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -245,12 +245,12 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_size()
+		public function return_size()
 		{
 			return intval( $this->size ) ;
 		}
 
-		function return_platform( $mode )
+		public function return_platform( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -260,7 +260,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_license( $mode )
+		public function return_license( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -270,7 +270,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_logourl( $mode )
+		public function return_logourl( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -280,7 +280,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_description( $mode )
+		public function return_description( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -290,32 +290,32 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_html()
+		public function return_html()
 		{
 			return $this->html ? 1 : 0 ;
 		}
 
-		function return_smiley()
+		public function return_smiley()
 		{
 			return $this->smiley ? 1 : 0 ;
 		}
 
-		function return_br()
+		public function return_br()
 		{
 			return $this->br ? 1 : 0 ;
 		}
 
-		function return_xcode()
+		public function return_xcode()
 		{
 			return $this->xcode ? 1 : 0 ;
 		}
 
-		function return_filters()
+		public function return_filters()
 		{
 			return $this->myts->makeTboxData4Show( $this->filters ) ;
 		}
 
-		function return_extra( $mode, $single=0, $block=0, $forpreview=0 )
+		public function return_extra( $mode, $single=0, $block=0, $forpreview=0 )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -325,67 +325,67 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_submitter()
+		public function return_submitter()
 		{
 			return intval( $this->submitter ) ;
 		}
 
-		function return_date()
+		public function return_date()
 		{
 			return intval( $this->date ) ;
 		}
 
-		function return_createable()
+		public function return_createable()
 		{
 			return $this->date > time() ? 1 : 0 ;
 		}
 
-		function return_expired()
+		public function return_expired()
 		{
 			return $this->expired ? intval( $this->expired ) : time() ;
 		}
 
-		function return_expiredable()
+		public function return_expiredable()
 		{
 			return $this->expired ? 1 : 0 ;
 		}
 
-		function return_hits()
+		public function return_hits()
 		{
 			return intval( $this->hits ) ;
 		}
 
-		function return_rating()
+		public function return_rating()
 		{
 			return intval( $this->rating ) ;
 		}
 
-		function return_votes()
+		public function return_votes()
 		{
 			return intval( $this->votes ) ;
 		}
 
-		function return_mylink()
+		public function return_mylink()
 		{
 			return intval( $this->mylink ) ;
 		}
 
-		function return_cancomment()
+		public function return_cancomment()
 		{
 			return $this->cancomment ? 1 : 0 ;
 		}
 
-		function return_visible()
+		public function return_visible()
 		{
 			return $this->visible ? 1 : 0 ;
 		}
 
-		function return_comments()
+		public function return_comments()
 		{
 			return intval( $this->comments ) ;
 		}
 
-		function return_category( $mode )
+		public function return_category( $mode )
 		{
 			switch( $mode ) {
 				case 'Show' :
@@ -395,12 +395,12 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function default_sql()
+		public function default_sql()
 		{
 			return "SELECT $this->columns FROM ".$this->table." d LEFT JOIN ".$this->cat_table." c ON d.cid=c.cid" ;
 		}
 
-		function whr_period( $mode='' )
+		public function whr_period( $mode='' )
 		{
 			switch( $mode ) {
 				case 'Single' :
@@ -410,7 +410,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function whr_append( $mode='' )
+		public function whr_append( $mode='' )
 		{
 			switch( $mode ) {
 				case 'Single' :
@@ -420,7 +420,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_whr_from_array( $array, $mode='', $name='cid' )
+		public function get_whr_from_array( $array, $mode='', $name='cid' )
 		{
 			$ids = implode( ",", array_unique( array_diff( $array, array( 0 ) ) ) ) ;
 			switch( $mode ) {
@@ -431,7 +431,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_whr_categories( $cid, $intree='', $mode='', $mycategory='', $cids_child='' )
+		public function get_whr_categories( $cid, $intree='', $mode='', $mycategory='', $cids_child='' )
 		{
 			if( $cid == 0 ) return "1" ;
 			else switch( $intree ) {
@@ -442,7 +442,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function whr_categories_from_cids( $category_option, $mode='' )
+		public function whr_categories_from_cids( $category_option, $mode='' )
 		{
 			$categories = $this->get_cids( $category_option ) ;
 
@@ -450,13 +450,13 @@ if( ! class_exists( 'MyDownload' ) )
 			else return $this->get_whr_from_array( $categories, $mode ) ; 
 		}
 
-		function whr_categories_intree( $cid, $mode='', $mycategory='', $cids_child='' )
+		public function whr_categories_intree( $cid, $mode='', $mycategory='', $cids_child='' )
 		{
 			$tree_arr = $this->get_tree_array( $cid, $mycategory, $cids_child ) ; 
 			return $this->get_whr_from_array( $tree_arr, $mode ) ; 
 		}
 
-		function whr_categories_intree_from_cids( $category_option, $mode='', $mycategory='', $cids_child='' )
+		public function whr_categories_intree_from_cids( $category_option, $mode='', $mycategory='', $cids_child='' )
 		{
 			$categories = $this->get_cids( $category_option ) ;
 
@@ -468,12 +468,12 @@ if( ! class_exists( 'MyDownload' ) )
 			return $this->get_whr_from_array( $cids, $mode ) ; 
 		}
 
-		function get_cids( $category_option )
+		public function get_cids( $category_option )
 		{
 			return ( ! is_array ( $category_option ) ) ? $this->myts->idarray_by_explode( $category_option ) : $this->myts->MyIntval( $category_option ) ;
 		}
 
-		function get_tree_array( $cid, $mycategory='', $cids_child='' )
+		public function get_tree_array( $cid, $mycategory='', $cids_child='' )
 		{
 			if( empty( $mycategory ) ){
 				include_once dirname( dirname(__FILE__) ).'/class/mycategory.php' ;
@@ -482,7 +482,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $mycategory->getMycidsIntreeArray( $cid, '', $cids_child ) ; 
 		}
 
-		function Total_Num( $whr='', $cid=0, $all=0, $invisible=0, $intree=0 )
+		public function Total_Num( $whr='', $cid=0, $all=0, $invisible=0, $intree=0 )
 		{
 			switch( $invisible ) {
 				case false :
@@ -502,7 +502,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return intval( $count ) ;
 		}
 
-		function get_downdata_for_catview( $cid, $whr, $order, $perpage, $current_start, $submitter=0, $mypost=0, $intree=0 )
+		public function get_downdata_for_catview( $cid, $whr, $order, $perpage, $current_start, $submitter=0, $mypost=0, $intree=0 )
 		{
 			switch( $mypost ) {
 				case false :
@@ -520,7 +520,7 @@ if( ! class_exists( 'MyDownload' ) )
 			else return $this->get_downdata( $result ) ;
 		}
 
-		function get_downdata_for_topview( $whr, $limit )
+		public function get_downdata_for_topview( $whr, $limit )
 		{
 			$cache_time = 86400 ;
 			$site_salt = substr( md5( XOOPS_URL ) , -4 ) ;
@@ -544,7 +544,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function cache_postponement( $time )
+		public function cache_postponement( $time )
 		{
 			$limit = time() + $time ;
 			$sql  = "SELECT COUNT( lid ) FROM ".$this->table." WHERE visible = '1'" ;
@@ -557,7 +557,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return intval( $count ) ;
 		}
 
-		function get_data_of_topview( $whr, $limit )
+		public function get_data_of_topview( $whr, $limit )
 		{
 			$sql = $this->default_sql() ." WHERE ".$this->whr_append()." AND ( $whr ) ORDER BY d.date DESC" ;
 			$result = $this->db->query( $sql, $limit, 0 ) ;
@@ -566,7 +566,7 @@ if( ! class_exists( 'MyDownload' ) )
 			else return $this->get_downdata( $result, 'Top' ) ;
 		}
 
-		function get_downdata_for_mylink( $cid, $whr, $order, $perpage, $current_start, $intree=0 )
+		public function get_downdata_for_mylink( $cid, $whr, $order, $perpage, $current_start, $intree=0 )
 		{
 			$idarray = $this->get_mylink_idarray() ;
 			if( empty( $idarray ) ) return '';
@@ -579,7 +579,7 @@ if( ! class_exists( 'MyDownload' ) )
 			else return $this->get_downdata( $result ) ;
 		}
 
-		function get_downdata( $result, $mode='' )
+		public function get_downdata( $result, $mode='' )
 		{
 			global $xoopsConfig ;
 
@@ -656,7 +656,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $downdata;
 		}
 
-		function get_downdata_for_singleview( $whr='', $lid, $cid=0, $single=0, $novisit=0, $block=0 )
+		public function get_downdata_for_singleview( $whr='', $lid, $cid=0, $single=0, $novisit=0, $block=0 )
 		{
 			global $xoopsConfig ;
 
@@ -739,7 +739,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $downdata;
 		}
 
-		function get_downdata_for_topten( $whr, $order )
+		public function get_downdata_for_topten( $whr, $order )
 		{
 			include_once dirname( dirname(__FILE__) ).'/class/mycategory.php' ;
 			$mycategory = new MyCategory( $this->mydirname, 'Show' ) ;
@@ -786,7 +786,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $downdata ;
 		}
 
-		function get_downdata_for_filelist( $cid=0, $whr, $order, $perpage, $current_start, $intree=0 )
+		public function get_downdata_for_filelist( $cid=0, $whr, $order, $perpage, $current_start, $intree=0 )
 		{
 			global $xoopsConfig ;
 
@@ -831,7 +831,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $downdata;
 		}
 
-		function getlink_for_homepage()
+		public function getlink_for_homepage()
 		{
 			$url = $this->return_homepage( 'Show' ) ;
 			$title = $this->return_homepagetitle( 'Show' ) ;
@@ -852,7 +852,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function replace_current_data( $text )
+		public function replace_current_data( $text )
 		{
 			global $xoopsConfig ;
 
@@ -873,7 +873,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return str_replace( $searches , $replacements , $text ) ;
 		}
 
-		function return_body( $id, $cid, $body, $single, $block=0, $rss=0 )
+		public function return_body( $id, $cid, $body, $single, $block=0, $rss=0 )
 		{
 			switch( $single ) {
 				case false :
@@ -891,7 +891,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $body;
 		}
 
-		function division_by_pagebreak( $id, $cid, $text, $block=0 )
+		public function division_by_pagebreak( $id, $cid, $text, $block=0 )
 		{
 			list( $str ) = explode( '[pagebreak]', $text , 2 ) ;
 			$text  = $str.'<br /><div align="right"><a href="'.$this->mod_url.'/index.php?page=singlefile&amp;cid='.$cid.'&lid='.$id.'">' ;
@@ -901,7 +901,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $text ;
 		}
 
-		function replace_tags( $text )
+		public function replace_tags( $text )
 		{
 			$text = str_replace( ']]>', ']]&gt;', $text ) ;
 			$text = preg_replace( '`<(script|form|embed|object).+?/\\1>`is', '',$text ) ;
@@ -909,7 +909,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $text ;
 		}
 
-		function return_summary( $body, $filters )
+		public function return_summary( $body, $filters )
 		{
 			$str = strip_tags( $this->myts->displayTarea( strip_tags( $body ), 0, 1, 1, 1, 1, $filters ) ) ;
 
@@ -920,7 +920,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function Real_path( $text )
+		public function Real_path( $text )
 		{
 			$searches     = array( '`XOOPS_TRUST_PATH`i' , '`XOOPS_ROOT_PATH`i', '`XOOPS_URL`i' ) ;
 			$replacements = array( XOOPS_TRUST_PATH , XOOPS_ROOT_PATH, XOOPS_URL ) ;
@@ -929,7 +929,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $text ;
 		}
 
-		function get_postname( $submitter )
+		public function get_postname( $submitter )
 		{
 			if ( $submitter > 0 ) {
 				return $this->get_user_postname( $submitter ) ;
@@ -939,7 +939,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_user_postname( $submitter )
+		public function get_user_postname( $submitter )
 		{
 			$member_handler =& xoops_gethandler('member') ;
 			$member =& $member_handler->getUser( $submitter ) ;
@@ -948,7 +948,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $postname ;
 		}
 
-		function getlink_for_postname( $submitter )
+		public function getlink_for_postname( $submitter )
 		{
 			$postname = $this->get_postname( $submitter ) ;
 			if ( $submitter > 0 && $postname != 'No User' ){
@@ -958,7 +958,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function return_user_url( $submitter )
+		public function return_user_url( $submitter )
 		{
 			if ( $submitter > 0 ) {
 				return XOOPS_URL."/userinfo.php?uid=".$submitter ;
@@ -967,14 +967,14 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_user_email( $submitter )
+		public function get_user_email( $submitter )
 		{
 			$member_handler =& xoops_gethandler('member') ;
 			$member =& $member_handler->getUser( $submitter ) ;
 			return ( $member ) ? $member->getvar('email') : '' ;
 		}
 
-		function return_mypost_more( $submitter, $block=0 )
+		public function return_mypost_more( $submitter, $block=0 )
 		{
 			$postname = $this->get_postname( $submitter ) ;
 			$mypost_more = ( empty( $block ) ) ? _MD_D3DOWNLOADS_MYPOST_MORE : _MB_D3DOWNLOADS_MYPOST_MORE ;
@@ -983,7 +983,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return '<a href="'.$this->mod_url.'/index.php?submitter='.$submitter.'">'.$mypost_link.'</a>' ;
 		}
 
-		function return_gif_image( $ext )
+		public function return_gif_image( $ext )
 		{
 			if( $ext == 'gz' ) $ext = 'tgz' ;
 			elseif( $ext == 'tbz' ) $ext = 'bz2' ;
@@ -1013,7 +1013,7 @@ if( ! class_exists( 'MyDownload' ) )
 			else return 'download.gif' ;
 		}
 
-		function newdownloadgraphic( $time, $id, $block=0 )
+		public function newdownloadgraphic( $time, $id, $block=0 )
 		{
 
 			$count = $this->mod_config['newmark'] ;
@@ -1038,7 +1038,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $new ;
 		}
 
-		function popgraphic( $hits, $block=0 )
+		public function popgraphic( $hits, $block=0 )
 		{
 			$pop = '';
 
@@ -1051,12 +1051,12 @@ if( ! class_exists( 'MyDownload' ) )
 			return $pop;
 		}
 
-		function Exception_extension()
+		public function Exception_extension()
 		{
 			return array( 'arj' , 'bz2' , 'cab' , 'gz' , 'jar' , 'lzh' , 'rar' , 'tar' , 'taz' , 'tbz' , 'tgz' , 'z' , 'zip' ) ;
 		}
 
-		function file_link( $id, $cid, $title='', $url, $filename, $ext, $novisit=0, $second = 0, $block=0 )
+		public function file_link( $id, $cid, $title='', $url, $filename, $ext, $novisit=0, $second = 0, $block=0 )
 		{
 			$broken_link = 0 ;
 			$filelink = $md5 = '' ;
@@ -1067,7 +1067,7 @@ if( ! class_exists( 'MyDownload' ) )
 
 			if ( ! preg_match("`^(https?|ftp)://`i", $url ) ) {
 				if( ! $this->check_file( $url ) ){
-					// ƒtƒ@ƒCƒ‹”j‘¹‚Ìê‡‚ÍƒŠƒ“ƒN‚ð•\Ž¦‚µ‚È‚¢
+					// ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½jï¿½ï¿½ï¿½Ìê‡ï¿½Íƒï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 					$broken_link = 1 ;
 					$gif_image = "" ;
 				} else {
@@ -1123,7 +1123,7 @@ if( ! class_exists( 'MyDownload' ) )
 			) ;
 		}
 
-		function get_filename( $file )
+		public function get_filename( $file )
 		{
 			$f_info  = pathinfo( $file ) ;
 			return array(
@@ -1132,12 +1132,12 @@ if( ! class_exists( 'MyDownload' ) )
 			) ;
 		}
 
-		function check_file( $file )
+		public function check_file( $file )
 		{
 			return ( ! is_file( $file ) || filesize( $file ) == 0 ) ? false : true ;
 		}
 
-		function title_attribute( $title, $ext, $block )
+		public function title_attribute( $title, $ext, $block )
 		{
 			if( empty( $ext ) ) return $title ;
 
@@ -1146,28 +1146,28 @@ if( ! class_exists( 'MyDownload' ) )
 			return $str ;
 		}
 
-		function get_md5_hash( $url, $filename, $block=0 )
+		public function get_md5_hash( $url, $filename, $block=0 )
 		{
 			$md5str = ( empty( $block ) ) ? _MD_D3DOWNLOADS_MD5 : _MB_D3DOWNLOADS_MD5 ;
 			return sprintf( $md5str , $filename, md5_file( $url ) ) ;
 		}
 
-		function can_useshots()
+		public function can_useshots()
 		{
 			return  ! empty( $this->mod_config['useshots'] ) ? 1 : 0 ;
 		}
 
-		function myalbum_dirname()
+		public function myalbum_dirname()
 		{
 			return htmlspecialchars( $this->mod_config['albumselect'] , ENT_QUOTES ) ;
 		}
 
-		function album_module()
+		public function album_module()
 		{
 			return htmlspecialchars( $this->mod_config['album_module_select'] , ENT_QUOTES ) ;
 		}
 
-		function can_albumselect( $dirname='' )
+		public function can_albumselect( $dirname='' )
 		{
 			$usealbum = 0 ;
 
@@ -1182,7 +1182,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $usealbum;
 		}
 
-		function shots_link( $cid, $url, $filelink, $logourl )
+		public function shots_link( $cid, $url, $filelink, $logourl )
 		{
 			$exception = '\.'.implode( '|\.',$this->Exception_extension() ) ;
 			$maxwidth = intval( $this->mod_config['shotwidth'] ) ;
@@ -1204,7 +1204,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $shots_link ;
 		}
 
-		function shots_img_link( $cid, $url, $filelink, $logourl, $maxwidth )
+		public function shots_img_link( $cid, $url, $filelink, $logourl, $maxwidth )
 		{
 			include_once dirname( dirname(__FILE__) ).'/class/mycategory.php' ;
 			$mycategory = new MyCategory( $this->mydirname, 'Show', $cid ) ;
@@ -1224,7 +1224,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_imagesize( $image_path, $maxwidth='' )
+		public function get_imagesize( $image_path, $maxwidth='' )
 		{
 			list( $file_width , $file_height ) = getimagesize( $image_path ) ;
 
@@ -1240,7 +1240,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return array( $width ,$height ) ;
 		}
 
-		function get_album_link( $dirname, $logourl, $maxwidth )
+		public function get_album_link( $dirname, $logourl, $maxwidth )
 		{
 			switch( $this->album_module() ) {
 				case "myAlbum-P":
@@ -1252,7 +1252,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_myalbum_p_link( $dirname, $id, $maxwidth )
+		public function get_myalbum_p_link( $dirname, $id, $maxwidth )
 		{
 			$myalbum_path = XOOPS_ROOT_PATH .'/modules/'. $dirname;
 			if ( ! file_exists( $myalbum_path .'/include/read_configs.php' ) ) return '' ;
@@ -1276,7 +1276,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $this->get_album_link_execution( $dirname, $maxwidth, $photos_url, $thumbs_url, $thumbs_dir, $photo ) ;
 		}
 
-		function get_gnavi_link( $mydirname, $logourl, $maxwidth )
+		public function get_gnavi_link( $mydirname, $logourl, $maxwidth )
 		{
 			if ( ! file_exists( XOOPS_TRUST_PATH.'/modules/gnavi/include/read_configs.php' ) ) return '' ;
 			include XOOPS_TRUST_PATH.'/modules/gnavi/include/read_configs.php' ;
@@ -1314,7 +1314,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $this->get_album_link_execution( $mydirname, $maxwidth, $photos_url, $thumbs_url, $thumbs_dir, $photo ) ;
 		}
 
-		function get_webphoto_link( $dirname, $id, $maxwidth )
+		public function get_webphoto_link( $dirname, $id, $maxwidth )
 		{
 			if ( ! file_exists( XOOPS_TRUST_PATH.'/modules/webphoto/' ) ) return '' ;
 
@@ -1342,7 +1342,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $this->get_album_link_execution( $dirname, $maxwidth, '', '', '', $photo, 'webphoto' ) ;
 		}
 
-		function get_myalbum_photo_array( $table_photos, $album_lid=0 )
+		public function get_myalbum_photo_array( $table_photos, $album_lid=0 )
 		{
 			$sql = "SELECT * FROM $table_photos WHERE status > 0" ;
 			if ( ! empty( $album_lid ) ) $sql .= " AND lid='".$album_lid."'" ;
@@ -1351,7 +1351,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $this->get_array_from_sql( $sql, $album_lid ) ;
 		}
 
-		function get_webphoto_item_array( $dirname, $item_id=0 )
+		public function get_webphoto_item_array( $dirname, $item_id=0 )
 		{
 			$table_item = $this->db->prefix( "{$dirname}_item" ) ;
 
@@ -1362,7 +1362,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $this->get_array_from_sql( $sql, $item_id ) ;
 		}
 
-		function get_webphoto_file_array_by_kind( $dirname, $item_array, $kind )
+		public function get_webphoto_file_array_by_kind( $dirname, $item_array, $kind )
 		{
 			$name = 'item_file_id_'.$kind;
 			$table_file = $this->db->prefix( "{$dirname}_file" ) ;
@@ -1374,7 +1374,7 @@ if( ! class_exists( 'MyDownload' ) )
 			} 
 		}
 
-		function get_array_from_sql( $sql, $id=0 )
+		public function get_array_from_sql( $sql, $id=0 )
 		{
 			$result = $this->db->query( $sql ) ;
 			if ( $this->db->getRowsNum( $result ) == 0 ) {
@@ -1393,7 +1393,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_album_link_execution( $dirname, $maxwidth, $photos_url='', $thumbs_url='', $thumbs_dir='', $photo, $mode='' )
+		public function get_album_link_execution( $dirname, $maxwidth, $photos_url='', $thumbs_url='', $thumbs_dir='', $photo, $mode='' )
 		{
 			$myalbum_path = XOOPS_ROOT_PATH .'/modules/'. $dirname;
 
@@ -1431,7 +1431,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function can_edit_for_cat( $cid, $submitter )
+		public function can_edit_for_cat( $cid, $submitter )
 		{
 			if( $this->xoops_isadmin ){
 				$canedit = true ;
@@ -1446,9 +1446,9 @@ if( ! class_exists( 'MyDownload' ) )
 			return $canedit;
 		}
 
-		function config_d3comment()
+		public function config_d3comment()
 		{
-			// ƒRƒƒ“ƒg“‡‚ÌÝ’è‚ð‚µ‚Ä‚¢‚È‚¢ê‡‚ÍuƒRƒƒ“ƒgv‚ÌƒŠƒ“ƒN‚ð•\Ž¦‚µ‚È‚¢
+			// ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ÌÝ’ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½Íuï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½vï¿½Ìƒï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 			if ( ! empty ( $this->mod_config['comment_dirname'] ) && ! empty ( $this->mod_config['comment_forum_id'] ) ){
 				return true ;
 			} else {
@@ -1456,7 +1456,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function mail_link( $id, $cid=1, $block=0 )
+		public function mail_link( $id, $cid=1, $block=0 )
 		{
 			global $xoopsConfig ;
 
@@ -1469,7 +1469,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function mailto_escape( $text )
+		public function mailto_escape( $text )
 		{
 			if( defined( '_MD_D3DOWNLOADS_MAILTOENCODING' ) ){
 				if ( ! extension_loaded( 'mbstring' ) && ! class_exists( 'HypMBString' ) ) {
@@ -1481,7 +1481,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return rawurlencode( $text ) ;
 		}
 /*
-		function PrettySize( $size, $block=0 )
+		public function PrettySize( $size, $block=0 )
 		{
 			$mb = 1024 * 1024;
 			if ( $size > $mb ) {
@@ -1496,7 +1496,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $mysize ;
 		}
 */
-		function PrettySize( $size, $block=0 )
+		public function PrettySize( $size, $block=0 )
 		{
 			$gb = 1024 * 1024 * 1024;
 			$mb = 1024 * 1024;
@@ -1514,12 +1514,12 @@ if( ! class_exists( 'MyDownload' ) )
 			return $mysize ;
 		}
 
-		function is_sameValue( $str1, $str2 )
+		public function is_sameValue( $str1, $str2 )
 		{
 			 return ( strcmp( $str1, $str2 ) == 0 ) ? true : false ;
 		}
 
-		function extra_array( $text, $single=0, $block=0, $forpreview=0 )
+		public function extra_array( $text, $single=0, $block=0, $forpreview=0 )
 		{
 			$ret = array() ;
 
@@ -1542,36 +1542,36 @@ if( ! class_exists( 'MyDownload' ) )
 			return $ret ;
 		}
 
-		function division_extra_by_pagebreak( $text, $single=0, $block=0 )
+		public function division_extra_by_pagebreak( $text, $single=0, $block=0 )
 		{
 			if( ! empty( $single ) && empty( $block ) ) $str = str_replace( '[pagebreak]','', $text ) ;
 			else list( $str ) = explode( '[pagebreak]', $text , 2 ) ;
 			return trim( $str ) ;
 		}
 
-		function mylink_cookie_name()
+		public function mylink_cookie_name()
 		{
 			return '_' . $this->mydirname ;
 		}
 
-		function mylink_cookie()
+		public function mylink_cookie()
 		{
 			return isset( $_COOKIE[ $this->mylink_cookie_name() ] ) ? $_COOKIE[ $this->mylink_cookie_name() ] : '' ;
 		}
 
-		function cookie_path()
+		public function cookie_path()
 		{
 			$cookie_path = defined( 'XOOPS_COOKIE_PATH' ) ? XOOPS_COOKIE_PATH : preg_replace( '?http://[^/]+(/.*)$?' , "$1" , XOOPS_URL ) ;
 			if( $cookie_path == XOOPS_URL ) $cookie_path = '/' ;
 			return $cookie_path ;
 		}
 
-		function mylink_cookie_expire()
+		public function mylink_cookie_expire()
 		{
 			return time() + ( 86400 * 365 ) ; // one year
 		}
 
-		function is_mylink()
+		public function is_mylink()
 		{
 			if( $this->xoops_isuser ){
 				$result = $this->db->query( "SELECT * FROM ".$this->mylink_table." WHERE uid='".$this->xoops_userid."'" ) ;
@@ -1583,7 +1583,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function is_mylink_lid( $lid, $idarray, $mode='' )
+		public function is_mylink_lid( $lid, $idarray, $mode='' )
 		{
 			if( empty( $idarray ) ) return false ;
 			switch( $mode ) {
@@ -1596,7 +1596,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function total_mylink( $cid, $whr='', $intree=0, $idarray='' )
+		public function total_mylink( $cid, $whr='', $intree=0, $idarray='' )
 		{
 			if( $idarray === '' ) $idarray = $this->get_mylink_idarray() ;
 			if( empty( $idarray ) ) return 0 ;
@@ -1609,7 +1609,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return intval( $count ) ;
 		}
 
-		function mylink_categories_selbox( $whr )
+		public function mylink_categories_selbox( $whr )
 		{
 			include_once dirname( dirname(__FILE__) ).'/class/mycategory.php' ;
 			$mycategory = new MyCategory( $this->mydirname, 'Show' ) ;
@@ -1633,26 +1633,26 @@ if( ! class_exists( 'MyDownload' ) )
 			return $category ;
 		}
 
-		function get_mylink_idarray()
+		public function get_mylink_idarray()
 		{
 			$mylink = ( $this->xoops_isuser ) ? $this->get_mylink_from_db() : $this->mylink_cookie() ;
 			return $this->myts->idarray_by_explode( $mylink ) ;
 		}
 
-		function get_mylink_from_db()
+		public function get_mylink_from_db()
 		{
 			$result = $this->db->query( "SELECT cids FROM ".$this->mylink_table." WHERE uid='".$this->xoops_userid."'" ) ;
 			list( $cids ) = $this->db->fetchRow( $result ) ;
 			return $cids ;
 		}
 
-		function get_whr_mylink( $idarray='', $mode='' )
+		public function get_whr_mylink( $idarray='', $mode='' )
 		{
 			if( $idarray === '' ) $idarray = $this->get_mylink_idarray() ;
 			return $this->get_whr_from_array( $idarray, $mode, 'lid' ) ; 
 		}
 
-		function add_mylink( $lid )
+		public function add_mylink( $lid )
 		{
 			$error = 0 ;
 			$idarray = array() ;
@@ -1670,7 +1670,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $error ;
 		}
 
-		function del_mylink( $lid )
+		public function del_mylink( $lid )
 		{
 			$error = 0 ;
 			$idarray = array() ;
@@ -1687,20 +1687,20 @@ if( ! class_exists( 'MyDownload' ) )
 			return $error ;
 		}
 
-		function lid_check_for_mylink( $lid )
+		public function lid_check_for_mylink( $lid )
 		{
 			$result = $this->db->query( "SELECT * FROM ".$this->table." WHERE lid='".$lid."' AND ".$this->whr_append( 'Single' )."" ) ;
 			if ( $this->db->getRowsNum( $result ) == 0 ) return $lid ;
 		}
 
-		function insert_new_mylink( $lid, $new_mylink )
+		public function insert_new_mylink( $lid, $new_mylink )
 		{
 			$error = 0 ;
 			$error = ( $this->xoops_isuser ) ? $this->mylink_insert_db( $lid, $new_mylink ) : $this->mylink_setcookie( $lid, $new_mylink ) ;
 			return $error ;
 		}
 
-		function all_delete_mylink()
+		public function all_delete_mylink()
 		{
 			$error = 0 ;
 			foreach ( $this->get_mylink_idarray() as $lid ) {
@@ -1711,19 +1711,19 @@ if( ! class_exists( 'MyDownload' ) )
 			return $error ;
 		}
 
-		function get_new_mylink( $idarray )
+		public function get_new_mylink( $idarray )
 		{
 			return implode( ',', $this->limit_idarray( $idarray ) ) ;
 		}
 
-		function limit_idarray( $idarray, $limit = 1000 )
+		public function limit_idarray( $idarray, $limit = 1000 )
 		{
 			$count = count( $idarray ) - $limit ;
 			if( $count > 0 ) array_splice( $idarray, 0, $count ) ;
 			return $idarray ;
 		}
 
-		function delete_mylink_by_sql()
+		public function delete_mylink_by_sql()
 		{
 			$error = false ;
 			$sql = "DELETE FROM ".$this->mylink_table." WHERE uid='".$this->xoops_userid."'" ;
@@ -1732,7 +1732,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $error ;
 		}
 
-		function delete_mylink_by_setcookie()
+		public function delete_mylink_by_setcookie()
 		{
 			$error = false ;
 			$result = setcookie( $this->mylink_cookie_name(), '', $this->mylink_cookie_expire() , $this->cookie_path(), '', 0 ) ;
@@ -1740,7 +1740,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $error ;
 		}
 
-		function mylink_insert_db( $lid, $new_mylink )
+		public function mylink_insert_db( $lid, $new_mylink )
 		{
 			$error = 0 ;
 
@@ -1757,7 +1757,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $error ;
 		}
 
-		function mylink_setcookie( $lid, $new_mylink )
+		public function mylink_setcookie( $lid, $new_mylink )
 		{
 			$error = 0 ;
 			$result = setcookie( $this->mylink_cookie_name(), $new_mylink, $this->mylink_cookie_expire(), $this->cookie_path(), '', 0 ) ;
@@ -1765,13 +1765,13 @@ if( ! class_exists( 'MyDownload' ) )
 			return $error ;
 		}
 
-		function mylink_countup( $lid )
+		public function mylink_countup( $lid )
 		{
 			$sql = "UPDATE ".$this->table." SET mylink = mylink+1 WHERE lid = '".$lid."'" ;
 			$this->db->query( $sql ) ;
 		}
 
-		function mylink_countdown( $lid )
+		public function mylink_countdown( $lid )
 		{
 			$result = $this->db->query( "SELECT mylink FROM ".$this->table." WHERE lid = '".$lid."'" ) ;
 			list( $mylink ) = $this->db->fetchRow( $result ) ;
@@ -1781,7 +1781,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function redirect_message( $message )
+		public function redirect_message( $message )
 		{
 			if( ! empty( $_SESSION["{$this->mydirname}_uri4return"] ) ) {
 				redirect_header( $_SESSION["{$this->mydirname}_uri4return"] , 4 , $message ) ;
@@ -1791,7 +1791,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function Is_Visible( $lid, $invisible=0 )
+		public function Is_Visible( $lid, $invisible=0 )
 		{
 			if( empty( $lid ) ) $lid = $this->return_lid() ;
 			$sql = "SELECT COUNT( lid ) FROM ".$this->table." WHERE lid='".$lid."'" ;
@@ -1809,7 +1809,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return intval( $isvisible ) ;
 		}
 
-		function Invisible_Info( $visible=0, $date=0, $expired=0 )
+		public function Invisible_Info( $visible=0, $date=0, $expired=0 )
 		{
 			if( empty( $visible ) ) $visible = $this->return_visible() ;
 			if( empty( $date ) )    $date = $this->return_date() ;
@@ -1822,7 +1822,7 @@ if( ! class_exists( 'MyDownload' ) )
 			else return '' ;
 		}
 
-		function Invisible_Num( $cid=0, $intree=0 )
+		public function Invisible_Num( $cid=0, $intree=0 )
 		{
 			$invisible_num = $this->Total_Num( '', $cid, 0, 1, $intree ) ;
 
@@ -1832,7 +1832,7 @@ if( ! class_exists( 'MyDownload' ) )
 			) ;
 		}
 
-		function Total_Mypost( $whr='', $submitter, $cid=0, $all=0, $intree=0 )
+		public function Total_Mypost( $whr='', $submitter, $cid=0, $all=0, $intree=0 )
 		{
 			$where = "submitter='".$submitter."' AND ( ".$this->get_whr_categories( $cid, $intree, 'Single' )." )" ;
 			if( empty( $all ) )   $where .= " AND ".$this->whr_append( 'Single' )."" ;
@@ -1845,13 +1845,13 @@ if( ! class_exists( 'MyDownload' ) )
 			return intval( $mypost ) ;
 		}
 
-		function Hits_Count( $lid )
+		public function Hits_Count( $lid )
 		{
 			$sql = "UPDATE ".$this->table." SET hits = hits+1 WHERE lid = ".$lid."  AND visible = '1'" ;
 			$this->db->queryF( $sql ) ;
 		}
 
-		function submitter_select_box( $whr='', $all=0 )
+		public function submitter_select_box( $whr='', $all=0 )
 		{
 			$select_box = array() ;
 
@@ -1870,7 +1870,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $select_box ;
 		}
 
-		function file_link_for_post( $id, $cid, $url, $filename, $second = 0 )
+		public function file_link_for_post( $id, $cid, $url, $filename, $second = 0 )
 		{
 			$filelink = $filenamelink = '';
 
@@ -1905,7 +1905,7 @@ if( ! class_exists( 'MyDownload' ) )
 			) ;
 		}
 
-		function Select_Platform()
+		public function Select_Platform()
 		{
 			$normal_platform = array(
 				'Windows' ,
@@ -1931,7 +1931,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $select_platform ;
 		}
 
-		function Select_License()
+		public function Select_License()
 		{
 			if( empty( $this->mod_config['use_license'] ) ) {
 				return '' ;
@@ -1962,7 +1962,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_MyFilter( $currentdata ='' )
+		public function get_MyFilter( $currentdata ='' )
 		{
 			$filters = array() ;
 			$mytrustdirpath = dirname( dirname( __FILE__ ) ) ;
@@ -1994,7 +1994,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $filters ;
 		}
 
-		function shots_link_for_post( $cid, $logourl )
+		public function shots_link_for_post( $cid, $logourl )
 		{
 			$dirname = $this->myalbum_dirname() ;
 			$usealbum = $this->can_albumselect( $dirname ) ;
@@ -2003,12 +2003,12 @@ if( ! class_exists( 'MyDownload' ) )
 			elseif ( ! empty( $logourl ) &&  ! empty( $usealbum ) ) return $this->get_album_link_for_post( $dirname, $logourl ) ;
 		}
 
-		function shots_img_link_for_post( $cid, $logourl )
+		public function shots_img_link_for_post( $cid, $logourl )
 		{
 			return XOOPS_URL.'/'.$this->shots_dir( $cid ) . $logourl ;
 		}
 
-		function shots_dir( $cid )
+		public function shots_dir( $cid )
 		{
 			include_once dirname( dirname(__FILE__) ).'/class/mycategory.php' ;
 			$mycategory = new MyCategory( $this->mydirname, 'Show', $cid ) ;
@@ -2021,7 +2021,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_album_link_for_post( $dirname, $logourl )
+		public function get_album_link_for_post( $dirname, $logourl )
 		{
 			switch( $this->album_module() ) {
 				case "myAlbum-P":
@@ -2033,7 +2033,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_myalbum_p_link_for_post( $dirname, $id, $ajax=0 )
+		public function get_myalbum_p_link_for_post( $dirname, $id, $ajax=0 )
 		{
 			$myalbum_path = XOOPS_ROOT_PATH .'/modules/'. $dirname;
 			if ( ! file_exists( $myalbum_path .'/include/read_configs.php' ) ) return '' ;
@@ -2053,7 +2053,7 @@ if( ! class_exists( 'MyDownload' ) )
 			else return $this->get_album_link_for_ajax_execution( $dirname, $thumbs_dir, $myalbum_photospath, $myalbum_thumbspath, $photo, 'usealbum' ) ;
 		}
 
-		function get_gnavi_link_for_post( $mydirname, $logourl, $ajax=0 )
+		public function get_gnavi_link_for_post( $mydirname, $logourl, $ajax=0 )
 		{
 			if ( ! file_exists( XOOPS_TRUST_PATH.'/modules/gnavi/include/read_configs.php' ) ) return '' ;
 			include XOOPS_TRUST_PATH.'/modules/gnavi/include/read_configs.php' ;
@@ -2082,7 +2082,7 @@ if( ! class_exists( 'MyDownload' ) )
 			else return $this->get_album_link_for_ajax_execution( $mydirname, $thumbs_dir, $gnavi_photospath, $gnavi_thumbspath, $photo, 'usealbum' ) ;
 		}
 
-		function get_webphoto_link_for_post( $dirname, $id, $ajax=0 )
+		public function get_webphoto_link_for_post( $dirname, $id, $ajax=0 )
 		{
 			if ( ! file_exists( XOOPS_TRUST_PATH.'/modules/webphoto/' ) ) return '' ;
 
@@ -2105,7 +2105,7 @@ if( ! class_exists( 'MyDownload' ) )
 			else return $this->get_album_link_for_ajax_execution( $dirname, '', '', '', $photo, 'webphoto' ) ;
 		}
 
-		function get_album_link_for_post_execution( $dirname, $thumbs_url='', $thumbs_dir='', $photo, $mode='' )
+		public function get_album_link_for_post_execution( $dirname, $thumbs_url='', $thumbs_dir='', $photo, $mode='' )
 		{
 			$myalbum_path = XOOPS_ROOT_PATH .'/modules/'.$dirname ;
 
@@ -2122,7 +2122,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function shots_img_ar( $cid, $shots_dir )
+		public function shots_img_ar( $cid, $shots_dir )
 		{
 			switch( $this->can_albumselect() ) {
 				case false :
@@ -2132,7 +2132,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function shots_dir_img_list( $cid, $shots_dir )
+		public function shots_dir_img_list( $cid, $shots_dir )
 		{
 			$img_ar = array() ;
 			$img_ar[0] = '------';
@@ -2150,7 +2150,7 @@ if( ! class_exists( 'MyDownload' ) )
 			) ;
 		}
 
-		function get_img_list( $dirname, $prefix='' )
+		public function get_img_list( $dirname, $prefix='' )
 		{
 			$filelist = array() ;
 
@@ -2169,7 +2169,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $filelist ;
 		}
 
-		function get_album_list( $cid, $dirname )
+		public function get_album_list( $cid, $dirname )
 		{
 			switch( $this->album_module() ) {
 				case "myAlbum-P":
@@ -2181,7 +2181,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_myalbum_p_list( $cid, $dirname )
+		public function get_myalbum_p_list( $cid, $dirname )
 		{
 			$myalbum_path = XOOPS_ROOT_PATH .'/modules/'.$dirname ;
 			if ( ! file_exists( $myalbum_path .'/include/read_configs.php' ) ) return array() ;
@@ -2204,7 +2204,7 @@ if( ! class_exists( 'MyDownload' ) )
 			) ;
 		}
 
-		function get_gnavi_list( $cid, $mydirname )
+		public function get_gnavi_list( $cid, $mydirname )
 		{
 			if ( ! file_exists( XOOPS_TRUST_PATH.'/modules/gnavi/include/read_configs.php' ) ) return array() ;
 			include XOOPS_TRUST_PATH.'/modules/gnavi/include/read_configs.php' ;
@@ -2241,7 +2241,7 @@ if( ! class_exists( 'MyDownload' ) )
 			) ;
 		}
 
-		function get_webphoto_list( $cid, $dirname )
+		public function get_webphoto_list( $cid, $dirname )
 		{
 			if ( ! file_exists( XOOPS_TRUST_PATH.'/modules/webphoto/' ) ) return array() ;
 
@@ -2268,7 +2268,7 @@ if( ! class_exists( 'MyDownload' ) )
 			) ;
 		}
 
-		function make_js_for_logourl( $cid, $mode )
+		public function make_js_for_logourl( $cid, $mode )
 		{
 			$html  = $this->make_showlogourlSelected( $cid, $mode ) ;
 			$html .= "\n" ;
@@ -2277,11 +2277,11 @@ if( ! class_exists( 'MyDownload' ) )
 			return $html ;
 		}
 
-		function make_showlogourlSelected( $cid, $mode )
+		public function make_showlogourlSelected( $cid, $mode )
 		{
 			$html  = "
 			<script type=\"text/javascript\">
-			function showlogourlSelected(imgId, selectId, showhideId, url)
+			public function showlogourlSelected(imgId, selectId, showhideId, url)
 			{
 			    showlogourlSelected_load('".$mode."', '".$this->shots_dir( $cid )."', '".XOOPS_URL."', imgId, selectId, showhideId, url);
 			}
@@ -2291,11 +2291,11 @@ if( ! class_exists( 'MyDownload' ) )
 			return $html ;
 		}
 
-		function make_appendCode( $cid, $mode )
+		public function make_appendCode( $cid, $mode )
 		{
 			$html  = "
 			<script type=\"text/javascript\">
-			function appendCode(targetId, selectId, align, url)
+			public function appendCode(targetId, selectId, align, url)
 			{
 			    appendCode_load('".$mode."', '".$this->shots_dir( $cid )."', targetId, selectId, align, url);
 			}
@@ -2305,7 +2305,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $html ;
 		}
 
-		function get_album_link_for_ajax( $id )
+		public function get_album_link_for_ajax( $id )
 		{
 			$dirname = $this->myalbum_dirname() ;
 
@@ -2319,7 +2319,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_album_link_for_ajax_execution( $dirname, $thumbs_dir='', $photospath='', $thumbspath='', $photo, $mode='' )
+		public function get_album_link_for_ajax_execution( $dirname, $thumbs_dir='', $photospath='', $thumbspath='', $photo, $mode='' )
 		{
 			$photodir = ( $mode != 'webphoto' ) ? substr( $photospath , 1 ) : '' ;
 			$thumbdir = ( $mode != 'webphoto' ) ? substr( $thumbspath , 1 ) : '' ;
@@ -2356,7 +2356,7 @@ if( ! class_exists( 'MyDownload' ) )
 			return $item ;
 		}
 
-		function option_config( $key, $config='option_config', $config_array='' )
+		public function option_config( $key, $config='option_config', $config_array='' )
 		{
 			$option_config = ( $config_array === '' ) ? $this->get_option_config( $config ) : $config_array ;
 
@@ -2368,7 +2368,7 @@ if( ! class_exists( 'MyDownload' ) )
 			}
 		}
 
-		function get_option_config( $config='option_config' )
+		public function get_option_config( $config='option_config' )
 		{
 			$mytrustdirpath = dirname( dirname( __FILE__ ) ) ;
 			$mytrustdirname = basename( $mytrustdirpath ) ;

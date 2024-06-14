@@ -4,10 +4,10 @@ if( ! class_exists( 'Post_Check' ) )
 {
 	class Post_Check
 	{
-		var $error_count;
-		var $error_message;
+		public $error_count;
+		public $error_message;
 
-		function check( $params )
+		public function check( $params )
 		{
 			$this->error_count = 0;
 			$this->error_message = array();
@@ -31,17 +31,17 @@ if( ! class_exists( 'Post_Check' ) )
 			return $result;
 		}
 
-		function getErrorCount()
+		public function getErrorCount()
 		{
 			return $this->error_count;
 		}
 
-		function getErrorMessege()
+		public function getErrorMessege()
 		{
 			return $this->error_message;
 		}
 
-		function checkIndividual( $check_value, $check_type )
+		public function checkIndividual( $check_value, $check_type )
 		{
 			$result = false;
 			switch( $check_type ) {
@@ -94,22 +94,22 @@ if( ! class_exists( 'Post_Check' ) )
 			return $result;
 		}
 
-		// ‹ó”’
-		function voidCheck( $value )
+		// ï¿½ï¿½
+		public function voidCheck( $value )
 		{
 			$result = ( $value != "" ) ? true : false;
 			return $result;
 		}
 
-		// ƒ[ƒ‹ƒAƒhƒŒƒX
-		function mailCheck( $value )
+		// ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½hï¿½ï¿½ï¿½X
+		public function mailCheck( $value )
 		{
 			$result = ( preg_match('`^([a-z0-9_]|\-|\.|\+)+@(([a-z0-9_]|\-)+\.)+[a-z]{2,6}$`i', $value ) ) ? true : false;
 			return $result;
 		}
 
 		// URL
-		function urlCheck( $value, $schemes = '', $imgurl = '' )
+		public function urlCheck( $value, $schemes = '', $imgurl = '' )
 		{
 			// Set initial data
 			if ( ! is_array( $schemes ) ) $schemes = array( 'http', 'https', 'ftp' );
@@ -156,7 +156,7 @@ if( ! class_exists( 'Post_Check' ) )
 		}
 
 		// IMGURL
-		function imgurlCheck( $value, $schemes = '' )
+		public function imgurlCheck( $value, $schemes = '' )
 		{
 			if ( ! preg_match( "`(\.gif|\.jpe?g|\.png)$`i",$value ) ) {
 				return false;
@@ -165,75 +165,75 @@ if( ! class_exists( 'Post_Check' ) )
 			}
 		}
 
-		// ƒAƒ‹ƒtƒ@ƒxƒbƒg
-		function alphaCheck( $value )
+		// ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½xï¿½bï¿½g
+		public function alphaCheck( $value )
 		{
 			$result = ( ctype_alpha( $value ) ) ? true : false;
 			return $result;
 		}
 
-		// ƒAƒ‹ƒtƒ@ƒxƒbƒgE”š
-		function alnumCheck( $value )
+		// ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½xï¿½bï¿½gï¿½Eï¿½ï¿½ï¿½ï¿½
+		public function alnumCheck( $value )
 		{
 			$result = ( ctype_alnum( $value ) ) ? true : false;
 			return $result;
 		}
 
-		// ”š
-		function numericCheck( $value )
+		// ï¿½ï¿½ï¿½ï¿½
+		public function numericCheck( $value )
 		{
 			$result = ( is_numeric( $value ) ) ? true : false;
 			return $result;
 		}
 
-		// ®”
-		function integerCheck( $value )
+		// ï¿½ï¿½ï¿½ï¿½
+		public function integerCheck( $value )
 		{
 			$result = ( preg_match( '`^[0-9]+$`' , $value ) ) ? true : false;
 			return $result;
 		}
 
-		// “¯‚¶’l
-		function sameValueCheck( $values )
+		// ï¿½ï¿½ï¿½ï¿½ï¿½l
+		public function sameValueCheck( $values )
 		{
 			$result = ( strcmp( $values[0], $values[1] ) == 0 ) ? true : false;
 			return $result;
 		}
 
-		// ’·‚³
-		function lengthEqualCheck( $values )
+		// ï¿½ï¿½ï¿½ï¿½
+		public function lengthEqualCheck( $values )
 		{
 			$result = ( strlen( $values[0] ) == $values[1] ) ? true : false;
 			return $result;
 		}
 
-		function lengthMaxCheck( $values )
+		public function lengthMaxCheck( $values )
 		{
 			$result = ( strlen( $values[0] ) <= $values[1] ) ? true : false;
 			return $result;
 		}
 
-		function lengthMinCheck( $values ) {
+		public function lengthMinCheck( $values ) {
 			$result = ( strlen( $values[0] ) >= $values[1] ) ? true : false;
 			return $result;
 		}
 
-		// ³‹K•\Œ»
-		function formatCheck( $values )
+		// ï¿½ï¿½ï¿½Kï¿½\ï¿½ï¿½
+		public function formatCheck( $values )
 		{
 			$result = ( preg_match( $values[1] , $values[0] ) ) ? true : false;
 			return $result;
 		}
 
 		// file_exists
-		function fileexistsCheck( $value )
+		public function fileexistsCheck( $value )
 		{
 			$result = ( file_exists( $value ) ) ? true : false;
 			return $result;
 		}
 
 		// is_file
-		function is_fileCheck( $value )
+		public function is_fileCheck( $value )
 		{
 			$result = ( is_file( $value ) ) ? true : false;
 			return $result;
@@ -247,17 +247,17 @@ if( ! class_exists( 'My_ValidatePHP' ) )
 
 	class My_ValidatePHP extends LiveValidationPHP
 	{
-		var $elementID ;
-		var $args ;
+		public $elementID ;
+		public $args ;
 
-		var $rules ;
-		var $data ;
-		var $errors ;
-		var $varname ;
-		var $parentData ;
-		var $display ;
+		public $rules ;
+		public $data ;
+		public $errors ;
+		public $varname ;
+		public $parentData ;
+		public $display ;
 
-		function My_ValidatePHP( $data = array(), $elementID = '', $args = array(), $display = '' )
+		public function My_ValidatePHP( $data = array(), $elementID = '', $args = array(), $display = '' )
 		{
 			$this->parentData = $data ;
 			$this->elementID = '' ;
@@ -281,7 +281,7 @@ if( ! class_exists( 'My_ValidatePHP' ) )
 			$this->varname = 'lvphp_' . md5( uniqid( rand(), true ) ) ;
 		}
 
-		function parse( $data = '', $elementId = '' )
+		public function parse( $data = '', $elementId = '' )
 		{
 			$return = '';
 			if ( ! empty( $data ) && ! empty( $elementId ) ) {
@@ -320,7 +320,7 @@ if( ! class_exists( 'My_ValidatePHP' ) )
 			return $return ;
 		}
 
-		function add( $type='Validate.Presence', $args=array() )
+		public function add( $type='Validate.Presence', $args=array() )
 		{
 			$this->rules[] = new My_Validate( $this->data, $type, $args, $this->parentData, $this->elementID, $this->display ) ;
 		}
@@ -333,24 +333,24 @@ if( ! class_exists('My_Validate') )
 
 	class My_Validate extends Validation
 	{
-		var $args ;
-		var $type ;
-		var $method ;
-		var $data ;
-		var $parentData ;
-		var $elementID ;
-		var $display ;
+		public $args ;
+		public $type ;
+		public $method ;
+		public $data ;
+		public $parentData ;
+		public $elementID ;
+		public $display ;
 
-		function validate()
+		public function validate()
 		{
 			$payload = array() ;
 			$payload['success'] = false ;
 
 			if( $this->method != '' )
 			{
-				$actionFunction = $this->method ;
+				$actionfunction = $this->method ;
 
-				if( method_exists( $this, $actionFunction ) ) 
+				if( method_exists( $this, $actionfunction ) ) 
 				{
 					if( $this->$actionFunction() == false )
 					{
@@ -365,12 +365,12 @@ if( ! class_exists('My_Validate') )
 			return $payload ;
 		}
 
-		function isValidEmail( $emailToCheck = '' )
+		public function isValidEmail( $emailToCheck = '' )
 		{
 			return ( preg_match('`^([a-z0-9_]|\-|\.|\+)+@(([a-z0-9_]|\-)+\.)+[a-z]{2,6}$`i', trim( $emailToCheck ) ) ) ? true : false;
 		}
 
-		function Inclusion()
+		public function Inclusion()
 		{
 			if( ! isset( $this->args['failureMessage'] ) ) $this->args['failureMessage'] = 'Must be included in the list!' ;
 
@@ -412,7 +412,7 @@ if( ! class_exists('My_Validate') )
 			return true ;
 		}
 
-		function Exclusion()
+		public function Exclusion()
 		{
 			if( ! isset( $this->args['failureMessage'] ) ) $this->args['failureMessage'] = 'Must not be included in the list!' ;
 
@@ -455,7 +455,7 @@ if( ! class_exists('My_Validate') )
 			return true ;
 		}
 
-		function Confirmation()
+		public function Confirmation()
 		{
 			if( ! isset( $this->args['failureMessage'] ) ) $this->args['failureMessage'] = 'Does not match!' ;
 			if( $this->data != null || $this->data != '' )
@@ -479,7 +479,7 @@ if( ! class_exists('My_Validate') )
 			return false ;
 		}
 
-		function Acceptance()
+		public function Acceptance()
 		{
 			if( ! isset( $this->args['failureMessage'] ) ) $this->args['failureMessage'] = 'Must be accepted!' ;
 
@@ -491,7 +491,7 @@ if( ! class_exists('My_Validate') )
 			return false ;
 		}
 
-		function Presence()
+		public function Presence()
 		{
 			if( ! isset( $this->args['failureMessage'] ) ) $this->args['failureMessage'] = 'Cannot be empty!' ;
 
@@ -503,7 +503,7 @@ if( ! class_exists('My_Validate') )
 			return false ;
 		}
 
-		function Format()
+		public function Format()
 		{
 			if( ! isset( $this->args['failureMessage'] ) ) $this->args['failureMessage'] = 'Not valid!' ;
 
@@ -522,7 +522,7 @@ if( ! class_exists('My_Validate') )
 			return true ;
 		}
 
-		function Email()
+		public function Email()
 		{
 			if( ! isset( $this->args['failureMessage'] ) ) $this->args['failureMessage'] = 'Must be a valid email address!' ;
 
@@ -540,7 +540,7 @@ if( ! class_exists('My_Validate') )
 			return true ;
 		}
 
-		function Numericality()
+		public function Numericality()
 		{
 			if( ! isset( $this->args['failureMessage'] ) ) $this->args['failureMessage'] = 'Not a number' ;
 
@@ -661,7 +661,7 @@ if( ! class_exists('My_Validate') )
 			return true ;
 		}
 
-		function Length()
+		public function Length()
 		{
 			if( $this->data != null || $this->data == '' )
 			{
@@ -736,12 +736,12 @@ if( ! class_exists('My_MassValidatePHP') )
 
 	class My_MassValidatePHP extends LiveValidationMassValidatePHP
 	{
-		var $fields ;
-		var $formID ;
-		var $varname ;
-		var $rules ;
+		public $fields ;
+		public $formID ;
+		public $varname ;
+		public $rules ;
 
-		function addRules( $rules = array() )
+		public function addRules( $rules = array() )
 		{
 			$this->rules = $rules ;
 

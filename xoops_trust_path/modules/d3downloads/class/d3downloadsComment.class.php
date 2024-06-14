@@ -7,7 +7,7 @@ if( ! class_exists( 'd3downloadsComment' ) )
 
 	class d3downloadsComment extends D3commentAbstract
 	{
-		function fetchSummary( $external_link_id )
+		public function fetchSummary( $external_link_id )
 		{
 			require_once dirname( dirname(__FILE__) ).'/class/d3downloads.textsanitizer.php' ;
 
@@ -40,7 +40,7 @@ if( ! class_exists( 'd3downloadsComment' ) )
 			) ;
 		}
 
-		function validate_id( $link_id )
+		public function validate_id( $link_id )
 		{
 			include_once dirname( dirname(__FILE__) ).'/class/user_access.php' ;
 			include_once dirname( dirname(__FILE__) ).'/class/mydownload.php' ;
@@ -61,7 +61,7 @@ if( ! class_exists( 'd3downloadsComment' ) )
 			else return $lid ;
 		}
 
-		function onUpdate( $mode , $link_id , $forum_id , $topic_id , $post_id = 0 )
+		public function onUpdate( $mode , $link_id , $forum_id , $topic_id , $post_id = 0 )
 		{
 			include_once dirname( dirname(__FILE__) ).'/class/mycategory.php' ;
 
@@ -82,33 +82,33 @@ if( ! class_exists( 'd3downloadsComment' ) )
 		}
 
 		// get id from <{$file_id}>
-		function external_link_id( $params )
+		public function external_link_id( $params )
 		{
 			$file = $this->smarty->get_template_vars( 'file' ) ;
 			return intval( $file['id'] ) ;
 		}
 
 		// get escaped subject from <{$file.title}>
-		function getSubjectRaw( $params )
+		public function getSubjectRaw( $params )
 		{
 			$file = $this->smarty->get_template_vars( 'file' ) ;
 			return $this->unhtmlspecialchars( $file['title'] , ENT_QUOTES ) ;
 		}
 
 		// set d3forum_dirname from config
-		function setD3forumDirname( $d3forum_dirname = '' )
+		public function setD3forumDirname( $d3forum_dirname = '' )
 		{
 			$this->d3forum_dirname = $this->mod_config['comment_dirname'] ;
 		}
 
 		// get forum_id from config
-		function getForumId( $params )
+		public function getForumId( $params )
 		{
 			return $this->mod_config['comment_forum_id'] ;
 		}
 
 		// get view from config
-		function getView( $params )
+		public function getView( $params )
 		{
 			return $this->mod_config['comment_view'] ;
 		}

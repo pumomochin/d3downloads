@@ -6,7 +6,11 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 
 	class d3downloadsTextSanitizer extends MyTextSanitizer
 	{
-		var $nbsp = 0 ;
+		public $nbsp = 0 ;
+
+		public function __construct() {
+			parent::__construct();
+		}
 
 		static public function &sGetInstance()
 		{
@@ -17,14 +21,14 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			return $instance ;
 		}
 
-		function &getInstance()
+		public static function &getInstance()
 		{
 			$instance =& self::sGetInstance();
 			return $instance;
 		}
 
 		// override
-		function &htmlSpecialChars( $text, $forEdit=false )
+		public function &htmlSpecialChars( $text, $forEdit=false )
 		{
 			if ( ! $forEdit ) {
 				$ret = $this->toShow( $text ) ;
@@ -35,13 +39,13 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 		}
 
 		// override
-		function makeTboxData4Show( $text , $smiley=0 )
+		public function makeTboxData4Show( $text , $smiley=0 )
 		{
 			return $this->toShow( $text ) ;
 		}
 
 		// override
-		function &displayTarea( $text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1, $filters = '' )
+		public function &displayTarea( $text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1, $filters = '' )
 		{
 			if( empty( $filters ) ){
 				$text = $this->codePreConv( $text, $xcode ) ;
@@ -59,7 +63,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			return $text ;
 		}
 
-		function filter_body( $text, $html, $smiley, $xcode, $image, $br, $filters )
+		public function filter_body( $text, $html, $smiley, $xcode, $image, $br, $filters )
 		{
 			$my_filters = explode( '|' , $filters ) ;
 			$mytrustdirpath = dirname( dirname( __FILE__ ) );
@@ -79,7 +83,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 		}
 
 		// additional post filters
-		function preCodeDecode( $text , $image )
+		public function preCodeDecode( $text , $image )
 		{
  			$patterns = array() ;
 			$replacements = array() ;
@@ -94,7 +98,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 		}
 
 		// additional post filters
-		function postCodeDecode( $text , $image )
+		public function postCodeDecode( $text , $image )
 		{
 			$patterns = array() ;
 			$replacements = array() ;
@@ -109,31 +113,31 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 		}
 
 		// override
-		function makeTboxData4Edit( $text )
+		public function makeTboxData4Edit( $text )
 		{
 			return $this->toEdit( $text ) ;
 		}
 
 		// override
-		function makeTareaData4Edit( $text )
+		public function makeTareaData4Edit( $text )
 		{
 			return $this->toEdit( $text ) ;
 		}
 
 		// Legacy_TextFilter ���炨�؂肵�܂���
-		function toShow( $text )
+		public function toShow( $text )
 		{
 			return preg_replace( "/&amp;(#[0-9]+|#x[0-9a-f]+|[a-z]+[0-9]*);/i", '&\\1;', htmlspecialchars( $text, ENT_QUOTES ) ) ;
 		}
 
 		// Legacy_TextFilter ���炨�؂肵�܂���
-		function toEdit( $text )
+		public function toEdit( $text )
 		{
 			$text = $this->undoHtmlSpecialChars( $text ) ;
 			return preg_replace( "/&amp;(#0?[0-9]{4,6};)/i", '&$1', htmlspecialchars( $text, ENT_QUOTES ) ) ;
 		}
 
-		function MyhtmlSpecialChars( $value )
+		public function MyhtmlSpecialChars( $value )
 		{
 			if ( is_array( $value ) ) {
 				return array_map( array( &$this, 'MyhtmlSpecialChars' ), $value ) ;
@@ -142,7 +146,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			}
 		}
 
-		function MyIntval( $value )
+		public function MyIntval( $value )
 		{
 			if ( is_array( $value ) ) {
 				return array_map( array( &$this, 'MyIntval' ), $value ) ;
@@ -151,29 +155,27 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			}
 		}
 
-		function idarray_by_explode( $text, $delimiter=',' )
+		public function idarray_by_explode( $text, $delimiter=',' )
 		{
 			return ( trim( @$text ) === '' ) ? array() : array_map( 'intval' , explode( $delimiter , $text ) ) ;
 		}
 
-		function textarray_by_explode( $text, $delimiter='|' )
+		public function textarray_by_explode( $text, $delimiter='|' )
 		{
 			return ( trim( @$text ) === '' ) ? array() : array_map( array( &$this, 'toShow' ), explode( $delimiter , $text ) ) ;
 		}
 
 		// override
-		function &stripSlashesGPC( $text, $encode='' )
+		public function &stripSlashesGPC( $text, $encode='' )
 		{
-			if ( get_magic_quotes_gpc() ) {
-				$text = stripslashes( $text ) ;
-			}
+			$text = stripslashes( $text ) ;
 			if( $this->is_japanese() && extension_loaded( 'mbstring' ) && ! empty( $encode ) ){
 				$text = mb_convert_encoding( $text , mb_internal_encoding() , $encode ) ;
 			}
 			return $text ;
 		}
 
-		function is_japanese()
+		public function is_japanese()
 		{
 			global $xoopsConfig ;
 			$language = $xoopsConfig['language'];
@@ -184,7 +186,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			}
 		}
 
-		function MystripSlashesGPC( $value, $encode='' )
+		public function MystripSlashesGPC( $value, $encode='' )
 		{
 			if ( is_array( $value ) ) {
 				return array_map( array( &$this, 'MystripSlashesGPC' ), $value ) ;
@@ -194,7 +196,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 		}
 
 		// PHP4 �ł� htmLawed�APHP5 �ł� HTMLPurifier �𗘗p
-		function myFilter( $text )
+		public function myFilter( $text )
 		{
 			if( substr( PHP_VERSION , 0 , 1 ) != 4 ) {
 				return $this->InputHTMLPurify( $text ) ;
@@ -203,7 +205,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			}
 		}
 
-		function InputHTMLPurify( $text )
+		public function InputHTMLPurify( $text )
 		{
 			require_once dirname( dirname( __FILE__ ) ).'/class/HTMLPurifier/HTMLPurifier.standalone.php' ;
 
@@ -216,7 +218,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			return $purifier->purify( $text ) ;
 		}
 
-		function InputMyHtmlFilter( $text )
+		public function InputMyHtmlFilter( $text )
 		{
 			require_once dirname( dirname( __FILE__ ) ).'/class/MyHtmlFilter/htmLawed.php' ;
 
@@ -225,7 +227,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			return $filter->htmLawed( $text ) ;
 		}
 
-		function SetMyConfig()
+		public function SetMyConfig()
 		{
 			$config['cdata'] = $cf['comment'] = $cf['lc_std_val'] = $cf['make_tag_strict'] = $cf['no_deprecated_attr'] = $cf['unique_ids'] = $config['css_expression'] = $cf['keep_bad'] = 0 ;
 			$allowed = $this->AllowedList() ;
@@ -240,7 +242,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 		}
 
 		// PHP4 �p�̃z���C�g���X�g
-		function AllowedList()
+		public function AllowedList()
 		{
 			return array(
 				'a'=>1,
@@ -314,7 +316,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			); 
 		}
 
-		function makeTboxData4URLShow( $text )
+		public function makeTboxData4URLShow( $text )
 		{
 			require_once dirname( dirname(__FILE__) ).'/class/post_check.php' ;
 			$Post_Check = new Post_Check() ;
@@ -325,7 +327,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			}
 		}
 
-		function url_filter( $text )
+		public function url_filter( $text )
 		{
 			// Delete control code
 			$text = preg_replace( "/[\\0-\\31]/", '', $text ) ;
@@ -337,7 +339,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			return $text;
 		}
 
-		function &undoHtmlSpecialChars( $value )
+		public function &undoHtmlSpecialChars( $value )
 		{
 			if ( is_array( $value ) ) {
 				$ret = array_map( array( &$this, 'undoHtmlSpecialChars' ), $value ) ;
@@ -347,12 +349,12 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			return $ret;
 		}
 
-		function makeSerializeData( $value )
+		public function makeSerializeData( $value )
 		{
 			return var_export( $value , true ) ;
 		}
 
-		function unSerializeImport( $value )
+		public function unSerializeImport( $value )
 		{
 			$ret = array() ;
 			if( substr( trim( $value ) , 0 , 5 ) == 'array' ) {
@@ -364,7 +366,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			else return '' ;
 		}
 
-		function Delete_Nullbyte( $value )
+		public function Delete_Nullbyte( $value )
 		{
 			if( is_array( $value ) ){
 				return array_map( array( &$this, 'Delete_Nullbyte' ), $value ) ;
@@ -373,7 +375,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			}
 		}
 
-		function Delete_ControlCode( $value )
+		public function Delete_ControlCode( $value )
 		{
 			if ( is_array( $value ) ) {
 				return array_map( array( &$this, 'Delete_ControlCode' ), $value ) ;
@@ -382,7 +384,7 @@ if( ! class_exists( 'd3downloadsTextSanitizer' ) )
 			}
 		}
 
-		function Encoding_Check( $value )
+		public function Encoding_Check( $value )
 		{
 			$encoding = _CHARSET ;
 			if( is_array( $value ) ){

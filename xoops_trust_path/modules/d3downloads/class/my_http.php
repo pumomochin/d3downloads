@@ -8,34 +8,34 @@ if( ! class_exists( 'My_HTTP' ) )
 
 	class My_HTTP
 	{
-		var $proxy_host      = '' ;
-		var $proxy_port      = '' ;
-		var $proxy_user      = '' ;
-		var $proxy_pass      = '' ;
-		var $user            = '' ;
-		var $pass            = '' ;
-		var $maxredirect     =  0 ;
-		var $fp_timeout      = 10 ;
-		var $read_timeout    = 10 ;
+		public $proxy_host      = '' ;
+		public $proxy_port      = '' ;
+		public $proxy_user      = '' ;
+		public $proxy_pass      = '' ;
+		public $user            = '' ;
+		public $pass            = '' ;
+		public $maxredirect     =  0 ;
+		public $fp_timeout      = 10 ;
+		public $read_timeout    = 10 ;
 		var	$headers         = array() ;
 		var	$response_phrase = '' ;
 		var	$status          =  0 ;
 		var	$response_code   = '' ;
 		var	$redirect_url    = '' ;
-		var $result          = false ;
+		public $result          = false ;
 		var	$maxlinelen      = 1024 ;
-		var $passcookies     = true ;
+		public $passcookies     = true ;
 		var	$cookies         = array() ;
-		var $method          = 'GET' ;
-		var $httpversion     = 'HTTP/1.1' ;
-		var $is_proxy        = false ;
-		var $host            = '' ;
-		var $port            = '' ;
-		var $curredirect     =  0 ;
-		var $error           = '' ;
-		var $schemes         = array( 'http', 'https' ) ;
+		public $method          = 'GET' ;
+		public $httpversion     = 'HTTP/1.1' ;
+		public $is_proxy        = false ;
+		public $host            = '' ;
+		public $port            = '' ;
+		public $curredirect     =  0 ;
+		public $error           = '' ;
+		public $schemes         = array( 'http', 'https' ) ;
 
-		function execute( $url )
+		public function execute( $url )
 		{
 			if( ! $this->check_url( $url ) ) die( 'invalid request' ) ;
 
@@ -61,7 +61,7 @@ if( ! class_exists( 'My_HTTP' ) )
 			return $this->result ;
 		}
 
-		function get_headers( $url )
+		public function get_headers( $url )
 		{
 			list( $host, $port, $request ) = $this->set_request( $url ) ;
 
@@ -77,7 +77,7 @@ if( ! class_exists( 'My_HTTP' ) )
 			}
 		}
 
-		function set_request( $url )
+		public function set_request( $url )
 		{
 			list( $host, $port, $path ) = $this->parse_myurl( $url ) ;
 			
@@ -93,7 +93,7 @@ if( ! class_exists( 'My_HTTP' ) )
 			return array( $host, $port, $request ) ;
 		}
 
-		function parse_myurl( $url )
+		public function parse_myurl( $url )
 		{
 			$url_info = parse_url( $url ) ;
 
@@ -110,7 +110,7 @@ if( ! class_exists( 'My_HTTP' ) )
 			return array( $host, $port, $path ) ;
 		}
 
-		function cookie_request()
+		public function cookie_request()
 		{
 			$cookie_headers = '';
 
@@ -123,17 +123,17 @@ if( ! class_exists( 'My_HTTP' ) )
 			return substr( $cookie_headers, 0, -2 ) . "\r\n" ;
 		}
 
-		function authorization()
+		public function authorization()
 		{
 			return "Authorization: " . "Basic " . base64_encode( $this->user . ":" . $this->pass )."\r\n";
 		}
 
-		function proxy_authorization()
+		public function proxy_authorization()
 		{
 			return "Proxy-Authorization: " . "Basic " . base64_encode( $this->proxy_user . ":" . $this->proxy_pass )."\r\n" ;
 		}
 
-		function parse_headers( $handle, $request )
+		public function parse_headers( $handle, $request )
 		{
 			$i = 0 ;
 			$headers = array() ;
@@ -174,25 +174,25 @@ if( ! class_exists( 'My_HTTP' ) )
 			return $headers ;
 		}
 
-		function check_url( $url )
+		public function check_url( $url )
 		{
 			$post_check = new Post_Check() ;
 			return ( $post_check->urlCheck( $url, $this->schemes ) ) ? true : false ;
 		}
 
-		function is_proxy()
+		public function is_proxy()
 		{
 			$this->is_proxy = ( ! empty( $this->proxy_host ) && ! empty( $this->proxy_port ) ) ? true : false ;
 		}
 
-		function set_cookies( $value )
+		public function set_cookies( $value )
 		{
 			if( preg_match( '/^([^=]+)=([^;]+)/i', $value, $match ) ) {
 				$this->cookies[ $match[1] ] = urldecode( $match[2] ) ;
 			}
 		}
 
-		function save_result()
+		public function save_result()
 		{
 			$this->response_phrase = $this->headers['Reason-Phrase'] ;
 			$this->status          = $this->headers['Status-Code'] ;
@@ -200,7 +200,7 @@ if( ! class_exists( 'My_HTTP' ) )
 			$this->make_redirect_url() ;
 		}
 
-		function make_redirect_url()
+		public function make_redirect_url()
 		{
 			if( ! empty( $this->headers['Location'] ) && $this->check_url( $this->headers['Location'] ) ){
 				$location = parse_url( $this->headers['Location'] ) ;
@@ -211,7 +211,7 @@ if( ! class_exists( 'My_HTTP' ) )
 			}
 		}
 
-		function set_error( $errno=0, $messege='' )
+		public function set_error( $errno=0, $messege='' )
 		{
 			if ( ! empty( $messege ) ) $this->error = $messege ;
 			else switch( $errno ) {

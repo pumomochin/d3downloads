@@ -9,29 +9,29 @@ if( ! class_exists( 'history_download' ) )
 
 	class history_download extends MyDownload
 	{
-		var $db;
-		var $table;
-		var $id;
-		var $lid;
-		var $cid;
-		var $title;
-		var $url;
-		var $filename;
-		var $ext;
-		var $file2;
-		var $filename2;
-		var $ext2;
-		var $version;
-		var $size;
-		var $description;
-		var $extra;
-		var $date;
-		var $category;
-		var $history=array();
-		var $history_int = array( 'lid' ,'cid' , 'date', 'size' ) ;
-		var $history_txt =  array( 'title' , 'url' , 'filename' , 'ext' , 'file2' , 'filename2' , 'ext2' , 'version' , 'description' , 'extra' ) ;
+		public $db;
+		public $table;
+		public $id;
+		public $lid;
+		public $cid;
+		public $title;
+		public $url;
+		public $filename;
+		public $ext;
+		public $file2;
+		public $filename2;
+		public $ext2;
+		public $version;
+		public $size;
+		public $description;
+		public $extra;
+		public $date;
+		public $category;
+		public $history=array();
+		public $history_int = array( 'lid' ,'cid' , 'date', 'size' ) ;
+		public $history_txt =  array( 'title' , 'url' , 'filename' , 'ext' , 'file2' , 'filename2' , 'ext2' , 'version' , 'description' , 'extra' ) ;
 
-		function history_download( $mydirname, $id= 0 )
+		public function history_download( $mydirname, $id= 0 )
 		{
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
 			$this->db =& Database::getInstance();
@@ -57,7 +57,7 @@ if( ! class_exists( 'history_download' ) )
 			}
 		}
 
-		function GetMyDownload( $id )
+		public function GetMyDownload( $id )
 		{
 			$sql = "SELECT $this->columns FROM ".$this->table." h LEFT JOIN ".$this->cat_table." c ON h.cid=c.cid WHERE h.id='".$id."'";
 			$result = $this->db->query( $sql );
@@ -67,7 +67,7 @@ if( ! class_exists( 'history_download' ) )
 			$this->getData( $result );
 		}
 
-		function get_history_data( $history_id )
+		public function get_history_data( $history_id )
 		{
 			global $xoopsConfig ;
 
@@ -110,7 +110,7 @@ if( ! class_exists( 'history_download' ) )
 			) ;
 		}
 
-		function get_history_list( $lid, $id=0 )
+		public function get_history_list( $lid, $id=0 )
 		{
 			global $xoopsConfig ;
 
@@ -142,7 +142,7 @@ if( ! class_exists( 'history_download' ) )
 			return $history ;
 		}
 
-		function file_link( $id, $cid, $url, $filename, $ext )
+		public function file_link( $id, $cid, $url, $filename, $ext )
 		{
 			$broken_link = 0 ;
 			$filelink = '' ;
@@ -170,7 +170,7 @@ if( ! class_exists( 'history_download' ) )
 			) ;
 		}
 
-		function filename_link( $id, $cid, $url, $filename, $second = 0 )
+		public function filename_link( $id, $cid, $url, $filename, $second = 0 )
 		{
 			$filenamelink = '' ;
 			$link = $this->mod_url.'/index.php?page=visit_url&history=1&cid='.$cid.'&id='.$id ;
@@ -188,7 +188,7 @@ if( ! class_exists( 'history_download' ) )
 			return $filenamelink ;
 		}
 
-		function history_Insert_DB( $lid )
+		public function history_Insert_DB( $lid )
 		{
 			$current_columns = implode( ',' , array_diff( $GLOBALS['d3download_tables']['downloads_history'] , array( 'id' ) ) ) ;
 			$newid = $this->db->genId( $this->table."_id_seq" );
@@ -210,7 +210,7 @@ if( ! class_exists( 'history_download' ) )
 			return $new_id;
 		}
 
-		function history_Restore( $id, $lid )
+		public function history_Restore( $id, $lid )
 		{
 			$current_columns = implode( ',' , array_diff( $GLOBALS['d3download_tables']['downloads_history'] , array( 'id' ,'lid' ) ) ) ;
 			$current_int = array_diff( $this->history_int, array( 'lid', 'size' ) ) ;
@@ -234,7 +234,7 @@ if( ! class_exists( 'history_download' ) )
 			return $result;
 		}
 
-		function history_Delete( $lid )
+		public function history_Delete( $lid )
 		{
 			$num = $this->db->getRowsNum( $this->db->query( "SELECT * FROM ".$this->table." WHERE lid='".$lid."'" ) );
 			if( $num > $this->mod_config['history'] ){
@@ -252,7 +252,7 @@ if( ! class_exists( 'history_download' ) )
 			}
 		}
 
-		function Delete_Execution( $id, $url, $file2 )
+		public function Delete_Execution( $id, $url, $file2 )
 		{
 			$count = $count2 = 0 ;
 			$count += $this->db->getRowsNum( $this->db->query( "SELECT * FROM ".$this->downloads_table." WHERE url='".$url."'" ) );

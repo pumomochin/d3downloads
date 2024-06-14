@@ -9,43 +9,43 @@ if( ! class_exists( 'submit_download' ) )
 
 	class submit_download extends MyDownload
 	{
-		var $db;
-		var $table;
-		var $lid ;
-		var $cid ;
-		var $title ;
-		var $url ;
-		var $filename ;
-		var $ext ;
-		var $file2 ;
-		var $filename2 ;
-		var $ext2 ;
-		var $homepage ;
-		var $homepagetitle ;
-		var $version ;
-		var $size ;
-		var $platform ;
-		var $license ;
-		var $logourl ;
-		var $description ;
-		var $html ;
-		var $smiley ;
-		var $br ;
-		var $xcode ;
-		var $filters ;
-		var $extra ;
-		var $submitter ;
-		var $date ;
-		var $expired ;
-		var $hits ;
-		var $rating ;
-		var $votes ;
-		var $visible ;
-		var $cancomment ;
-		var $comments ;
-		var $downdata=array();
+		public $db;
+		public $table;
+		public $lid ;
+		public $cid ;
+		public $title ;
+		public $url ;
+		public $filename ;
+		public $ext ;
+		public $file2 ;
+		public $filename2 ;
+		public $ext2 ;
+		public $homepage ;
+		public $homepagetitle ;
+		public $version ;
+		public $size ;
+		public $platform ;
+		public $license ;
+		public $logourl ;
+		public $description ;
+		public $html ;
+		public $smiley ;
+		public $br ;
+		public $xcode ;
+		public $filters ;
+		public $extra ;
+		public $submitter ;
+		public $date ;
+		public $expired ;
+		public $hits ;
+		public $rating ;
+		public $votes ;
+		public $visible ;
+		public $cancomment ;
+		public $comments ;
+		public $downdata=array();
 
-		function submit_download( $mydirname )
+		public function submit_download( $mydirname )
 		{
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
 
@@ -63,7 +63,7 @@ if( ! class_exists( 'submit_download' ) )
 			$this->mod_config = $mod_config ;
 		}
 
-		function get_downdata_for_submit( $lid, $category )
+		public function get_downdata_for_submit( $lid, $category )
 		{
 			$result = $this->db->query("SELECT  $this->columns  FROM ".$this->table."  WHERE lid='".$lid."'");
 			if ( $this->db->getRowsNum( $result ) == 0 ) {

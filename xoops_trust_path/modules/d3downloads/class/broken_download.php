@@ -9,28 +9,28 @@ if( ! class_exists( 'broken_download' ) )
 
 	class broken_download extends MyDownload
 	{
-		var $db;
-		var $table;
-		var $reportid;
-		var $lid;
-		var $sender;
-		var $ip;
-		var $status;
-		var $message;
-		var $name;
-		var $mail;
-		var $date;
-		var $cid;
-		var $title;
-		var $url;
-		var $filename;
-		var $ext;
-		var $file2 ;
-		var $filename2 ;
-		var $submitter;
-		var $updated;
+		public $db;
+		public $table;
+		public $reportid;
+		public $lid;
+		public $sender;
+		public $ip;
+		public $status;
+		public $message;
+		public $name;
+		public $mail;
+		public $date;
+		public $cid;
+		public $title;
+		public $url;
+		public $filename;
+		public $ext;
+		public $file2 ;
+		public $filename2 ;
+		public $submitter;
+		public $updated;
 
-		function broken_download( $mydirname )
+		public function broken_download( $mydirname )
 		{
 			global $xoopsUser ;
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
@@ -45,7 +45,7 @@ if( ! class_exists( 'broken_download' ) )
 			$this->columns4list = implode( ',' , $GLOBALS['d3download_tables']['broken'] ) ;
 		}
 
-		function get_broken_data()
+		public function get_broken_data()
 		{
 			global $xoopsConfig ;
 
@@ -96,7 +96,7 @@ if( ! class_exists( 'broken_download' ) )
 			return $ret ;
 		}
 
-		function Broken_of_Currentlid( $lid )
+		public function Broken_of_Currentlid( $lid )
 		{
 			global $xoopsConfig ;
 
@@ -131,7 +131,7 @@ if( ! class_exists( 'broken_download' ) )
 			) ;
 		}
 
-		function Total_Num( $whr='', $cid=0, $all=0, $invisible=0, $intree=0 )
+		public function Total_Num( $whr='', $cid=0, $all=0, $invisible=0, $intree=0 )
 		{
 			$sql = "SELECT COUNT( reportid ) FROM ".$this->broken_table."";
 			$result = $this->db->query( $sql ) ;
@@ -139,7 +139,7 @@ if( ! class_exists( 'broken_download' ) )
 			return intval( $count ) ;
 		}
 
-		function Broken_Num()
+		public function Broken_Num()
 		{
 			$broken_num = $this->Total_Num() ;
 			return array(
@@ -148,37 +148,37 @@ if( ! class_exists( 'broken_download' ) )
 			) ;
 		}
 
-		function return_sender()
+		public function return_sender()
 		{
 			return intval( $this->sender ) ;
 		}
 
-		function return_ip()
+		public function return_ip()
 		{
 			return ( ! empty( $this->ip ) ) ? htmlspecialchars( $this->ip , ENT_QUOTES ) : '-------' ;
 		}
 
-		function return_status()
+		public function return_status()
 		{
 			return $this->myts->makeTboxData4Show( $this->status ) ;
 		}
 
-		function return_message()
+		public function return_message()
 		{
 			return $this->myts->displayTarea( $this->message , 0, 1, 1, 1, 1 ) ;
 		}
 
-		function return_name()
+		public function return_name()
 		{
 			return $this->myts->makeTboxData4Show( $this->name ) ;
 		}
 
-		function return_email()
+		public function return_email()
 		{
 			return $this->myts->makeTboxData4Show( $this->email ) ;
 		}
 
-		function getlink_for_sender( $sender )
+		public function getlink_for_sender( $sender )
 		{
 			$sender_name = ( ! empty( $this->name ) ) ? $this->return_name() : $this->get_postname( $sender ) ;
 			if ( $sender > 0 && $sender_name != 'No User' ){
@@ -188,7 +188,7 @@ if( ! class_exists( 'broken_download' ) )
 			}
 		}
 
-		function mail_link( $sender, $cid=1, $block=0  )
+		public function mail_link( $sender, $cid=1, $block=0  )
 		{
 			require_once dirname( dirname(__FILE__) ).'/class/post_check.php' ;
 			$post_check = new Post_Check() ;
@@ -205,7 +205,7 @@ if( ! class_exists( 'broken_download' ) )
 			}
 		}
 
-		function get_sender_email( $sender )
+		public function get_sender_email( $sender )
 		{
 			switch( ! empty( $this->email ) ) {
 				case true :
@@ -215,7 +215,7 @@ if( ! class_exists( 'broken_download' ) )
 			}
 		}
 
-		function filename_link( $id, $cid, $url, $filename, $status, $second=0 )
+		public function filename_link( $id, $cid, $url, $filename, $status, $second=0 )
 		{
 			$filenamelink = '';
 			$link = $this->mod_url.'/index.php?page=visit_url&cid='.$cid.'&lid='.$id ;
@@ -247,27 +247,27 @@ if( ! class_exists( 'broken_report' ) )
 
 	class broken_report extends MyDownload
 	{
-		var $db;
-		var $table;
-		var $reportid;
-		var $lid;
-		var $sender;
-		var $ip;
-		var $status;
-		var $message;
-		var $name;
-		var $mail;
-		var $date;
-		var $check_mode = false ;
-		var $cron_mode = false ;
-		var $check_result = false ;
-		var $Insertdata = array( 'lid' , 'sender' , 'ip' , 'status' , 'message'  , 'name'  , 'email'  , 'date' ) ;
-		var $report_txt = array( 'message'  , 'name'  , 'email' ) ;
-		var $name_length = 50 ;
-		var $email_length = 60 ;
-		var $cron_param_array = array( 'pass' , 'limit' , 'offset' ) ;
+		public $db;
+		public $table;
+		public $reportid;
+		public $lid;
+		public $sender;
+		public $ip;
+		public $status;
+		public $message;
+		public $name;
+		public $mail;
+		public $date;
+		public $check_mode = false ;
+		public $cron_mode = false ;
+		public $check_result = false ;
+		public $Insertdata = array( 'lid' , 'sender' , 'ip' , 'status' , 'message'  , 'name'  , 'email'  , 'date' ) ;
+		public $report_txt = array( 'message'  , 'name'  , 'email' ) ;
+		public $name_length = 50 ;
+		public $email_length = 60 ;
+		public $cron_param_array = array( 'pass' , 'limit' , 'offset' ) ;
 
-		function broken_report( $mydirname )
+		public function broken_report( $mydirname )
 		{
 			global $xoopsUser ;
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
@@ -302,7 +302,7 @@ if( ! class_exists( 'broken_report' ) )
 			}
 		}
 
-		function getReport()
+		public function getReport()
 		{
 			$_POST = $this->myts->Delete_Nullbyte( $_POST ) ;
 
@@ -315,7 +315,7 @@ if( ! class_exists( 'broken_report' ) )
 			}
 		}
 
-		function geteditData()
+		public function geteditData()
 		{
 			return array(
 				'message' => $this->myts->makeTareaData4Edit( $this->message ) ,
@@ -324,7 +324,7 @@ if( ! class_exists( 'broken_report' ) )
 			) ;
 		}
 
-		function execute( $lid, $title )
+		public function execute( $lid, $title )
 		{
 			if ( $this->sender != 0 ) {
 				// Check if REG user is trying to report twice.
@@ -345,7 +345,7 @@ if( ! class_exists( 'broken_report' ) )
 			exit() ;
 		}
 
-		function Insert_DB( $lid )
+		public function Insert_DB( $lid )
 		{
 			$this->getInsertData( $lid ) ;
 
@@ -370,7 +370,7 @@ if( ! class_exists( 'broken_report' ) )
 			return $new_id ;
 		}
 
-		function getInsertData( $lid )
+		public function getInsertData( $lid )
 		{
 			$this->lid  = $lid ;
 			$this->date = time() ;
@@ -388,7 +388,7 @@ if( ! class_exists( 'broken_report' ) )
 			}
 		}
 
-		function broken_check( $limit_option=0, $offset_option=0 )
+		public function broken_check( $limit_option=0, $offset_option=0 )
 		{
 			$errors = array() ;
 
@@ -402,7 +402,7 @@ if( ! class_exists( 'broken_report' ) )
 			exit() ;
 		}
 
-		function broken_check_by_cron()
+		public function broken_check_by_cron()
 		{
 			$this->check_mode = $this->cron_mode = true ;
 
@@ -417,7 +417,7 @@ if( ! class_exists( 'broken_report' ) )
 			$this->check( $limit, $offset ) ;
 		}
 
-		function check( $limit, $offset )
+		public function check( $limit, $offset )
 		{
 			$this->Nolink_Delete() ;
 			$errors = array() ;
@@ -434,7 +434,7 @@ if( ! class_exists( 'broken_report' ) )
 			return $errors ;
 		}
 
-		function get_check_result( $id, $title, $url, $file2 )
+		public function get_check_result( $id, $title, $url, $file2 )
 		{
 			$error = 0 ;
 			$lid = intval( $id ) ;
@@ -446,7 +446,7 @@ if( ! class_exists( 'broken_report' ) )
 			return $error ;
 		}
 
-		function check_execution( $lid, $title, $url )
+		public function check_execution( $lid, $title, $url )
 		{
 			$error = 0 ;
 
@@ -458,7 +458,7 @@ if( ! class_exists( 'broken_report' ) )
 			return $error ;
 		}
 
-		function check_by_kind( $value )
+		public function check_by_kind( $value )
 		{
 			$value = $this->Real_path( $value ) ;
 
@@ -474,7 +474,7 @@ if( ! class_exists( 'broken_report' ) )
 			}
 		}
 
-		function check_url( $url )
+		public function check_url( $url )
 		{
 			list( $status_code, $response_code, $redirect_url ) = $this->get_http_status( $url ) ;
 
@@ -493,7 +493,7 @@ if( ! class_exists( 'broken_report' ) )
 			$this->message = ( ! empty( $redirect_url ) ) ? '[url='.$redirect_url.']Redirect url[/url]' : '' ;
 		}
 
-		function get_http_status( $url )
+		public function get_http_status( $url )
 		{
 			switch( $this->http->execute( $url ) ) {
 				case true :
@@ -504,7 +504,7 @@ if( ! class_exists( 'broken_report' ) )
 			}
 		}
 
-		function My_HTTP()
+		public function My_HTTP()
 		{
 			$http = new My_HTTP() ;
 
@@ -532,13 +532,13 @@ if( ! class_exists( 'broken_report' ) )
 			return $http ;
 		}
 
-		function check_file( $file )
+		public function check_file( $file )
 		{
 			$this->check_result = ( ! is_file( $file ) || filesize( $file ) == 0 ) ? false : true ;
 			$this->status       = ( ! $this->check_result ) ? 'broken file' : '' ;
 		}
 
-		function check_Insert_DB( $lid, $title='' )
+		public function check_Insert_DB( $lid, $title='' )
 		{
 			$result = true ;
 
@@ -552,7 +552,7 @@ if( ! class_exists( 'broken_report' ) )
 			return $result ;
 		}
 
-		function get_array_argv()
+		public function get_array_argv()
 		{
 			if ( $_SERVER['argc'] <= 1 ) return array() ;
 
@@ -568,27 +568,28 @@ if( ! class_exists( 'broken_report' ) )
 			return $array ;
 		}
 
-		function cron_pass()
+		public function cron_pass()
 		{
 			return htmlspecialchars( strtolower( $this->mod_config['cron_pass']  ) , ENT_QUOTES ) ;
 		}
 
-		function message_option()
+		public function message_option()
 		{
 			return ( $this->option_config( 'broken_message_from_sender' ) ) ? true : false ;
 		}
 
-		function set_trigger_event( $title )
+		public function set_trigger_event( $title )
 		{
 			require_once dirname( dirname(__FILE__) ).'/include/common_functions.php' ;
 			$tags = array(
 				'POST_TITLE' => $this->myts->makeTboxData4Show( $title ) ,
 				'BROKENREPORTS_URL' => XOOPS_URL . '/modules/'.$this->mydirname.'/admin/index.php?page=brokenmanager' ,
 			) ;
-			d3download_main_trigger_event( $this->mydirname , 'global' , 0 , 'broken' , $tags, 0 ) ;
+			$user_list = array();
+			d3download_main_trigger_event( $this->mydirname , 'global' , 0 , 'broken' , $tags, $user_list ) ;
 		}
 
-		function Nolink_Delete()
+		public function Nolink_Delete()
 		{
 			if( $handler = @opendir( $this->uploads_dir . '/' ) ) {
 				while( ( $file = readdir( $handler ) ) !== false ) {
@@ -604,7 +605,7 @@ if( ! class_exists( 'broken_report' ) )
 			closedir( $handler ) ;
 		}
 
-		function Link_Check( $file_path )
+		public function Link_Check( $file_path )
 		{
 			$count = 0 ;
 			$count += $this->db->getRowsNum( $this->db->query( "SELECT * FROM ".$this->table." WHERE ( url='".$file_path."' OR file2='".$file_path."' )" ) ) ;
@@ -613,7 +614,7 @@ if( ! class_exists( 'broken_report' ) )
 			return $count ;
 		}
 
-		function File_Count()
+		public function File_Count()
 		{
 			$total = $link = $nolink = 0 ;
 			if( $handler = @opendir( $this->uploads_dir . '/' ) ) {
@@ -637,7 +638,7 @@ if( ! class_exists( 'broken_report' ) )
 			) ;
 		}
 
-		function Delete_Report_by_select_lid( $lid )
+		public function Delete_Report_by_select_lid( $lid )
 		{
 			$error = 0 ;
 			$res = $this->db->query( "SELECT reportid FROM ".$this->broken_table." WHERE lid='".$lid."'" ) ;
@@ -648,7 +649,7 @@ if( ! class_exists( 'broken_report' ) )
 			return $error ;
 		}
 
-		function Delete_Report( $id )
+		public function Delete_Report( $id )
 		{
 			$error = 0 ;
 			$result = $this->db->query( "DELETE FROM ".$this->broken_table." WHERE reportid='".$id."'" ) ;

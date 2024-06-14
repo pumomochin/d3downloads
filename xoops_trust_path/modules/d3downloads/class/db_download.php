@@ -6,18 +6,18 @@ if( ! class_exists( 'db_download' ) )
 {
 	class db_download
 	{
-		var $table_name;
-		var $id_name;
-		var $db;
+		public $table_name;
+		public $id_name;
+		public $db;
 
-		function db_download( $table_name, $id_name )
+		public function db_download( $table_name, $id_name )
 		{
 			$this->db =& Database::getInstance();
 			$this->table = $table_name;
 			$this->id = $id_name;
 		}
 
-		function db_insert( $set4sql )
+		public function db_insert( $set4sql )
 		{
 			$sql = "INSERT INTO ".$this->table." SET $set4sql";
 			$result = $this->db->query( $sql );
@@ -25,21 +25,21 @@ if( ! class_exists( 'db_download' ) )
 			return $new_id;
 		}
 
-		function db_update( $set4sql, $id )
+		public function db_update( $set4sql, $id )
 		{
 			$sql = "UPDATE ".$this->table." SET $set4sql WHERE ".$this->id."='".$id."'";
 			$result = $this->db->query( $sql );
 			return $result;
 		}
 
-		function db_delete( $id )
+		public function db_delete( $id )
 		{
 			$sql = "DELETE FROM ".$this->table." WHERE ".$this->id."='".$id."'";
 			$result = $this->db->query( $sql );
 			return $result;
 		}
 
-		function db_getrowsnum( $id )
+		public function db_getrowsnum( $id )
 		{
 			$sql = "SELECT * FROM ".$this->table." WHERE ".$this->id."='".$id."'";
 			$result = $this->db->query( $sql );

@@ -11,55 +11,55 @@ if( ! class_exists( 'Submit_Validate' ) )
 
 	class Submit_Validate extends MyDownload
 	{
-		var $mode = "" ;
-		var $requests_01 = array( 'html', 'smiley' , 'br' , 'xcode' ) ;
-		var $requests_int = array( 'lid' ,'cid' , 'size' , 'submitter' ) ;
-		var $requests_text = array( 'title' , 'url' , 'filename' , 'ext' , 'file2' , 'filename2' , 'ext2' , 'homepage' , 'homepagetitle' , 'version', 'platform', 'license', 'logourl', 'description', 'extra' ) ;
-		var $requests_admin = array( 'visible',  'cancomment' ) ;
-		var $title_length = 100 ;
-		var $url_length = 250 ;
-		var $filename_length = 50 ;
-		var $ext_length = 10 ;
-		var $file2_length = 250 ;
-		var $filename2_length = 50 ;
-		var $ext2_length = 10 ;
-		var $homepage_length = 100 ;
-		var $homepagetitle_length = 255 ;
-		var $version_length = 10 ;
-		var $size_length = 10 ;
-		var $platform_length = 50 ;
-		var $license_length = 255 ;
-		var $logourl_length = 60 ;
-		var $html ;
-		var $smiley ;
-		var $br ;
-		var $xcode ;
-		var $filters ;
-		var $lid ;
-		var $cid ;
-		var $size ;
-		var $submitter ;
-		var $created ;
-		var $expired ;
-		var $title ;
-		var $url ;
-		var $filename ;
-		var $ext ;
-		var $file2 ;
-		var $filename2 ;
-		var $ext2 ;
-		var $homepage ;
-		var $homepagetitle ;
-		var $version ;
-		var $platform ;
-		var $license ;
-		var $logourl ;
-		var $description ;
-		var $extra ;
-		var $visible ;
-		var $cancomment ;
+		public $mode = "" ;
+		public $requests_01 = array( 'html', 'smiley' , 'br' , 'xcode' ) ;
+		public $requests_int = array( 'lid' ,'cid' , 'size' , 'submitter' ) ;
+		public $requests_text = array( 'title' , 'url' , 'filename' , 'ext' , 'file2' , 'filename2' , 'ext2' , 'homepage' , 'homepagetitle' , 'version', 'platform', 'license', 'logourl', 'description', 'extra' ) ;
+		public $requests_admin = array( 'visible',  'cancomment' ) ;
+		public $title_length = 100 ;
+		public $url_length = 250 ;
+		public $filename_length = 50 ;
+		public $ext_length = 10 ;
+		public $file2_length = 250 ;
+		public $filename2_length = 50 ;
+		public $ext2_length = 10 ;
+		public $homepage_length = 100 ;
+		public $homepagetitle_length = 255 ;
+		public $version_length = 10 ;
+		public $size_length = 10 ;
+		public $platform_length = 50 ;
+		public $license_length = 255 ;
+		public $logourl_length = 60 ;
+		public $html ;
+		public $smiley ;
+		public $br ;
+		public $xcode ;
+		public $filters ;
+		public $lid ;
+		public $cid ;
+		public $size ;
+		public $submitter ;
+		public $created ;
+		public $expired ;
+		public $title ;
+		public $url ;
+		public $filename ;
+		public $ext ;
+		public $file2 ;
+		public $filename2 ;
+		public $ext2 ;
+		public $homepage ;
+		public $homepagetitle ;
+		public $version ;
+		public $platform ;
+		public $license ;
+		public $logourl ;
+		public $description ;
+		public $extra ;
+		public $visible ;
+		public $cancomment ;
 
-		function Submit_Validate( $mydirname="", $mode="" )
+		public function Submit_Validate( $mydirname="", $mode="" )
 		{
 			if( ! empty( $mydirname ) ) $this->mydirname = $mydirname ;
 			if( ! empty( $mode ) ) $this->mode = $mode ;
@@ -105,7 +105,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			}
 		}
 
-		function get_requests_01()
+		public function get_requests_01()
 		{
 			// requests_01 Initialization
 			$html = $smiley = $br = $xcode = 0 ;
@@ -130,7 +130,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			) ;
 		}
 
-		function get_requests_int()
+		public function get_requests_int()
 		{
 			// requests_int Initialization
 			$lid = $cid = $size = $submitter = $created = $expired = 0 ;
@@ -178,7 +178,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			) ;
 		}
 
-		function get_requests_text( $html , $smiley , $xcode , $br )
+		public function get_requests_text( $html , $smiley , $xcode , $br )
 		{
 			// requests_text Initialization
 			$title = $url = $filename = $ext = $file2 = $filename2 = $ext2 = $homepage = $homepagetitle = $version = $platform = $license = $logourl = $description =  $extra = "" ;
@@ -280,7 +280,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			) ;
 		}
 
-		function get_requests_filters()
+		public function get_requests_filters()
 		{
 			$filters = "" ;
 
@@ -292,7 +292,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			) ;
 		}
 
-		function get_requests_admin()
+		public function get_requests_admin()
 		{
 			// requests_admin Initialization
 			$visible = $cancomment = 0 ;
@@ -317,7 +317,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			) ;
 		}
 
-		function return_createdtime()
+		public function return_createdtime()
 		{
 			$createable = empty( $_POST['createable'] ) ? 0 : 1 ;
 			if( $createable ) {
@@ -332,7 +332,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			}
 		}
 
-		function return_expiredtime()
+		public function return_expiredtime()
 		{
 			$expiredable = empty( $_POST['expiredable'] ) ? 0 : 1 ;
 			if( $expiredable ) {
@@ -347,7 +347,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			}
 		}
 
-		function return_body_for_preview( $text, $use_htmlpurifierl, $html, $smiley, $xcode, $br, $filters )
+		public function return_body_for_preview( $text, $use_htmlpurifierl, $html, $smiley, $xcode, $br, $filters )
 		{
 			if ( strstr ( $text , '[pagebreak]' ) ){
 				$text = str_replace( '[pagebreak]','', $this->replace_pagebreak( $text  ) ) ;
@@ -358,7 +358,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			return $this->myts->displayTarea( $text, $html, $smiley, $xcode, 1, $br, $filters ) ;
 		}
 
-		function replace_pagebreak( $text )
+		public function replace_pagebreak( $text )
 		{
 			$searches     = array( '`<p>(.*)\[pagebreak]</p>`i' , '`<div>(.*)\[pagebreak]</div>`i' ) ;
 			$replacements = array( '$1[pagebreak]' , '$1[pagebreak]' ) ;
@@ -367,7 +367,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			return $text ;
 		}
 
-		function return_extra_for_preview( $extra, $title , $filename, $filename2 )
+		public function return_extra_for_preview( $extra, $title , $filename, $filename2 )
 		{
 			$array = $this->extra_array( $extra, 1, 0, 1 ) ;
 			if( empty( $array ) ) return '' ;
@@ -388,7 +388,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			return $html ;
 		}
 
-		function replace_for_preview( $text, $title , $filename, $filename2 )
+		public function replace_for_preview( $text, $title , $filename, $filename2 )
 		{
 			global $xoopsConfig ;
 
@@ -409,7 +409,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			return str_replace( $searches , $replacements , $text ) ;
 		}
 
-		function use_htmlpurifierl()
+		public function use_htmlpurifierl()
 		{
 			if( is_array( $this->mod_config['use_htmlpurifier'] ) ) {
 				return $this->htmlpr_except() ;
@@ -418,7 +418,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			}
 		}
 
-		function htmlpr_except()
+		public function htmlpr_except()
 		{
 			if( $this->xoops_isuser ) {
 				return ( count( array_intersect( $this->xoops_groups , @$this->mod_config['use_htmlpurifier'] ) ) > 0 ) ? false : true ;
@@ -427,7 +427,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			}
 		}
 
-		function htmlpr_on_off()
+		public function htmlpr_on_off()
 		{
 			if( $this->xoops_isuser ) {
 				return ( empty( $this->mod_config['use_htmlpurifier'] ) ) ? false : true ;
@@ -436,7 +436,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			}
 		}
 
-		function return_filters()
+		public function return_filters()
 		{
 			$filters = array() ;
 			foreach( $_POST as $key => $val ) {
@@ -451,7 +451,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			return implode( '|' , array_keys( $filters ) ) ;
 		}
 
-		function Validate( $url, $filename, $file2, $filename2, $no_file_delete=0 )
+		public function Validate( $url, $filename, $file2, $filename2, $no_file_delete=0 )
 		{
 			$void_check = $url_check = $file2_check = $homepage_check = $size_check = $max_check = array() ;
 
@@ -589,7 +589,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			) ;
 		}
 
-		function delete_file( $url, $file2, $real_url, $real_file2 )
+		public function delete_file( $url, $file2, $real_url, $real_file2 )
 		{
 			$fsum = $f2sum = 0 ;
 			if ( is_file( $real_url ) ){
@@ -606,19 +606,19 @@ if( ! class_exists( 'Submit_Validate' ) )
 			}
 		}
 
-		function Validate_for_html( $cid )
+		public function Validate_for_html( $cid )
 		{
 			$canhtml = $this->user_access->can_html4cid( $cid ) ;
 			if( ! $canhtml ) die( 'You cannot use html.' );
 		}
 
-		function Validate_for_upload( $cid )
+		public function Validate_for_upload( $cid )
 		{
 			$canupload = $this->user_access->can_upload4cid( $cid ) ;
 			if( ! $canupload ) die( 'You cannot use upload.' ) ;
 		}
 
-		function Validate_for_delete( $cid, $lid )
+		public function Validate_for_delete( $cid, $lid )
 		{
 			$candelete = $this->user_access->can_delete4cid( $cid ) ;
 			$submitter = $this->xoops_userid ;
@@ -628,7 +628,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			if( empty( $count ) ) die( _MD_D3DOWNLOADS_NODELEPERM ) ;
 		}
 
-		function Validate_check_url( $url, $lid= 0 )
+		public function Validate_check_url( $url, $lid= 0 )
 		{
 			$sql = "SELECT COUNT( lid ) FROM ".$this->table." WHERE url='".$url."'" ;
 			if ( ! empty( $lid ) ) {
@@ -643,7 +643,7 @@ if( ! class_exists( 'Submit_Validate' ) )
 			}
 		}
 
-		function Validate_check_unapproval( $url, $lid= 0 )
+		public function Validate_check_unapproval( $url, $lid= 0 )
 		{
 			$sql = "SELECT COUNT( requestid ) FROM ".$this->db->prefix( $this->mydirname."_unapproval" )." WHERE url='".$url."'" ;
 			if ( ! empty( $lid ) ) {

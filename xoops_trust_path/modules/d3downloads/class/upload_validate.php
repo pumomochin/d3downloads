@@ -4,13 +4,13 @@ if( ! class_exists( 'Upload_Validate' ) )
 {
 	class Upload_Validate
 	{
-		var $ext;
-		var $allowed_extension;
-		var $image_extensions;
-		var $deny_extension;
-		var $error;
+		public $ext;
+		public $allowed_extension;
+		public $image_extensions;
+		public $deny_extension;
+		public $error;
 
-		function Upload_Validate( $mydirname='' )
+		public function Upload_Validate( $mydirname='' )
 		{
 			if( ! empty( $mydirname ) ){
 				$this->mydirname = $mydirname ;
@@ -25,8 +25,8 @@ if( ! class_exists( 'Upload_Validate' ) )
 			}
 		}
 
-		// ƒAƒbƒvƒ[ƒh‚ğ‹–‰Â‚·‚éŠg’£q
-		function allowed_extension( $mydirname )
+		// ï¿½Aï¿½bï¿½vï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½q
+		public function allowed_extension( $mydirname )
 		{
 			$module_handler =& xoops_gethandler('module');
 			$config_handler =& xoops_gethandler('config');
@@ -42,20 +42,20 @@ if( ! class_exists( 'Upload_Validate' ) )
 			return $allowed_extension ;
 		}
 
-		// ƒAƒbƒvƒ[ƒh‚ğ‹–‰Â‚µ‚È‚¢Šg’£q
-		function deny_extension()
+		// ï¿½Aï¿½bï¿½vï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½È‚ï¿½ï¿½gï¿½ï¿½ï¿½q
+		public function deny_extension()
 		{
 			return array( 'php' , 'phtml' , 'phtm' , 'php3' , 'php4' , 'cgi' , 'pl' , 'asp' ) ;
 		}
 
-		// Šg’£q‹U‘¢‚ğƒ`ƒFƒbƒN‚·‚é‰æ‘œƒtƒ@ƒCƒ‹
-		function image_extensions()
+		// ï¿½gï¿½ï¿½ï¿½qï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½æ‘œï¿½tï¿½@ï¿½Cï¿½ï¿½
+		public function image_extensions()
 		{
 			return array( 1 => 'gif', 2 => 'jpg', 3 => 'png', 4 => 'swf', 5 => 'psd', 6 => 'bmp', 7 => 'tif', 8 => 'tif', 9 => 'jpc', 10 => 'jp2', 11 => 'jpx', 12 => 'jb2', 13 => 'swc', 14 => 'iff', 15 => 'wbmp', 16 => 'xbm' ) ;
 		}
 
-		// ŠeŠg’£q‚Ìæ“ª•”•ª‚Å‚Ì³‹K•\Œ»
-		function extension_head()
+		// ï¿½eï¿½gï¿½ï¿½ï¿½qï¿½Ìæ“ªï¿½ï¿½ï¿½ï¿½ï¿½Å‚Ìï¿½ï¿½Kï¿½\ï¿½ï¿½
+		public function extension_head()
 		{
 			return array(
 				'pdf' => '/^%PDF-\d[\d\.]+/',
@@ -89,11 +89,11 @@ if( ! class_exists( 'Upload_Validate' ) )
 			) ;
 		}
 
-		// Šg’£q‚Ìƒ`ƒFƒbƒN
-		function check_allowed_extensions( $ext )
+		// ï¿½gï¿½ï¿½ï¿½qï¿½Ìƒ`ï¿½Fï¿½bï¿½N
+		public function check_allowed_extensions( $ext )
 		{
 			if( ! $this->mydirname ){
-				die( 'function check_allowed_extensions() cannot be used.' );
+				die( 'public function check_allowed_extensions() cannot be used.' );
 			} else {
 				$allowed = 1 ;
 				if( ! in_array( $ext, $this->allowed_extension ) ){
@@ -103,11 +103,11 @@ if( ! class_exists( 'Upload_Validate' ) )
 			}
 		}
 
-		// php ‚È‚ÇŠëŒ¯‚ÈŠg’£q‚Ìƒtƒ@ƒCƒ‹‚ÌƒAƒbƒvƒ[ƒh‚ğ–h‚®
-		function check_deny_extensions( $ext )
+		// php ï¿½È‚ÇŠëŒ¯ï¿½ÈŠgï¿½ï¿½ï¿½qï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ÌƒAï¿½bï¿½vï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½hï¿½ï¿½
+		public function check_deny_extensions( $ext )
 		{
 			if( ! $this->mydirname ){
-				die( 'function check_deny_extensions() cannot be used.' );
+				die( 'public function check_deny_extensions() cannot be used.' );
 			} else {
 				if( in_array( $ext, $this->deny_extension ) ){
 					die( 'Attempt to upload '. $ext );
@@ -115,8 +115,8 @@ if( ! class_exists( 'Upload_Validate' ) )
 			}
 		}
 
-		// PHP 4.3.6 ˆÈ‘O‚Ìƒo[ƒWƒ‡ƒ“‚Ö‚Ì‘Îô( .. ‚Æ / ‚ªŠÜ‚Ü‚ê‚Ä‚¢‚éê‡‹­§I—¹)
-		function check_doubledot( $file_name )
+		// PHP 4.3.6 ï¿½È‘Oï¿½Ìƒoï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½Ö‚Ì‘Îï¿½( .. ï¿½ï¿½ / ï¿½ï¿½ï¿½Ü‚Ü‚ï¿½Ä‚ï¿½ï¿½ï¿½ê‡ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½)
+		public function check_doubledot( $file_name )
 		{
 			if( strstr( $file_name, '..' ) ){
 				die( 'Attempt to multiple dot file  '. $file_name );
@@ -126,13 +126,13 @@ if( ! class_exists( 'Upload_Validate' ) )
 			}
 		}
 
-		// multiple dot file ‚Ìƒ`ƒFƒbƒN‚ğs‚¤‚©‚Ç‚¤‚©
-		// protector ‚ª“ü‚Á‚Ä‚¢‚È‚¢ŠÂ‹«‚ğl—¶‚µ‚ÄAmultiple dot file ‚Ìƒ`ƒFƒbƒN‚ğ‚·‚é
-		// ‚½‚¾AŒë”F¯‚à‚ ‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñ‚Ì‚ÅAˆê”Êİ’è‚Å‘I‘ğ‚Å‚«‚é‚æ‚¤‚É‚µ‚Ü‚µ‚½
-		function config_check_multiple_dot()
+		// multiple dot file ï¿½Ìƒ`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
+		// protector ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½Â‹ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ÄAmultiple dot file ï¿½Ìƒ`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Ì‚ÅAï¿½ï¿½Êİ’ï¿½Å‘Iï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½
+		public function config_check_multiple_dot()
 		{
 			if( ! $this->mydirname ){
-				die( 'function config_check_multiple_dot() cannot be used.' );
+				die( 'public function config_check_multiple_dot() cannot be used.' );
 			} else {
 				if( ! empty( $this->mod_config['check_multiple_dot'] ) ) {
 					$check_multiple_dot = true ;
@@ -143,19 +143,19 @@ if( ! class_exists( 'Upload_Validate' ) )
 			}
 		}
 
-		// multiple dot file ‚Ìƒ`ƒFƒbƒN
-		function check_multiple_dot( $file_name )
+		// multiple dot file ï¿½Ìƒ`ï¿½Fï¿½bï¿½N
+		public function check_multiple_dot( $file_name )
 		{
 			if( count( explode( '.' , str_replace( '.tar.gz' , '.tgz' , $file_name ) ) ) > 2 ) {
 				die( 'Attempt to multiple dot file  '. $file_name );
 			}
 		}
 
-		// ‰æ‘œƒtƒ@ƒCƒ‹‚ğ‘ÎÛ‚ÉŠg’£q‹U‘¢‚Ìƒ`ƒFƒbƒN
-		function check_image_extensions( $ext, $tmp_name, $file_name )
+		// ï¿½æ‘œï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ÎÛ‚ÉŠgï¿½ï¿½ï¿½qï¿½Uï¿½ï¿½ï¿½Ìƒ`ï¿½Fï¿½bï¿½N
+		public function check_image_extensions( $ext, $tmp_name, $file_name )
 		{
 			if( ! $this->mydirname ){
-				die( 'function check_image_extensions() cannot be used.' );
+				die( 'public function check_image_extensions() cannot be used.' );
 			} else {
 				if( $ext == 'jpeg' ) $ext = 'jpg' ;
 				else if( $ext == 'tiff' ) $ext = 'tif' ;
@@ -168,11 +168,11 @@ if( ! class_exists( 'Upload_Validate' ) )
 			}
 		}
 
-		// ƒwƒbƒ_‚Ìƒ`ƒFƒbƒN‚ğs‚¤‚©‚Ç‚¤‚©
-		function config_validate_of_head()
+		// ï¿½wï¿½bï¿½_ï¿½Ìƒ`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
+		public function config_validate_of_head()
 		{
 			if( ! $this->mydirname ){
-				die( 'function config_validate_of_head() cannot be used.' );
+				die( 'public function config_validate_of_head() cannot be used.' );
 			} else {
 				if( ! empty( $this->mod_config['validate_of_head'] ) ) {
 					$check_of_head = true ;
@@ -183,9 +183,9 @@ if( ! class_exists( 'Upload_Validate' ) )
 			}
 		}
 
-		// ŠeŠg’£q‚Ìæ“ª•”•ª‚Å‚Ì³‹K•\Œ»‚ğ’è‹`‚µ‚Ä‚¢‚éê‡‚Í‚»‚Ìƒ`ƒFƒbƒN
-		// ’è‹`‚³‚ê‚Ä‚¢‚È‚¢Šg’£q‚É‚Â‚¢‚Ä‚ÍAæ“ª•”•ª‚É <?php ‚Ü‚½‚Í <script ‚ªŠÜ‚Ü‚ê‚Ä‚¢‚È‚¢‚©ƒ`ƒFƒbƒN
-		function Validate_of_head( $filepath, $file_name, $ext )
+		// ï¿½eï¿½gï¿½ï¿½ï¿½qï¿½Ìæ“ªï¿½ï¿½ï¿½ï¿½ï¿½Å‚Ìï¿½ï¿½Kï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡ï¿½Í‚ï¿½ï¿½Ìƒ`ï¿½Fï¿½bï¿½N
+		// ï¿½ï¿½`ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½gï¿½ï¿½ï¿½qï¿½É‚Â‚ï¿½ï¿½Ä‚ÍAï¿½æ“ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <?php ï¿½Ü‚ï¿½ï¿½ï¿½ <script ï¿½ï¿½ï¿½Ü‚Ü‚ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½N
+		public function Validate_of_head( $filepath, $file_name, $ext )
 		{
 			$error = 0 ;
 			if( $ext == 'jpeg' ) $ext = 'jpg' ;
@@ -217,7 +217,7 @@ if( ! class_exists( 'Upload_Validate' ) )
 			}
 		}
 
-		function return_mtype()
+		public function return_mtype()
 		{
 			return array(
 				'123'=>'application/vnd.lotus-1-2-3',

@@ -4,13 +4,13 @@ if( ! class_exists( 'feed_maker' ) )
 {
 	class feed_maker
 	{
-		var $feed_limit = 15;
-		var $encoding = 'UTF-8';
-		var $encode = 'UTF-8';
-		var $data = array() ;
-		var $xsl_file = 'rss2html.xsl';
+		public $feed_limit = 15;
+		public $encoding = 'UTF-8';
+		public $encode = 'UTF-8';
+		public $data = array() ;
+		public $xsl_file = 'rss2html.xsl';
 
-		function feed_maker( $mydirname )
+		public function feed_maker( $mydirname )
 		{
 			global $xoopsModule;
 
@@ -24,18 +24,18 @@ if( ! class_exists( 'feed_maker' ) )
 			$this->generator = 'd3downloads v'.intval( $module->getVar('version') )/100;
 		}
 
-		function get_feed_language()
+		public function get_feed_language()
 		{
 			return _LANGCODE;
 		}
 
-		function get_feed_author()
+		public function get_feed_author()
 		{
 			global $xoopsConfig ;
 			return $xoopsConfig['sitename'];
 		}
 
-		function get_feed_limit()
+		public function get_feed_limit()
 		{
 			if ( empty( $this->mod_config['per_rss'] ) ){
 				 return $this->feed_limit;
@@ -44,7 +44,7 @@ if( ! class_exists( 'feed_maker' ) )
 			}
 		}
 
-		function get_feed_title( $cid, $data )
+		public function get_feed_title( $cid, $data )
 		{
 			global $xoopsConfig ;
 			if( ! empty( $cid ) ){
@@ -54,37 +54,37 @@ if( ! class_exists( 'feed_maker' ) )
 			}
 		}
 
-		function get_feed_toplink( $cid )
+		public function get_feed_toplink( $cid )
 		{
 			$top_link = ( $cid )? "index.php?cid=".$cid : "";
 			return XOOPS_URL.'/modules/'.$this->mydirname.'/'.$top_link;
 		}
 
-		function get_feed_link_self( $cid )
+		public function get_feed_link_self( $cid )
 		{
 			$top_link = ( $cid )? "&amp;cid=".$cid : "";
 			return XOOPS_URL.'/modules/'.$this->mydirname.'/index.php?page=atom'.$top_link;
 		}
 
-		function set_xsl_file( $xsl_file )
+		public function set_xsl_file( $xsl_file )
 		{
 			return XOOPS_URL.'/modules/'.$this->mydirname.'/'.$xsl_file;
 		}
 
-		function get_feed_slogan()
+		public function get_feed_slogan()
 		{
 			global $xoopsConfig ;
 			return $xoopsConfig['slogan'];
 		}
 
-		function get_feed_copyright()
+		public function get_feed_copyright()
 		{
 			global $xoopsConfig ;
 			$copyright = 'Copyright (c) '.$this->get_date_year().','. $xoopsConfig['sitename'];
 			return $copyright;
 		}
 
-		function get_feed_logo()
+		public function get_feed_logo()
 		{
 			$logo = 'images/logo.gif';
 
@@ -107,7 +107,7 @@ if( ! class_exists( 'feed_maker' ) )
 			) ;
 		}
 
-		function iso8601( $time )
+		public function iso8601( $time )
 		{
 			$tzd = date( 'O', $time );
 			$tzd = substr( chunk_split( $tzd, 3, ':' ), 0, 6 );
@@ -115,7 +115,7 @@ if( ! class_exists( 'feed_maker' ) )
 			return $date;
 		}
 
-		function get_feed_id( $url, $cid=0, $id, $time )
+		public function get_feed_id( $url, $cid=0, $id, $time )
 		{
 			$parse = parse_url( $url );
 			if ( isset( $parse['host'] ) ){
@@ -130,7 +130,7 @@ if( ! class_exists( 'feed_maker' ) )
 			}
 		}
 
-		function get_date_year( $time=null )
+		public function get_date_year( $time=null )
 		{
 			if ( empty( $time ) ){
 				$time = time();
@@ -140,7 +140,7 @@ if( ! class_exists( 'feed_maker' ) )
 			return $date;
 		}
 
-		function get_user_timestamp( $time )
+		public function get_user_timestamp( $time )
 		{
 			global $xoopsUser, $xoopsConfig ;
 			if( is_object( $xoopsUser ) ) {
@@ -153,7 +153,7 @@ if( ! class_exists( 'feed_maker' ) )
 		}
 
 		// rdf 2.0
-		function rdf_build( $cid, $data, $b_time, $encode, $encoding, $xsl_file='' )
+		public function rdf_build( $cid, $data, $b_time, $encode, $encoding, $xsl_file='' )
 		{
 			$link = $this->get_feed_toplink( $cid );
 			$out = '<?xml version="1.0" encoding="'.$encoding.'"?>
@@ -196,7 +196,7 @@ if( ! class_exists( 'feed_maker' ) )
 		}
 
 		// rss 2.0
-		function rss_build( $cid, $data, $b_time, $encode, $encoding, $xsl_file='' )
+		public function rss_build( $cid, $data, $b_time, $encode, $encoding, $xsl_file='' )
 		{
 			$link = $this->get_feed_toplink( $cid );
 			$feed_logo = $this->get_feed_logo();
@@ -254,7 +254,7 @@ if( ! class_exists( 'feed_maker' ) )
 		}
 
 		// Atom 1.0
-		function Atom_build( $cid, $data, $b_time, $encode, $encoding, $xsl_file='' )
+		public function Atom_build( $cid, $data, $b_time, $encode, $encoding, $xsl_file='' )
 		{
 			$link = $this->get_feed_toplink( $cid );
 			$out = '<?xml version="1.0" encoding="'.$encoding.'"?>';
@@ -300,7 +300,7 @@ if( ! class_exists( 'feed_maker' ) )
 			$this->feed_out( $out, $encode );
 		}
 
-		function feed_out( $out, $encode )
+		public function feed_out( $out, $encode )
 		{
 			if( XOOPS_USE_MULTIBYTES == 1 ) {
 				if ( ! extension_loaded( 'mbstring' ) && ! class_exists( 'HypMBString' ) ) {
@@ -315,7 +315,7 @@ if( ! class_exists( 'feed_maker' ) )
 			echo $out;
 		}
 
-		function make_context( $text, $words=array(), $l=255 ) 
+		public function make_context( $text, $words=array(), $l=255 ) 
 		{
 			if ( ! extension_loaded( 'mbstring' ) && ! class_exists( 'HypMBString' ) ) {
 				require_once dirname( dirname( __FILE__ ) ).'/class/mbemulator/mb-emulator.php' ;

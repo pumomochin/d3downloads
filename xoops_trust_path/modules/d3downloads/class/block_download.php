@@ -9,42 +9,42 @@ if( ! class_exists( 'block_download' ) )
 
 	class block_download extends MyDownload
 	{
-		var $db;
-		var $table;
-		var $whr;
-		var $entry = 10;
-		var $title_size = 25;
-		var $date_format = 'Y/m/d';
-		var $order = 'd.date DESC';
-		var $lid ;
-		var $cid ;
-		var $title ;
-		var $url ;
-		var $filename ;
-		var $ext ;
-		var $homepage ;
-		var $version ;
-		var $size ;
-		var $platform ;
-		var $logourl ;
-		var $description ;
-		var $html ;
-		var $smiley ;
-		var $br ;
-		var $xcode ;
-		var $filters ;
-		var $submitter ;
-		var $date ;
-		var $expired ;
-		var $hits ;
-		var $rating ;
-		var $votes ;
-		var $cancomment ;
-		var $comments ;
-		var $category ;
-		var $downdata=array();
+		public $db;
+		public $table;
+		public $whr;
+		public $entry = 10;
+		public $title_size = 25;
+		public $date_format = 'Y/m/d';
+		public $order = 'd.date DESC';
+		public $lid ;
+		public $cid ;
+		public $title ;
+		public $url ;
+		public $filename ;
+		public $ext ;
+		public $homepage ;
+		public $version ;
+		public $size ;
+		public $platform ;
+		public $logourl ;
+		public $description ;
+		public $html ;
+		public $smiley ;
+		public $br ;
+		public $xcode ;
+		public $filters ;
+		public $submitter ;
+		public $date ;
+		public $expired ;
+		public $hits ;
+		public $rating ;
+		public $votes ;
+		public $cancomment ;
+		public $comments ;
+		public $category ;
+		public $downdata=array();
 
-		function block_download( $mydirname )
+		public function block_download( $mydirname )
 		{
 			global $xoopsUser ;
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
@@ -73,7 +73,7 @@ if( ! class_exists( 'block_download' ) )
 			}
 		}
 
-		function get_downdata_for_block( $whr, $entry, $title_size, $date_format, $order, $category_option='', $intree=0, $mylink=0, $pickup=0, $file_ids='' )
+		public function get_downdata_for_block( $whr, $entry, $title_size, $date_format, $order, $category_option='', $intree=0, $mylink=0, $pickup=0, $file_ids='' )
 		{
 			$where = "( $whr ) AND ".$this->whr_append()."" ;
 
@@ -110,7 +110,7 @@ if( ! class_exists( 'block_download' ) )
 			}
 		}
 
-		function get_downdata( $result, $title_size = '', $date_format = '' )
+		public function get_downdata( $result, $title_size = '', $date_format = '' )
 		{
 			global $xoopsConfig ;
 
@@ -157,7 +157,7 @@ if( ! class_exists( 'block_download' ) )
 			return $downdata;
 		}
 
-		function get_categories_list( $top=0 )
+		public function get_categories_list( $top=0 )
 		{
 			require_once dirname( dirname(__FILE__) ).'/class/mycategory.php' ;
 			$mycategory = new MyCategory( $this->mydirname, 'Show' ) ;
@@ -183,7 +183,7 @@ if( ! class_exists( 'block_download' ) )
 			return $ret ;
 		}
 
-		function get_downloads_list()
+		public function get_downloads_list()
 		{
 			$ret = array() ;
 			$ret[''] = '------' ;

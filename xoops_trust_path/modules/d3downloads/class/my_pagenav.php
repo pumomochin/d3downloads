@@ -8,11 +8,11 @@ if( ! class_exists( 'My_PageNav' ) )
 
 	class My_PageNav extends XoopsPageNav
 	{
-		var $total ;
-		var $perpage ;
-		var $current ;
+		public $total ;
+		public $perpage ;
+		public $current ;
 
-		function My_PageNav( $total_items, $items_perpage, $current_start, $start_name='start', $extra_arg='' )
+		public function My_PageNav( $total_items, $items_perpage, $current_start, $start_name='start', $extra_arg='' )
 		{
 			$this->total   = intval( $total_items ) ;
 			$this->perpage = intval( $items_perpage ) ;
@@ -21,7 +21,7 @@ if( ! class_exists( 'My_PageNav' ) )
 			$this->url = xoops_getenv( 'PHP_SELF' ).'?'.$extra_arg.trim( $start_name ).'=' ;
 		}
 
-		function renderNav( $offset = 4, $prev_page='Prev', $next_page='Next', $class='d3downloads_pagenav' )
+		public function renderNav( $offset = 4, $prev_page='Prev', $next_page='Next', $class='d3downloads_pagenav' )
 		{
 			$ret = '' ;
 			if ( $this->total <= $this->perpage ) return $ret ;

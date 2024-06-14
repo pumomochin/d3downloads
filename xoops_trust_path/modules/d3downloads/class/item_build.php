@@ -9,23 +9,23 @@ if( ! class_exists( 'Item_build' ) )
 
 	class Item_build extends MyDownload
 	{
-		var $db ;
-		var $table ;
-		var $lid ;
-		var $cid ;
-		var $title ;
-		var $description ;
-		var $html ;
-		var $smiley ;
-		var $br ;
-		var $xcode ;
-		var $filters ;
-		var $submitter ;
-		var $date ;
-		var $comments ;
-		var $category ;
+		public $db ;
+		public $table ;
+		public $lid ;
+		public $cid ;
+		public $title ;
+		public $description ;
+		public $html ;
+		public $smiley ;
+		public $br ;
+		public $xcode ;
+		public $filters ;
+		public $submitter ;
+		public $date ;
+		public $comments ;
+		public $category ;
 
-		function Item_build( $mydirname )
+		public function Item_build( $mydirname )
 		{
 			global $xoopsUser ;
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
@@ -54,7 +54,7 @@ if( ! class_exists( 'Item_build' ) )
 			}
 		}
 
-		function get_Item( $category_option, $intree=0, $limit=0, $offset=0, $rss=0, $mylink=0 )
+		public function get_Item( $category_option, $intree=0, $limit=0, $offset=0, $rss=0, $mylink=0 )
 		{
 			require_once dirname( dirname(__FILE__) ).'/class/user_access.php';
 			$user_access = new user_access( $this->mydirname ) ;
@@ -119,7 +119,7 @@ if( ! class_exists( 'Item_build' ) )
 			return $item ;
 		}
 
-		function return_category_title( $category_option )
+		public function return_category_title( $category_option )
 		{
 			include_once dirname( dirname(__FILE__) ).'/class/mycategory.php' ;
 			$mycategory = new MyCategory( $this->mydirname, 'Show', $category_option ) ;
@@ -128,7 +128,7 @@ if( ! class_exists( 'Item_build' ) )
 			return $ret ;
 		}
 
-		function get_permit()
+		public function get_permit()
 		{
 			if( $this->xoops_isuser ) {
 				return false ;

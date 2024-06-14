@@ -291,11 +291,12 @@ if ( ! function_exists('d3download_submit_insertdb') ) {
 			'CAT_TITLE' => $ctitle ,
 			'CAT_URL' => XOOPS_URL . '/modules/' . $mydirname . '/index.php?cid=' . $cid ,
 			'WAITING_URL' => XOOPS_URL . '/modules/' . $mydirname . '/admin/index.php?page=approvalmanager' ,
-		) ;
+		 ) ;
+		$user_list = array();
 		if( ! empty( $auto_approved ) ) {
-			d3download_main_trigger_event( $mydirname , 'global' , 0 , 'newpost' , $tags, 0 ) ;
-			d3download_main_trigger_event( $mydirname , 'category' , $cid , 'newpost' , $tags, 0 ) ;
-			d3download_main_trigger_event( $mydirname , 'category' , $cid , 'newpostfull' , $tags, 0 ) ;
+			d3download_main_trigger_event( $mydirname , 'global' , 0 , 'newpost' , $tags, $user_list ) ;
+			d3download_main_trigger_event( $mydirname , 'category' , $cid , 'newpost' , $tags, $user_list ) ;
+			d3download_main_trigger_event( $mydirname , 'category' , $cid , 'newpostfull' , $tags, $user_list ) ;
 
 			// Increment Post
 			if( is_object( $xoopsUser ) && ! empty( $xoopsModuleConfig['plus_posts'] ) ) $xoopsUser->incrementPost() ;
@@ -309,7 +310,7 @@ if ( ! function_exists('d3download_submit_insertdb') ) {
 			}
 			exit();
 		} else {
-			d3download_main_trigger_event( $mydirname , 'global' , 0 , 'waiting' , $tags , 0 ) ;
+			d3download_main_trigger_event( $mydirname , 'global' , 0 , 'waiting' , $tags , $user_list ) ;
 			if ( ! empty( $notify ) ) {
 				include_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
 				$notification_handler =& xoops_gethandler('notification');
@@ -376,7 +377,8 @@ if ( ! function_exists('d3download_modfile_insertdb') ) {
 				'POST_BODY' => $body ,
 				'WAITING_URL' => XOOPS_URL . '/modules/' . $mydirname . '/admin/index.php?page=approvalmanager' ,
 			) ;
-			d3download_main_trigger_event( $mydirname , 'global' , 0 , 'waiting' , $tags , 0 ) ;
+			$user_list = array();
+			d3download_main_trigger_event( $mydirname , 'global' , 0 , 'waiting' , $tags , $user_list ) ;
 			if ( ! empty( $notify ) ) {
 				include_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
 				$notification_handler =& xoops_gethandler('notification');
@@ -429,11 +431,12 @@ if ( ! function_exists('d3download_approval_insertdb') ) {
 				'CAT_TITLE' => $ctitle ,
 				'CAT_URL' => XOOPS_URL . '/modules/' . $mydirname . '/index.php?cid=' . $cid ,
 			) ;
-			d3download_main_trigger_event( $mydirname , 'global' , 0 , 'newpost' , $tags, 0 ) ;
-			d3download_main_trigger_event( $mydirname , 'category' , $cid , 'newpost' , $tags, 0 ) ;
-			d3download_main_trigger_event( $mydirname , 'category' , $cid , 'newpostfull' , $tags, 0 ) ;
+			$user_list = array();
+			d3download_main_trigger_event( $mydirname , 'global' , 0 , 'newpost' , $tags, $user_list ) ;
+			d3download_main_trigger_event( $mydirname , 'category' , $cid , 'newpost' , $tags, $user_list ) ;
+			d3download_main_trigger_event( $mydirname , 'category' , $cid , 'newpostfull' , $tags, $user_list ) ;
 			if( ! empty( $notify ) ){
-				d3download_main_trigger_event( $mydirname , 'global' , $requestid , 'approve' , $tags, 0 ) ;
+				d3download_main_trigger_event( $mydirname , 'global' , $requestid , 'approve' , $tags, $user_list ) ;
 			}
 
 			// Increment Post
@@ -459,7 +462,8 @@ if ( ! function_exists('d3download_approval_insertdb') ) {
 						'POST_TITLE' => $title ,
 						'POST_URL' => XOOPS_URL . '/modules/' . $mydirname . '/index.php?page=singlefile&cid=' . $cid . '&lid=' . $lid,
 					) ;
-					d3download_main_trigger_event( $mydirname , 'global' , $lid , 'approve' , $tags, 0 ) ;
+					$user_list = array();
+					d3download_main_trigger_event( $mydirname , 'global' , $lid , 'approve' , $tags, $user_list ) ;
 				}
 			}
 		}

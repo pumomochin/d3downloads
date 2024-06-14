@@ -8,29 +8,29 @@ if( ! class_exists( 'MyCategory' ) )
 
 	class MyCategory
 	{
-		var $mode = "" ;
-		var $db ;
-		var $cat_table ;
-		var $cid ;
-		var $pid ;
-		var $title ;
-		var $imgurl ;
-		var $description ;
-		var $shotsdir ;
-		var $cat_weight ;
-		var $submit_message ;
-		var $child ;
-		var $path ;
-		var $cids_child ;
-		var $categorydata = array();
-		var $requests_int = array( 'cid' , 'pid' , 'cat_weight' ) ;
-		var $requests_text = array( 'title' , 'imgurl' , 'description' , 'shotsdir' , 'submit_message' ) ;
-		var $title_length = 50 ;
-		var $imgurl_length = 150 ;
-		var $shotsdir_length = 150 ;
-		var $cat_weight_length = 5 ;
+		public $mode = "" ;
+		public $db ;
+		public $cat_table ;
+		public $cid ;
+		public $pid ;
+		public $title ;
+		public $imgurl ;
+		public $description ;
+		public $shotsdir ;
+		public $cat_weight ;
+		public $submit_message ;
+		public $child ;
+		public $path ;
+		public $cids_child ;
+		public $categorydata = array();
+		public $requests_int = array( 'cid' , 'pid' , 'cat_weight' ) ;
+		public $requests_text = array( 'title' , 'imgurl' , 'description' , 'shotsdir' , 'submit_message' ) ;
+		public $title_length = 50 ;
+		public $imgurl_length = 150 ;
+		public $shotsdir_length = 150 ;
+		public $cat_weight_length = 5 ;
 
-		function MyCategory( $mydirname, $mode='', $cid= 0, $whr='' )
+		public function MyCategory( $mydirname, $mode='', $cid= 0, $whr='' )
 		{
 			include_once dirname( dirname(__FILE__) ).'/include/mytable.php' ;
 
@@ -55,7 +55,7 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function GetMyCategory( $cid, $whr='' )
+		public function GetMyCategory( $cid, $whr='' )
 		{
 			$sql = "SELECT $this->columns FROM ".$this->cat_table." WHERE cid='".$cid."'";
 			if ( $whr != '' ) {
@@ -68,7 +68,7 @@ if( ! class_exists( 'MyCategory' ) )
 			$this->getData( $result );
 		}
 
-		function getData( $result )
+		public function getData( $result )
 		{
 			$array = $this->db->fetchArray( $result ) ;
 			foreach ( $array as $key=>$value ){
@@ -76,17 +76,17 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function return_cid()
+		public function return_cid()
 		{
 			return intval( $this->cid ) ;
 		}
 
-		function return_pid()
+		public function return_pid()
 		{
 			return intval( $this->pid ) ;
 		}
 
-		function return_title( $mode='' )
+		public function return_title( $mode='' )
 		{
 			if( empty( $mode ) ) $mode = $this->mode ; 
 			switch( $mode ) {
@@ -97,7 +97,7 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function return_imgurl( $mode='' )
+		public function return_imgurl( $mode='' )
 		{
 			if( empty( $mode ) ) $mode = $this->mode ; 
 			switch( $mode ) {
@@ -108,7 +108,7 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function return_description( $mode='' )
+		public function return_description( $mode='' )
 		{
 			if( empty( $mode ) ) $mode = $this->mode ; 
 			switch( $mode ) {
@@ -119,7 +119,7 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function return_shotsdir( $mode='' )
+		public function return_shotsdir( $mode='' )
 		{
 			if( empty( $mode ) ) $mode = $this->mode ; 
 			switch( $mode ) {
@@ -130,12 +130,12 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function return_cat_weight()
+		public function return_cat_weight()
 		{
 			return intval( $this->cat_weight ) ;
 		}
 
-		function return_submit_message( $mode='' )
+		public function return_submit_message( $mode='' )
 		{
 			if( empty( $mode ) ) $mode = $this->mode ; 
 			switch( $mode ) {
@@ -146,22 +146,22 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function return_child()
+		public function return_child()
 		{
 			return $this->unserialize_my_child( $this->selectid, '', $this->child ) ;
 		}
 
-		function return_path()
+		public function return_path()
 		{
 			return $this->unserialize_my_path( $this->selectid, '', $this->path ) ;
 		}
 
-		function return_cids_child()
+		public function return_cids_child()
 		{
 			return $this->getAllChildId( $this->selectid, '', $this->cids_child ) ;
 		}
 
-		function category_sum( $whr='' )
+		public function category_sum( $whr='' )
 		{
 			$sql = "SELECT cid FROM ".$this->cat_table."";
 			if ( $whr != '' ) {
@@ -172,7 +172,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return intval( $count ) ;
 		}
 
-		function subcategory_sum( $selectid=0, $whr='' )
+		public function subcategory_sum( $selectid=0, $whr='' )
 		{
 			$cid = ( empty( $selectid ) ) ? $this->selectid : $selectid ; 
 			$child_array =  $this->unserialize_my_child( $cid, $whr ) ;
@@ -180,7 +180,7 @@ if( ! class_exists( 'MyCategory' ) )
 			else return count( $child_array ) ;
 		}
 
-		function subcategory_sum_by_recursive( $selectid=0, $whr='' )
+		public function subcategory_sum_by_recursive( $selectid=0, $whr='' )
 		{
 			$count = 0 ;
 			$cid = ( empty( $selectid ) ) ? $this->selectid : $selectid ; 
@@ -196,7 +196,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $count ;
 		}
 
-		function get_maxid( $topcat=0 )
+		public function get_maxid( $topcat=0 )
 		{
 			$sql = "SELECT MAX( cid ) FROM ".$this->cat_table."" ;
 			if( ! empty( $topcat ) ) $sql .= " WHERE pid='0'" ;
@@ -205,7 +205,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return intval( $maxid ) ;
 		}
 
-		function get_minid( $topcat=0 )
+		public function get_minid( $topcat=0 )
 		{
 			$sql = "SELECT MIN( cid ) FROM ".$this->cat_table."" ;
 			if( ! empty( $topcat ) ) $sql .= " WHERE pid='0'" ;
@@ -214,7 +214,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return intval( $minid ) ;
 		}
 
-		function get_max_weight( $topcat=0 )
+		public function get_max_weight( $topcat=0 )
 		{
 			$sql = "SELECT MAX( cat_weight ) FROM ".$this->cat_table."" ;
 			if( ! empty( $topcat ) ) $sql .= " WHERE pid='0'" ;
@@ -223,7 +223,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return intval( $maxid ) ;
 		}
 
-		function get_top_weight( $topcat=0 )
+		public function get_top_weight( $topcat=0 )
 		{
 			$sql = "SELECT MIN( cat_weight ) FROM ".$this->cat_table."" ;
 			if( ! empty( $topcat ) ) $sql .= " WHERE pid='0'" ;
@@ -232,7 +232,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return intval( $topweight ) ;
 		}
 
-		function get_top_weightid( $topcat=0 )
+		public function get_top_weightid( $topcat=0 )
 		{
 			$topweight = intval( $this->get_top_weight( $topcat ) ) ;
 			$sql = "SELECT cid FROM ".$this->cat_table." WHERE cat_weight='".$topweight."'" ;
@@ -243,7 +243,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return intval( $max_weight ) ;
 		}
 
-		function get_my_maincid( $selectid=0 )
+		public function get_my_maincid( $selectid=0 )
 		{
 			$myid = ( empty( $selectid ) ) ? $this->selectid : $selectid ;
 			$path_array = $this->unserialize_my_path( $myid ) ;
@@ -254,7 +254,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $maincid ;
 		}
 
-		function get_my_maincid_by_recursive( $selectid=0 )
+		public function get_my_maincid_by_recursive( $selectid=0 )
 		{
 			$myid = ( empty( $selectid ) ) ? $this->selectid : $selectid ; 
 			$sql = "SELECT cid, pid FROM ".$this->cat_table." WHERE cid='".$myid."'" ;
@@ -269,7 +269,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $maincid ;
 		}
 
-		function get_my_parent_cat( $pid=0 )
+		public function get_my_parent_cat( $pid=0 )
 		{
 			$mypid = ( empty( $pid ) ) ? $this->return_pid() : $pid ;
 			if( $mypid == 0 ) return  '' ;
@@ -281,7 +281,7 @@ if( ! class_exists( 'MyCategory' ) )
 			) ;
 		}
 
-		function get_recent_updatecid( $topcat=0 )
+		public function get_recent_updatecid( $topcat=0 )
 		{
 			$sql = "SELECT cid FROM ".$this->cat_table."" ;
 			if( ! empty( $topcat ) ) $sql .= " WHERE pid='0'" ;
@@ -291,7 +291,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return intval( $recent ) ;
 		}
 
-		function unserialize_my_child( $selectid, $whr='', $child_array='' )
+		public function unserialize_my_child( $selectid, $whr='', $child_array='' )
 		{
 			if( $child_array === '' ){
 				$sql = "SELECT child FROM ".$this->cat_table." WHERE cid='".$selectid."'" ;
@@ -311,7 +311,7 @@ if( ! class_exists( 'MyCategory' ) )
 			else return $this->get_my_child_array_by_recursive( $selectid, $whr )  ;
 		}
 
-		function unserialize_my_path( $selectid, $whr='', $path_array='' )
+		public function unserialize_my_path( $selectid, $whr='', $path_array='' )
 		{
 			if( $path_array === '' ){
 				$sql = "SELECT path FROM ".$this->cat_table." WHERE cid='".$selectid."'" ;
@@ -332,7 +332,7 @@ if( ! class_exists( 'MyCategory' ) )
 		}
 
 
-		function getFirstChild( $selectid , $whr='', $child_array='' )
+		public function getFirstChild( $selectid , $whr='', $child_array='' )
 		{
 			$arr = array() ;
 			if( $child_array === '' ){
@@ -345,7 +345,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $arr ;
 		}
 
-		function getFirstChildId( $selectid, $whr='', $child_array='' )
+		public function getFirstChildId( $selectid, $whr='', $child_array='' )
 		{
 			$idarray = array() ;
 			if( $child_array === '' ){
@@ -358,7 +358,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $idarray ;
 		}
 
-		function getAllParentId( $selectid, $whr='', $path_array='' )
+		public function getAllParentId( $selectid, $whr='', $path_array='' )
 		{
 			$idarray = array() ;
 			if( $path_array === '' ){
@@ -372,7 +372,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $idarray ;
 		}
 
-		function getMycidsIntreeArray( $selectid, $whr='', $cids_child='' )
+		public function getMycidsIntreeArray( $selectid, $whr='', $cids_child='' )
 		{
 			$cids  = $idarray = array() ;
 			$cids[]  = $selectid ;
@@ -380,7 +380,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return  array_merge( $cids, $idarray ) ;
 		}
 
-		function getAllChildId( $selectid, $whr='', $cids_child='' )
+		public function getAllChildId( $selectid, $whr='', $cids_child='' )
 		{
 			$idarray = array() ;
 			if( $cids_child === '' ){
@@ -397,7 +397,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $this->myts->idarray_by_explode( $cids_child ) ;
 		}
 
-		function getPathFromId( $selectid, $whr='' , $path_array='' )
+		public function getPathFromId( $selectid, $whr='' , $path_array='' )
 		{
 			$path = '' ;
 			$i = 0 ;
@@ -414,7 +414,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $path;
 		}
 
-		function getPathArrayFromId( $selectid, $whr='' , $path_array='' )
+		public function getPathArrayFromId( $selectid, $whr='' , $path_array='' )
 		{
 			$path = array() ;
 			if( $path_array ==='' ){
@@ -427,7 +427,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $path;
 		}
 
-		function getNicePathFromId( $selectid, $whr='' , $funcURL, $path_array='' )
+		public function getNicePathFromId( $selectid, $whr='' , $funcURL, $path_array='' )
 		{
 			$path = '' ;
 			$i = 0 ;
@@ -447,7 +447,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $path ;
 		}
 
-		function getNicePathArrayFromId( $selectid, $whr='' , $funcURL, $path_array='' )
+		public function getNicePathArrayFromId( $selectid, $whr='' , $funcURL, $path_array='' )
 		{
 			$path = array() ;
 			if( $path_array === '' ){
@@ -466,7 +466,7 @@ if( ! class_exists( 'MyCategory' ) )
 		}
 
 		// $selectid -> ( $maincid ) only
-		function get_my_cids_array( $selectid=0 , $whr='', $topcat=0, $child=0 )
+		public function get_my_cids_array( $selectid=0 , $whr='', $topcat=0, $child=0 )
 		{
 			$cids = array() ;
 			$sql = "SELECT cid, cids_child FROM ".$this->cat_table."" ;
@@ -493,14 +493,14 @@ if( ! class_exists( 'MyCategory' ) )
 			return $cids ;
 		}
 
-		function default_whr_append()
+		public function default_whr_append()
 		{
 			include_once dirname( dirname(__FILE__) ).'/class/mydownload.php' ;
 			$mydownload = new MyDownload( $this->mydirname ) ;
 			return $mydownload->whr_append( 'Single' ) ;
 		}
 
-		function getsub_categories( $whr, $selectid=0, $whr_append = "", $default_whr_append=1 )
+		public function getsub_categories( $whr, $selectid=0, $whr_append = "", $default_whr_append=1 )
 		{
 			global $xoopsUser ;
 
@@ -528,7 +528,7 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function get_categories_data( $selectid, $whr, $whr_append = "", $default_whr_append=1 )
+		public function get_categories_data( $selectid, $whr, $whr_append = "", $default_whr_append=1 )
 		{
 			$ret = array() ;
 			if( ! empty( $default_whr_append ) && $whr_append == "" ) $whr_append = $this->default_whr_append() ;
@@ -568,7 +568,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $ret ;
 		}
 
-		function total_sum_from_cat( $cids, $whr_append = "" )
+		public function total_sum_from_cat( $cids, $whr_append = "" )
 		{
 			if( $whr_append ) $whr_append = "AND ( $whr_append )" ;
 			$whr = "cid IN (".implode(",", $cids ).")" ;
@@ -578,7 +578,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $numrows ;
 		}
 
-		function small_sum_from_cat( $cid, $whr_append = "" )
+		public function small_sum_from_cat( $cid, $whr_append = "" )
 		{
 			if( $whr_append ) $whr_append = "AND ( $whr_append )" ;
 			$sql = "SELECT COUNT( lid ) FROM ".$this->downloads_table." WHERE cid='".$cid."' $whr_append" ;
@@ -587,7 +587,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $numrows ;
 		}
 
-		function sitemap( $path, $whr='', $plugin=0, $whr_append = "", $intree=1 )
+		public function sitemap( $path, $whr='', $plugin=0, $whr_append = "", $intree=1 )
 		{
 			$i = 0 ;
 			$ret = array() ;
@@ -613,7 +613,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $ret ;
 		}
 
-		function sitemap_child( $cid, $path, $whr, $plugin, $child_array, $whr_append = "", $liason )
+		public function sitemap_child( $cid, $path, $whr, $plugin, $child_array, $whr_append = "", $liason )
 		{
 			$ret = array() ;
 			if( empty( $plugin ) ) foreach ( $child_array as $child ) {
@@ -637,7 +637,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $ret ;
 		}
 
-		function makecache_for_selbox( $whr, $selectid=0, $sum=0, $all=0, $none='', $top=0, $notnin=0 )
+		public function makecache_for_selbox( $whr, $selectid=0, $sum=0, $all=0, $none='', $top=0, $notnin=0 )
 		{
 			global $xoopsUser ;
 
@@ -662,7 +662,7 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function categories_selbox( $whr, $selectid=0, $sum=0, $all=0, $none='', $top=0, $notnin=0 )
+		public function categories_selbox( $whr, $selectid=0, $sum=0, $all=0, $none='', $top=0, $notnin=0 )
 		{
 			$category = array();
 			if( ! empty( $selectid ) ){
@@ -695,7 +695,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $category ;
 		}
 
-		function get_categorylist( $perpage, $current_start )
+		public function get_categorylist( $perpage, $current_start )
 		{
 			$category = array();
 			$sql = "SELECT $this->columns FROM ".$this->cat_table." ORDER BY cat_weight ASC" ;
@@ -725,14 +725,14 @@ if( ! class_exists( 'MyCategory' ) )
 			return $category ;
 		}
 
-		function pid_select_check( $cid, $select_pid, $old_pid, $user_access_noupdate=0 )
+		public function pid_select_check( $cid, $select_pid, $old_pid, $user_access_noupdate=0 )
 		{
 			if( ( $select_pid != $old_pid ) && in_array( $select_pid, $this->getAllChildId( $cid ) ) ){
 				$this->pid_arrangement( $cid, $select_pid, $old_pid, $user_access_noupdate ) ;
 			}
 		}
 
-		function pid_arrangement( $cid, $select_pid, $old_pid, $user_access_noupdate=0 )
+		public function pid_arrangement( $cid, $select_pid, $old_pid, $user_access_noupdate=0 )
 		{
 			$error = 0 ;
 			$prs = $this->db->query( "SELECT cid FROM ".$this->cat_table."  WHERE pid='".$cid."'");
@@ -745,7 +745,7 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function my_user_access_copy( $fromid, $toid, $user_access_noupdate=0 )
+		public function my_user_access_copy( $fromid, $toid, $user_access_noupdate=0 )
 		{
 			include_once dirname( dirname(__FILE__) ).'/class/user_access.php' ;
 			$user_access = new user_access( $this->mydirname ) ;
@@ -756,7 +756,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $error ;
 		}
 
-		function category_move( $cid, $select_pid )
+		public function category_move( $cid, $select_pid )
 		{
 			$error = 0 ;
 			$result = $this->db->query( "SELECT pid FROM ".$this->cat_table." WHERE cid='".$cid."'" );
@@ -767,7 +767,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $error ;
 		}
 
-		function category_top_move( $cid )
+		public function category_top_move( $cid )
 		{
 			$error = 0 ;
 			$fars = $this->db->query( "SELECT * FROM ".$this->user_access_table." WHERE cid='".$cid."' AND groupid > 0" ) ;
@@ -780,7 +780,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $error ;
 		}
 
-		function MyCategory_for_Edit( $cid )
+		public function MyCategory_for_Edit( $cid )
 		{
 			if( empty( $cid ) ){
 				return array(
@@ -805,7 +805,7 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function requests_int_categories()
+		public function requests_int_categories()
 		{
 			// requests_int Initialization
 			$cid = $pid = $cat_weight = 0 ;
@@ -830,7 +830,7 @@ if( ! class_exists( 'MyCategory' ) )
 			) ;
 		}
 
-		function requests_text_categories()
+		public function requests_text_categories()
 		{
 			// requests_text Initialization
 			$title = $imgurl = $description = $shotsdir = $submit_message = "" ;
@@ -870,7 +870,7 @@ if( ! class_exists( 'MyCategory' ) )
 			) ;
 	    }
 
-		function serialize_insertdb()
+		public function serialize_insertdb()
 		{
 			$error = array() ;
 			$result = $this->db->query( "SELECT cid FROM ".$this->cat_table."" ) ;
@@ -901,7 +901,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $error ;
 		}
 
-		function get_my_child_array_by_recursive( $selectid, $whr='', $all=0, $child_array = array(), $prefix='' )
+		public function get_my_child_array_by_recursive( $selectid, $whr='', $all=0, $child_array = array(), $prefix='' )
 		{
 			$columns = ( empty( $all ) ) ? "cid, pid, title, imgurl" : "*" ;
 			$sql = "SELECT $columns FROM ".$this->cat_table." WHERE pid='".$selectid."'" ;
@@ -922,7 +922,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $child_array;
 		}
 
-		function get_my_path_array_by_recursive( $selectid, $whr='', $path=array() )
+		public function get_my_path_array_by_recursive( $selectid, $whr='', $path=array() )
 		{
 			$sql = "SELECT pid, title FROM ".$this->cat_table." WHERE cid='".$selectid."'" ;
 			if ( $whr != '' ) {
@@ -942,7 +942,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $path;
 		}
 
-		function get_my_cids_child_by_recursive( $selectid , $whr='', $cids_child ='' )
+		public function get_my_cids_child_by_recursive( $selectid , $whr='', $cids_child ='' )
 		{
 			$sql = "SELECT cid FROM ".$this->cat_table." WHERE pid='".$selectid."'" ;
 			if ( $whr != '' ) {
@@ -962,12 +962,12 @@ if( ! class_exists( 'MyCategory' ) )
 			return $cids_child ;
 		}
 
-		function date_save_cat_table( $cid )
+		public function date_save_cat_table( $cid )
 		{
 			$this->db->query( "UPDATE ".$this->cat_table." SET date='".time()."' WHERE cid='".$cid."'" ) ;
 		}
 
-		function category_tree_check()
+		public function category_tree_check()
 		{
 			$error = 0 ;
 			$cids = $this->get_my_cids_array() ;
@@ -981,7 +981,7 @@ if( ! class_exists( 'MyCategory' ) )
 			return $error ;
 		}
 
-		function delete_cache_of_categories()
+		public function delete_cache_of_categories()
 		{
 			$site_salt = substr( md5( XOOPS_URL ) , -4 ) ;
 
@@ -1009,7 +1009,7 @@ if( ! class_exists( 'MyCategory' ) )
 			}
 		}
 
-		function Validate()
+		public function Validate()
 		{
 			$void_check = $imgurl_check = $shotsdir_check = $max_check = array() ;
 
